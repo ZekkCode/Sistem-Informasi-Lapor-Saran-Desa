@@ -1,7 +1,5 @@
 <?php
 
-use App\Enums\UserRole;
-
 return [
     'support_email' => env('SITE_SUPPORT_EMAIL'),
 
@@ -17,14 +15,14 @@ return [
     'initial_accounts' => [
         [
             'key' => 'INITIAL_ADMIN',
-            'role' => UserRole::SuperAdmin,
+            'role' => 'super_admin',
             'name' => env('INITIAL_ADMIN_NAME', 'Administrator Desa'),
             'username' => env('INITIAL_ADMIN_USERNAME', 'admin'),
             'password' => env('INITIAL_ADMIN_PASSWORD'),
         ],
         [
             'key' => 'INITIAL_ADMIN_DESA',
-            'role' => UserRole::Admin,
+            'role' => 'admin',
             'name' => env('INITIAL_ADMIN_DESA_NAME', 'Admin Desa'),
             'username' => env('INITIAL_ADMIN_DESA_USERNAME', 'admindesa'),
             'password' => env('INITIAL_ADMIN_DESA_PASSWORD'),

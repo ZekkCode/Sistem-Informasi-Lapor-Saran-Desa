@@ -13,10 +13,12 @@ class AdminSeeder extends Seeder
         $created = 0;
 
         foreach (config('padelegan.initial_accounts', []) as $account) {
+            $role = UserRole::from($account['role']);
+
             if (blank($account['password'])) {
                 $this->command?->warn(sprintf(
                     'Akun %s dilewati. Isi %s_PASSWORD lalu jalankan seeder kembali.',
-                    $account['role']->label(),
+                    $role->label(),
                     $account['key'],
                 ));
 
@@ -28,7 +30,7 @@ class AdminSeeder extends Seeder
                 [
                     'name' => $account['name'],
                     'password' => $account['password'],
-                    'role' => $account['role'],
+                    'role' => $role,
                     'is_active' => true,
                 ],
             );
@@ -37,7 +39,7 @@ class AdminSeeder extends Seeder
 
             $this->command?->info(sprintf(
                 'Akun %s siap dipakai dengan username %s.',
-                $account['role']->label(),
+                $role->label(),
                 $account['username'],
             ));
         }
