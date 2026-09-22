@@ -1,0 +1,34 @@
+.status {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    gap: 0.4375rem;
+    border-radius: 999px;
+    padding: 0.35rem 0.625rem;
+    font-size: 0.75rem;
+    font-weight: 650;
+    letter-spacing: 0.01em;
+}
+
+.status::before {
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: currentColor;
+    content: "";
+}
+
+.status[data-status="not_started"] {
+    background: var(--status-waiting-bg);
+    color: var(--status-waiting-fg);
+}
+
+.status[data-status="in_progress"] {
+    background: var(--status-progress-bg);
+    color: var(--status-progress-fg);
+}
+
+.status[data-status="completed"] {
+    background: var(--status-complete-bg);
+    color: var(--status-complete-fg);
+}

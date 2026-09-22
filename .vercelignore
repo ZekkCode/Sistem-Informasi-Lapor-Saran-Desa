@@ -1,0 +1,29 @@
+.env
+.env.*
+!.env.example
+!.env.vercel.example
+.git
+.github
+.idea
+.vscode
+.zed
+.fleet
+node_modules
+vendor
+tests
+.phpunit.result.cache
+database/database.sqlite
+storage/logs
+storage/framework/cache/data
+storage/framework/sessions
+storage/framework/views
+public/hot
+public/storage
+/ERD Laporan Padelegan.png
+/Flow Buat Laporan.png
+/userflow-admin.png
+/Padelegan_Lapor (1).html
+*.pdf
+*.md
+!README.md
+!docs/**

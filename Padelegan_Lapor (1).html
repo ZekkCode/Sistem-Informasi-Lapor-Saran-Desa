@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Padelegan Lapor</title>
+<style>
+:root{--primary:#176b4d;--secondary:#eaf6ef;--dark:#17352b;--muted:#6b7d75;--white:#fff;--danger:#c0392b;--warning:#d88a00;--success:#18804b;--shadow:0 10px 30px rgba(20,70,50,.10)}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:#f6faf7;color:var(--dark)}button,input,select,textarea{font:inherit}button{cursor:pointer}
+header{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid #e7eee9}.nav{max-width:1180px;margin:auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:12px;font-weight:800;color:var(--primary)}.logo{width:42px;height:42px;border-radius:12px;background:var(--primary);color:white;display:grid;place-items:center;font-size:20px}.navlinks{display:flex;gap:6px;flex-wrap:wrap}.navlinks button{border:0;background:transparent;padding:10px 12px;border-radius:10px;color:#42574e}.navlinks button:hover,.navlinks button.active{background:var(--secondary);color:var(--primary);font-weight:700}
+main{max-width:1180px;margin:auto;padding:28px 20px 60px}.page{display:none}.page.active{display:block}.hero{background:linear-gradient(135deg,#0e5b3f,#239160);border-radius:26px;padding:46px;color:white;box-shadow:var(--shadow);display:grid;grid-template-columns:1.4fr .8fr;gap:30px;align-items:center}.hero h1{font-size:44px;margin:0 0 12px}.hero p{font-size:17px;line-height:1.7;max-width:680px}.hero-card{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);padding:24px;border-radius:20px}.btn{border:0;border-radius:12px;padding:12px 17px;font-weight:700}.btn-primary{background:var(--primary);color:white}.btn-white{background:white;color:var(--primary)}.btn-danger{background:#fff0ef;color:var(--danger)}.btn-warning{background:#fff7e6;color:#a96b00}.btn-success{background:#e9f8ef;color:var(--success)}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:24px 0}.stat,.card{background:#fff;border:1px solid #e5eee9;border-radius:18px;padding:20px;box-shadow:var(--shadow)}.stat b{font-size:30px;display:block;margin:6px 0}.stat span{color:var(--muted);font-size:14px}.section-title{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:28px 0 14px}.section-title h2{margin:0}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.report-card{background:#fff;border:1px solid #e5eee9;border-radius:18px;padding:18px;box-shadow:var(--shadow)}.report-card h3{margin:8px 0}.meta{color:var(--muted);font-size:14px;line-height:1.7}.badge{display:inline-block;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:800}.badge.green{background:#e9f8ef;color:var(--success)}.badge.yellow{background:#fff5dc;color:#9a6500}.badge.red{background:#ffeded;color:var(--danger)}
+.form{max-width:850px;margin:auto}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{margin-bottom:16px}.field label{display:block;font-weight:700;margin-bottom:7px}.field small{color:var(--muted)}input,select,textarea{width:100%;padding:12px 13px;border:1px solid #d9e5df;border-radius:11px;background:#fff;outline:none}textarea{min-height:120px;resize:vertical}input:focus,select:focus,textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(23,107,77,.10)}.upload{border:2px dashed #bcd4c8;border-radius:14px;padding:22px;text-align:center;background:#fbfefc}.preview{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.preview img{width:90px;height:70px;object-fit:cover;border-radius:8px}
+.filters{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}.search{display:flex;gap:10px}.search input{flex:1}.timeline{border-left:3px solid #dcebe2;margin:20px 0;padding-left:18px}.timeline div{margin:0 0 18px}.map{height:430px;background:#dcefe3;border-radius:20px;position:relative;overflow:hidden;background-image:linear-gradient(35deg,transparent 48%,rgba(255,255,255,.8) 49%,rgba(255,255,255,.8) 51%,transparent 52%),linear-gradient(120deg,transparent 48%,rgba(255,255,255,.7) 49%,rgba(255,255,255,.7) 51%,transparent 52%);background-size:150px 110px}.pin{position:absolute;width:34px;height:34px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:grid;place-items:center;color:white;font-size:13px;font-weight:bold;box-shadow:0 5px 12px rgba(0,0,0,.2)}.pin span{transform:rotate(45deg)}.legend{display:flex;gap:15px;flex-wrap:wrap;margin-top:14px}.adminbar{background:#17352b;color:white;border-radius:20px;padding:20px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;gap:15px}.admin-table{width:100%;border-collapse:collapse;background:#fff;border-radius:15px;overflow:hidden}.admin-table th,.admin-table td{padding:12px;border-bottom:1px solid #edf2ef;text-align:left;font-size:14px}.admin-table th{background:#f0f7f3}.notice{padding:15px;border-radius:13px;background:#eef8f2;border:1px solid #d4ebdc;margin:15px 0}.empty{text-align:center;padding:35px;color:var(--muted)}footer{background:#17352b;color:white;padding:30px 20px;text-align:center}.modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;place-items:center;z-index:50;padding:20px}.modal.show{display:grid}.modalbox{background:#fff;border-radius:20px;padding:25px;max-width:520px;width:100%;max-height:90vh;overflow:auto}
+@media(max-width:850px){.hero{grid-template-columns:1fr;padding:30px}.hero h1{font-size:34px}.stats,.grid{grid-template-columns:1fr 1fr}.filters,.form-grid{grid-template-columns:1fr 1fr}.nav{align-items:flex-start;flex-direction:column}.navlinks{width:100%;overflow:auto;flex-wrap:nowrap}.navlinks button{white-space:nowrap}}
+@media(max-width:560px){main{padding:18px 12px 45px}.stats,.grid,.filters,.form-grid{grid-template-columns:1fr}.hero{border-radius:20px}.hero h1{font-size:30px}.search{flex-direction:column}.admin-table{display:block;overflow:auto;white-space:nowrap}}
+</style>
+</head>
+<body>
+<header><div class="nav">
+<div class="brand"><div class="logo">PL</div><div>PADELEGAN<br>LAPOR</div></div>
+<div class="navlinks">
+<button data-page="home" class="active">🏠 Beranda</button>
+<button data-page="create">📝 Buat Laporan</button>
+<button data-page="check">🔎 Cek Laporan</button>
+<button data-page="reports">📋 Laporan Desa</button>
+<button data-page="map">🗺️ Peta Masalah</button>
+<button data-page="about">ℹ️ Tentang</button>
+<button data-page="admin">🔐 Admin</button>
+</div></div></header>
+
+<main>
+<section id="home" class="page active">
+<div class="hero"><div><h1>Padelegan Lapor</h1><p>Sampaikan laporan, aspirasi, dan permasalahan fasilitas maupun lingkungan Desa Padelegan secara mudah. Sertakan lokasi dan bukti foto, lalu pantau tindak lanjutnya.</p><div class="actions"><button class="btn btn-white" onclick="showPage('create')">📝 Buat Laporan</button><button class="btn btn-white" onclick="showPage('check')">🔎 Cek Laporan</button></div></div><div class="hero-card"><h3>6 Dusun, Satu Sistem Pelaporan</h3><p>Setiap laporan dicatat, dipantau, dan memiliki status yang jelas.</p><b>🟢 Terlaksana &nbsp; 🟡 Proses &nbsp; 🔴 Belum</b></div></div>
+<div class="stats" id="homeStats"></div>
+<div class="section-title"><h2>Laporan Terbaru</h2><button class="btn btn-primary" onclick="showPage('reports')">Lihat Semua</button></div>
+<div class="grid" id="latestReports"></div>
+</section>
+
+<section id="create" class="page">
+<div class="section-title"><h2>📝 Buat Laporan</h2></div>
+<div class="card form">
+<div class="notice">Sampaikan masalah secara jelas. Foto dan lokasi akan membantu Pemerintah Desa melakukan verifikasi.</div>
+<div class="form-grid">
+<div class="field"><label>Nama Pelapor</label><input id="name" placeholder="Nama lengkap"></div>
+<div class="field"><label>Nomor WhatsApp</label><input id="phone" placeholder="08xxxxxxxxxx"></div>
+</div>
+<div class="field"><label>Pilih Dusun</label><select id="dusun"></select></div>
+<div class="field"><label>Lokasi Detail</label><input id="location" placeholder="Contoh: dekat balai dusun / RT / jalan tertentu"></div>
+<div class="field"><label>Kategori Laporan</label><select id="category">
+<option>Fasilitas Desa</option><option>Lingkungan</option><option>Infrastruktur</option><option>Pelayanan Desa</option><option>Aspirasi Masyarakat</option>
+</select></div>
+<div class="field"><label>Judul Laporan</label><input id="title" placeholder="Contoh: Sampah menumpuk di pinggir jalan"></div>
+<div class="field"><label>Deskripsi Masalah</label><textarea id="description" placeholder="Jelaskan masalah, sejak kapan terjadi, dan dampaknya..."></textarea></div>
+<div class="field"><label>Bukti Foto</label><div class="upload"><input id="photos" type="file" accept="image/*" multiple><small>Maksimal 5 foto. Foto hanya disimpan sebagai bukti pada perangkat demo ini.</small><div class="preview" id="preview"></div></div></div>
+<div class="field"><label>Tingkat Prioritas</label><select id="priority"><option>Biasa</option><option>Penting</option><option>Darurat</option></select></div>
+<button class="btn btn-primary" onclick="submitReport()">📩 Kirim Laporan</button>
+</div></section>
+
+<section id="check" class="page">
+<div class="section-title"><h2>🔎 Cek Laporan</h2></div>
+<div class="card search"><input id="searchId" placeholder="Masukkan nomor laporan, contoh PDL-2026-000001"><button class="btn btn-primary" onclick="checkReport()">Cek Status</button></div>
+<div id="checkResult"></div>
+</section>
+
+<section id="reports" class="page">
+<div class="section-title"><h2>📋 Laporan Desa</h2><span class="meta">Identitas pelapor tidak ditampilkan kepada publik.</span></div>
+<div class="filters">
+<select id="filterDusun" onchange="renderReports()"></select>
+<select id="filterCategory" onchange="renderReports()"><option>Semua Kategori</option><option>Fasilitas Desa</option><option>Lingkungan</option><option>Infrastruktur</option><option>Pelayanan Desa</option><option>Aspirasi Masyarakat</option></select>
+<select id="filterStatus" onchange="renderReports()"><option>Semua Status</option><option>Sudah Terlaksana</option><option>Proses Pelaksanaan</option><option>Belum Terlaksana</option></select>
+<select id="filterPriority" onchange="renderReports()"><option>Semua Prioritas</option><option>Darurat</option><option>Penting</option><option>Biasa</option></select>
+</div><div class="grid" id="allReports"></div>
+</section>
+
+<section id="map" class="page">
+<div class="section-title"><h2>🗺️ Peta Masalah</h2></div>
+<div class="card"><p class="meta">Peta demo menampilkan titik laporan secara visual. Untuk versi produksi, titik ini dapat dihubungkan dengan Google Maps/OpenStreetMap dan koordinat GPS dari formulir.</p>
+<div class="map" id="mapArea"></div>
+<div class="legend"><span>🔴 Belum Terlaksana</span><span>🟡 Proses Pelaksanaan</span><span>🟢 Sudah Terlaksana</span></div></div>
+</section>
+
+<section id="about" class="page">
+<div class="card">
+<h1>ℹ️ Tentang Padelegan Lapor</h1>
+<p>Padelegan Lapor adalah konsep layanan digital untuk mempermudah masyarakat Desa Padelegan menyampaikan pengaduan, aspirasi, serta laporan terkait fasilitas, infrastruktur, pelayanan, dan lingkungan desa.</p>
+<h2>Tujuan</h2><div class="grid">
+<div class="report-card"><h3>📱 Mudah</h3><p>Masyarakat dapat melapor melalui HP.</p></div>
+<div class="report-card"><h3>📷 Transparan</h3><p>Laporan dapat dilengkapi bukti foto.</p></div>
+<div class="report-card"><h3>🔎 Terpantau</h3><p>Status laporan dapat dilihat masyarakat.</p></div>
+</div>
+<h2>Enam Dusun</h2><div class="grid" id="aboutDusun"></div><p class="meta" style="margin-top:18px">Nama dusun disesuaikan dengan data wilayah administratif Desa Padelegan: Bangkal, Asam Batur, Laok Tambak, Modung, Dajah Tambak, dan Muarah.</p>
+</div></section>
+
+<section id="admin" class="page">
+<div id="adminLogin" class="card form">
+<h2>🔐 Login Dashboard Admin</h2><p class="meta">Demo login. Untuk website nyata, autentikasi harus memakai server/database dan password yang aman.</p>
+<div class="field"><label>Username</label><input id="adminUser" value="admin"></div>
+<div class="field"><label>Password</label><input id="adminPass" type="password" value="padelegan123"></div>
+<button class="btn btn-primary" onclick="adminLogin()">Masuk Dashboard</button>
+</div>
+<div id="adminDash" style="display:none">
+<div class="adminbar"><div><b>Dashboard Pemerintah Desa</b><div style="opacity:.8">Padelegan Lapor</div></div><button class="btn btn-white" onclick="adminLogout()">Keluar</button></div>
+<div class="stats" id="adminStats"></div>
+<div class="card"><div class="section-title"><h2>Kelola Laporan</h2><button class="btn btn-primary" onclick="exportCSV()">⬇️ Export CSV</button></div>
+<table class="admin-table"><thead><tr><th>Nomor</th><th>Judul</th><th>Dusun</th><th>Kategori</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="adminTable"></tbody></table></div>
+</div></section>
+</main>
+<footer>© 2026 Padelegan Lapor • Desa Padelegan<br><small>Prototype website untuk pengaduan dan aspirasi masyarakat</small></footer>
+
+<div class="modal" id="modal"><div class="modalbox" id="modalContent"></div></div>
+
+<script>
+const DUSUN=["Dusun Bangkal","Dusun Asam Batur","Dusun Laok Tambak","Dusun Modung","Dusun Dajah Tambak","Dusun Muarah"];
+const STATUSES=["Sudah Terlaksana","Proses Pelaksanaan","Belum Terlaksana"];
+const seed=[
+{id:"PDL-2026-000001",name:"Warga",phone:"",dusun:"Dusun 1",location:"Jalan utama",category:"Lingkungan",title:"Sampah menumpuk",description:"Terdapat tumpukan sampah di pinggir jalan.",priority:"Penting",status:"Sudah Terlaksana",note:"Sampah telah dibersihkan.",date:"28 Agustus 2026",history:["Laporan dikirim","Laporan diverifikasi","Sampah dibersihkan"]},
+{id:"PDL-2026-000002",name:"Warga",phone:"",dusun:"Dusun 2",location:"Dekat fasilitas umum",category:"Fasilitas Desa",title:"Lampu jalan mati",description:"Lampu penerangan jalan tidak menyala pada malam hari.",priority:"Penting",status:"Proses Pelaksanaan",note:"Sedang dilakukan pengecekan dan penjadwalan perbaikan.",date:"28 Agustus 2026",history:["Laporan dikirim","Laporan diverifikasi","Proses pelaksanaan"]},
+{id:"PDL-2026-000003",name:"Warga",phone:"",dusun:"Dusun 3",location:"Jalan lingkungan",category:"Infrastruktur",title:"Jalan berlubang",description:"Terdapat lubang yang mengganggu pengguna jalan.",priority:"Darurat",status:"Belum Terlaksana",note:"Menunggu perencanaan dan ketersediaan anggaran.",date:"27 Agustus 2026",history:["Laporan dikirim","Laporan diverifikasi","Belum terlaksana"]},
+{id:"PDL-2026-000004",name:"Warga",phone:"",dusun:"Dusun 4",location:"Selokan warga",category:"Lingkungan",title:"Drainase tersumbat",description:"Air tidak mengalir dengan lancar ketika hujan.",priority:"Penting",status:"Sudah Terlaksana",note:"Drainase telah dibersihkan.",date:"26 Agustus 2026",history:["Laporan dikirim","Ditangani petugas"]},
+{id:"PDL-2026-000005",name:"Warga",phone:"",dusun:"Dusun 5",location:"Jalan dusun",category:"Fasilitas Desa",title:"Penerangan kurang",description:"Beberapa titik jalan masih minim penerangan.",priority:"Biasa",status:"Proses Pelaksanaan",note:"Sedang didata untuk penambahan penerangan.",date:"25 Agustus 2026",history:["Laporan dikirim","Sedang diproses"]},
+{id:"PDL-2026-000006",name:"Warga",phone:"",dusun:"Dusun 6",location:"Area permukiman",category:"Aspirasi Masyarakat",title:"Usulan tempat sampah",description:"Warga mengusulkan penambahan tempat sampah di beberapa titik.",priority:"Biasa",status:"Belum Terlaksana",note:"Usulan akan dipertimbangkan dalam perencanaan desa.",date:"24 Agustus 2026",history:["Laporan dikirim","Menunggu perencanaan"]}
+];
+let reports=JSON.parse(localStorage.getItem("padeleganReports")||"null")||seed;
+function save(){localStorage.setItem("padeleganReports",JSON.stringify(reports))}
+function showPage(id){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".navlinks button").forEach(x=>x.classList.toggle("active",x.dataset.page===id));if(id==="reports")renderReports();if(id==="home")renderHome();if(id==="map")renderMap();if(id==="admin")renderAdmin();window.scrollTo({top:0,behavior:"smooth"})}
+document.querySelectorAll(".navlinks button").forEach(b=>b.onclick=()=>showPage(b.dataset.page));
+function statusClass(s){return s==="Sudah Terlaksana"?"green":s==="Proses Pelaksanaan"?"yellow":"red"}
+function statusBadge(s){return `<span class="badge ${statusClass(s)}">${s}</span>`}
+function fillDusun(){const opts=DUSUN.map(d=>`<option>${d}</option>`).join("");document.getElementById("dusun").innerHTML=opts;document.getElementById("filterDusun").innerHTML='<option>Semua Dusun</option>'+opts;document.getElementById("aboutDusun").innerHTML=DUSUN.map((d,i)=>`<div class="report-card"><h3>📍 ${d}</h3><p class="meta">${reports.filter(r=>r.dusun===d).length} laporan tercatat</p></div>`).join("")}
+function stats(){return {total:reports.length,done:reports.filter(r=>r.status===STATUSES[0]).length,process:reports.filter(r=>r.status===STATUSES[1]).length,pending:reports.filter(r=>r.status===STATUSES[2]).length}}
+function renderStats(id){let s=stats();document.getElementById(id).innerHTML=`<div class="stat"><span>Total Laporan</span><b>${s.total}</b></div><div class="stat"><span>Sudah Terlaksana</span><b>${s.done}</b></div><div class="stat"><span>Proses Pelaksanaan</span><b>${s.process}</b></div><div class="stat"><span>Belum Terlaksana</span><b>${s.pending}</b></div>`}
+function card(r){return `<div class="report-card"><div style="display:flex;justify-content:space-between;gap:8px">${statusBadge(r.status)}<small>${r.priority}</small></div><h3>${escape(r.title)}</h3><div class="meta">📍 ${r.dusun}<br>🏷️ ${r.category}<br>📅 ${r.date}</div><p>${escape(r.description).slice(0,130)}${r.description.length>130?"…":""}</p><button class="btn btn-primary" onclick="viewReport('${r.id}')">Lihat Detail</button></div>`}
+function renderHome(){renderStats("homeStats");document.getElementById("latestReports").innerHTML=reports.slice().reverse().slice(0,6).map(card).join("")}
+function renderReports(){const d=document.getElementById("filterDusun").value,c=document.getElementById("filterCategory").value,s=document.getElementById("filterStatus").value,p=document.getElementById("filterPriority").value;let a=reports.filter(r=>(d==="Semua Dusun"||r.dusun===d)&&(c==="Semua Kategori"||r.category===c)&&(s==="Semua Status"||r.status===s)&&(p==="Semua Prioritas"||r.priority===p));document.getElementById("allReports").innerHTML=a.length?a.map(card).join(""):`<div class="empty">Tidak ada laporan sesuai filter.</div>`}
+function viewReport(id){const r=reports.find(x=>x.id===id);if(!r)return;document.getElementById("modalContent").innerHTML=`<h2>${escape(r.title)}</h2>${statusBadge(r.status)}<p class="meta">Nomor: <b>${r.id}</b><br>Dusun: ${r.dusun}<br>Kategori: ${r.category}<br>Prioritas: ${r.priority}<br>Tanggal: ${r.date}<br>Lokasi: ${escape(r.location)}</p><p>${escape(r.description)}</p><div class="notice"><b>Keterangan Pemerintah Desa:</b><br>${escape(r.note||"Belum ada keterangan.")}</div><h3>Riwayat</h3><div class="timeline">${(r.history||[]).map((h,i)=>`<div><b>${i+1}. ${escape(h)}</b></div>`).join("")}</div><button class="btn btn-primary" onclick="closeModal()">Tutup</button>`;document.getElementById("modal").classList.add("show")}
+function closeModal(){document.getElementById("modal").classList.remove("show")}
+function submitReport(){const name=document.getElementById("name").value.trim(),phone=document.getElementById("phone").value.trim(),title=document.getElementById("title").value.trim(),desc=document.getElementById("description").value.trim();if(!name||!phone||!title||!desc){alert("Mohon lengkapi nama, WhatsApp, judul, dan deskripsi laporan.");return}const n=reports.length+1;const id="PDL-2026-"+String(n).padStart(6,"0");const r={id,name,phone,dusun:document.getElementById("dusun").value,location:document.getElementById("location").value||"Belum ditentukan",category:document.getElementById("category").value,title,description:desc,priority:document.getElementById("priority").value,status:"Belum Terlaksana",note:"Laporan baru diterima dan menunggu verifikasi Pemerintah Desa.",date:new Date().toLocaleDateString("id-ID",{day:"2-digit",month:"long",year:"numeric"}),history:["Laporan dikirim masyarakat"]};reports.push(r);save();document.getElementById("modalContent").innerHTML=`<h2>✅ Laporan Berhasil Dikirim</h2><p>Terima kasih. Laporan Anda telah dicatat.</p><div class="notice"><b>Nomor Laporan</b><h2>${id}</h2>Simpan nomor ini untuk mengecek status laporan.</div><button class="btn btn-primary" onclick="closeModal();showPage('check');document.getElementById('searchId').value='${id}'">Cek Status</button>`;document.getElementById("modal").classList.add("show");["name","phone","location","title","description"].forEach(x=>document.getElementById(x).value="");document.getElementById("preview").innerHTML=""}
+function checkReport(){const id=document.getElementById("searchId").value.trim().toUpperCase(),r=reports.find(x=>x.id===id);document.getElementById("checkResult").innerHTML=r?`<div class="card" style="margin-top:18px"><div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><h2>${escape(r.title)}</h2>${statusBadge(r.status)}</div><p class="meta">Nomor: ${r.id}<br>Dusun: ${r.dusun}<br>Kategori: ${r.category}<br>Tanggal: ${r.date}<br>Lokasi: ${escape(r.location)}</p><p>${escape(r.description)}</p><div class="notice"><b>Keterangan Pemerintah Desa</b><br>${escape(r.note||"Belum ada keterangan.")}</div><h3>Riwayat Laporan</h3><div class="timeline">${(r.history||[]).map((h,i)=>`<div><b>${i+1}. ${escape(h)}</b></div>`).join("")}</div></div>`:`<div class="card empty" style="margin-top:18px">Nomor laporan tidak ditemukan. Periksa kembali nomor laporan Anda.</div>`}
+function renderMap(){const colors={"Sudah Terlaksana":"#18804b","Proses Pelaksanaan":"#d88a00","Belum Terlaksana":"#c0392b"};document.getElementById("mapArea").innerHTML=reports.slice(-12).map((r,i)=>{let x=8+(i*17)%82,y=12+(i*29)%76;return `<div class="pin" title="${escape(r.title)} — ${r.dusun}" style="left:${x}%;top:${y}%;background:${colors[r.status]}"><span>•</span></div>`}).join("")}
+function adminLogin(){if(document.getElementById("adminUser").value==="admin"&&document.getElementById("adminPass").value==="padelegan123"){sessionStorage.setItem("admin","1");renderAdmin()}else alert("Username atau password salah.")}function adminLogout(){sessionStorage.removeItem("admin");renderAdmin()}
+function renderAdmin(){const logged=sessionStorage.getItem("admin")==="1";document.getElementById("adminLogin").style.display=logged?"none":"block";document.getElementById("adminDash").style.display=logged?"block":"none";if(!logged)return;renderStats("adminStats");document.getElementById("adminTable").innerHTML=reports.map(r=>`<tr><td>${r.id}</td><td>${escape(r.title)}</td><td>${r.dusun}</td><td>${r.category}</td><td>${statusBadge(r.status)}</td><td><button class="btn btn-primary" onclick="editReport('${r.id}')">Kelola</button></td></tr>`).join("")}
+function editReport(id){const r=reports.find(x=>x.id===id);document.getElementById("modalContent").innerHTML=`<h2>Kelola ${r.id}</h2><div class="field"><label>Status</label><select id="editStatus">${STATUSES.map(s=>`<option ${s===r.status?"selected":""}>${s}</option>`).join("")}</select></div><div class="field"><label>Keterangan Pemerintah Desa</label><textarea id="editNote">${escape(r.note||"")}</textarea></div><button class="btn btn-primary" onclick="saveEdit('${r.id}')">💾 Simpan Perubahan</button> <button class="btn" onclick="closeModal()">Batal</button>`;document.getElementById("modal").classList.add("show")}
+function saveEdit(id){const r=reports.find(x=>x.id===id);r.status=document.getElementById("editStatus").value;r.note=document.getElementById("editNote").value;r.history=r.history||[];r.history.push("Status diperbarui menjadi: "+r.status);save();closeModal();renderAdmin();alert("Status laporan berhasil diperbarui.")}
+function exportCSV(){let rows=[["Nomor","Nama","WhatsApp","Dusun","Lokasi","Kategori","Judul","Prioritas","Status","Tanggal","Keterangan"],...reports.map(r=>[r.id,r.name,r.phone,r.dusun,r.location,r.category,r.title,r.priority,r.status,r.date,r.note||""])];let csv=rows.map(row=>row.map(v=>`"${String(v).replaceAll('"','""')}"`).join(",")).join("\\n");let a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\\ufeff"+csv],{type:"text/csv;charset=utf-8"}));a.download="padelegan-lapor.csv";a.click()}
+function escape(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+document.getElementById("photos").addEventListener("change",e=>{const files=[...e.target.files].slice(0,5);document.getElementById("preview").innerHTML="";files.forEach(f=>{const img=document.createElement("img");img.src=URL.createObjectURL(f);document.getElementById("preview").appendChild(img)})});
+document.getElementById("modal").addEventListener("click",e=>{if(e.target.id==="modal")closeModal()});
+fillDusun();renderHome();renderReports();renderMap();renderAdmin();
+</script>
+</body>
+</html>

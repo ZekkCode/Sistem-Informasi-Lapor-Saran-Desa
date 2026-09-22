@@ -1,0 +1,83 @@
+@font-face {
+    font-family: "Instrument Sans Variable";
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400 700;
+    src: url("@fontsource-variable/instrument-sans/files/instrument-sans-latin-wght-normal.woff2") format("woff2-variations");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@theme {
+    --color-padelegan-50: #f2f7f3;
+    --color-padelegan-100: #dcebe1;
+    --color-padelegan-200: #bad8c5;
+    --color-padelegan-500: #247154;
+    --color-padelegan-600: #175f46;
+    --color-padelegan-700: #124c39;
+    --color-padelegan-800: #17362d;
+    --color-padelegan-900: #10261f;
+    --color-pond-500: #4d8790;
+    --color-salt-50: #fbfaf6;
+    --color-sand-200: #dfd5c2;
+    --color-clay-600: #a94f39;
+    --color-ochre-500: #b77a22;
+    --color-sky-600: #2563eb;
+}
+
+@theme inline {
+    --color-background: var(--page);
+    --color-foreground: var(--ink);
+    --color-surface: var(--surface);
+    --color-surface-subtle: var(--surface-subtle);
+    --color-border: var(--line);
+    --color-primary: var(--brand);
+    --color-primary-hover: var(--brand-strong);
+    --color-primary-soft: var(--brand-soft);
+    --color-muted: var(--ink-muted);
+    --color-success: var(--success);
+    --color-success-soft: var(--success-soft);
+    --color-warning: var(--warning);
+    --color-warning-soft: var(--warning-soft);
+    --color-danger: var(--danger);
+    --color-danger-soft: var(--danger-soft);
+    --color-info: var(--info);
+    --color-info-soft: var(--info-soft);
+}
+
+:root {
+    --font-body: "Instrument Sans Variable", Aptos, "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
+    --font-display: var(--font-body);
+
+    --ink: #15342b;
+    --ink-muted: #64726c;
+    --surface: #ffffff;
+    --surface-subtle: #efece4;
+    --page: #f8f6f0;
+    --line: #d9dfda;
+    --brand: #176248;
+    --brand-strong: #103e30;
+    --brand-soft: #e3eee7;
+    --accent: #b27a2c;
+    --focus: #4d8790;
+
+    --success: #176b45;
+    --success-soft: #dfefe5;
+    --warning: #8a5b12;
+    --warning-soft: #f6ecd8;
+    --danger: #9d432f;
+    --danger-soft: #f7e7e1;
+    --info: #315e87;
+    --info-soft: #e6eef4;
+
+    --status-waiting-bg: #f7e7e1;
+    --status-waiting-fg: #8f3f2d;
+    --status-progress-bg: #f6ecd8;
+    --status-progress-fg: #82560f;
+    --status-complete-bg: #dfefe5;
+    --status-complete-fg: #175f46;
+
+    --radius-control: 0.375rem;
+    --radius-panel: 0.5rem;
+    --shadow-raised: 0 14px 38px rgb(16 38 31 / 0.12);
+    --shadow-subtle: 0 1px 3px rgb(16 38 31 / 0.08);
+}

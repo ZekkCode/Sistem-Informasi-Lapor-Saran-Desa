@@ -1,0 +1,162 @@
+.site-header {
+    position: sticky;
+    z-index: 40;
+    inset-block-start: 0;
+    border-block-end: 1px solid rgb(23 54 45 / 0.14);
+    background: var(--page);
+}
+
+.site-header__inner {
+    display: flex;
+    min-block-size: 4.5rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 0.5rem;
+}
+
+.site-brand {
+    display: inline-flex;
+    min-inline-size: 0;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--ink);
+    text-decoration: none;
+}
+
+.site-brand__crest {
+    display: block;
+    inline-size: 3rem;
+    block-size: auto;
+    flex: 0 0 auto;
+    object-fit: contain;
+}
+
+.site-brand__copy {
+    display: block;
+    min-inline-size: 0;
+    line-height: 1.05;
+}
+
+.site-brand__service {
+    display: block;
+    color: rgb(23 54 45 / 0.56);
+    font-size: 0.71875rem;
+    font-weight: 450;
+}
+
+.site-brand__name {
+    display: block;
+    font-size: 1rem;
+    font-weight: 650;
+    letter-spacing: -0.015em;
+}
+
+.site-brand__service {
+    margin-block-start: 0.16rem;
+}
+
+.site-nav {
+    display: none;
+    align-items: center;
+    gap: 0.125rem;
+}
+
+.site-nav__link {
+    border-block-end: 2px solid transparent;
+    color: rgb(23 54 45 / 0.68);
+    padding: 0.7rem 0.75rem 0.6rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1;
+    text-decoration: none;
+}
+
+.site-nav__link:hover,
+.site-nav__link[aria-current="page"] {
+    border-block-end-color: var(--brand);
+    color: var(--brand-strong);
+}
+
+.site-header__actions {
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.site-menu-button {
+    display: grid;
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    flex: 0 0 auto;
+    place-items: center;
+    border: 1px solid rgb(23 54 45 / 0.22);
+    background: transparent;
+    color: var(--ink);
+}
+
+.site-menu-button:hover {
+    background: var(--brand-soft);
+}
+
+.site-menu-button svg {
+    inline-size: 1.35rem;
+    block-size: 1.35rem;
+}
+
+.site-footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+}
+
+.site-footer-brand__crest {
+    inline-size: 3.5rem;
+    block-size: auto;
+    flex: 0 0 auto;
+}
+
+.site-footer-brand__name {
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 620;
+    letter-spacing: -0.01em;
+}
+
+.site-footer-brand__service {
+    margin-block-start: 0.3rem;
+    color: rgb(255 255 255 / 0.58);
+    font-size: 0.75rem;
+}
+
+@media (min-width: 40rem) {
+    .site-header__inner {
+        min-block-size: 4.875rem;
+    }
+
+    .site-brand__crest {
+        inline-size: 3.4rem;
+    }
+
+}
+
+@media (min-width: 64rem) {
+    .site-header__inner {
+        gap: 1.5rem;
+    }
+
+    .site-nav,
+    .site-header__actions {
+        display: flex;
+    }
+
+    .site-menu-button {
+        display: none;
+    }
+}
+
+@media (forced-colors: active) {
+    .site-nav__link[aria-current="page"] {
+        border-block-end-color: Highlight;
+    }
+}

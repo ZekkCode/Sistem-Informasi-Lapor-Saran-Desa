@@ -1,0 +1,77 @@
+html {
+    color-scheme: light;
+    scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
+}
+
+body {
+    min-width: 20rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    background: var(--page);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size-adjust: from-font;
+    font-synthesis: none;
+    line-height: 1.6;
+}
+
+main {
+    flex: 1;
+}
+
+[x-cloak] {
+    display: none !important;
+}
+
+h1,
+h2,
+h3 {
+    text-wrap: balance;
+}
+
+p {
+    text-wrap: pretty;
+}
+
+a {
+    color: inherit;
+}
+
+img {
+    max-width: 100%;
+}
+
+::selection {
+    background: #bad8c5;
+    color: #10261f;
+}
+
+:focus-visible {
+    outline: 3px solid color-mix(in oklab, var(--focus) 72%, white);
+    outline-offset: 3px;
+}
+
+.site-shell {
+    width: min(100% - 2rem, 76rem);
+    margin-inline: auto;
+}
+
+.reading-measure {
+    max-width: 68ch;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto !important;
+    }
+
+    .action,
+    .transition,
+    .animate-spin {
+        transition: none !important;
+        animation: none !important;
+    }
+}

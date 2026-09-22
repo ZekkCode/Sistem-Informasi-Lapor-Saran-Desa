@@ -1,0 +1,83 @@
+# ---------------------------------------------
+# Rahasia dan konfigurasi lokal
+# ---------------------------------------------
+# Blokir seluruh varian .env, lalu izinkan hanya file contoh.
+.env
+.env.*
+!.env.example
+!.env.vercel.example
+
+# Kunci, sertifikat, dan kredensial layanan
+*.pem
+*.key
+*.ppk
+*.p12
+*.pfx
+*.cer
+*.crt
+auth.json
+/auth.json
+client_secret*.json
+service-account*.json
+*credentials*.json
+*-secret*.json
+google-drive-token.json
+oauth-token.json
+/storage/*.key
+/storage/oauth-*.key
+
+# ---------------------------------------------
+# Dependensi dan hasil build
+# ---------------------------------------------
+/node_modules
+/vendor
+/public/build
+/public/hot
+/public/storage
+/.phpunit.cache
+.phpunit.result.cache
+/storage/pail
+
+# ---------------------------------------------
+# Database lokal dan data runtime
+# ---------------------------------------------
+*.sqlite
+*.sqlite-journal
+*.sqlite3
+/database/*.sqlite*
+/storage/logs/*.log
+*.log
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+
+# ---------------------------------------------
+# Deploy dan tooling
+# ---------------------------------------------
+.vercel
+Homestead.json
+Homestead.yaml
+.phpactor.json
+
+# Skill pihak ketiga hasil clone (punya .git sendiri)
+/.kiro/skills/
+
+# ---------------------------------------------
+# Editor dan sistem operasi
+# ---------------------------------------------
+/.fleet
+/.idea
+/.nova
+/.vscode
+/.zed
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---------------------------------------------
+# Berkas kerja sementara
+# ---------------------------------------------
+*-backup.png
+*-backup.webp
+/public/images/brand/lambang-pamekasan-backup.png
+/scripts/*.tmp.php

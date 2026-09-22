@@ -1,0 +1,301 @@
+.home-hero {
+    overflow: hidden;
+    border-block-end: 1px solid rgb(21 52 43 / 0.14);
+    background: var(--page);
+}
+
+.home-hero__grid {
+    display: grid;
+    gap: 2rem;
+    padding-block: 2.25rem 2rem;
+}
+
+.home-hero__copy {
+    align-self: center;
+}
+
+.home-kicker {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    color: var(--brand);
+    font-size: 0.8125rem;
+    font-weight: 560;
+}
+
+.home-kicker > span {
+    inline-size: 1.75rem;
+    block-size: 1px;
+    background: var(--accent);
+}
+
+.home-hero__title {
+    max-inline-size: 11.5ch;
+    margin-block-start: 1.25rem;
+    font-family: var(--font-display);
+    font-size: clamp(2.55rem, 2rem + 2.4vw, 4.65rem);
+    font-weight: 520;
+    letter-spacing: -0.048em;
+    line-height: 0.99;
+}
+
+.home-hero__lead {
+    max-inline-size: 34rem;
+    margin-block-start: 1.5rem;
+    color: rgb(21 52 43 / 0.68);
+    font-size: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+    line-height: 1.7;
+}
+
+.home-hero__actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-block-start: 1.75rem;
+}
+
+.home-hero__facts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem 1.25rem;
+    margin-block-start: 1.75rem;
+    border-block-start: 1px solid rgb(21 52 43 / 0.16);
+    padding-block-start: 1rem;
+}
+
+.home-hero__facts dt {
+    color: rgb(21 52 43 / 0.48);
+    font-size: 0.6875rem;
+    font-weight: 560;
+    text-transform: uppercase;
+    letter-spacing: 0.075em;
+    line-height: 1.3;
+}
+
+.home-hero__facts dd {
+    margin-block-start: 0.25rem;
+    color: var(--ink);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+}
+
+.home-hero__media {
+    position: relative;
+    min-block-size: 18rem;
+    overflow: hidden;
+    background: #d7ddd8;
+}
+
+.home-photo-note {
+    position: absolute;
+    inset: auto auto 0.75rem 0.75rem;
+    border-inline-start: 0.2rem solid var(--accent);
+    background: var(--page);
+    color: var(--ink);
+    padding: 0.55rem 0.75rem;
+    font-size: 0.6875rem;
+    font-weight: 520;
+    line-height: 1.3;
+}
+
+.home-service {
+    background: var(--brand-strong);
+    color: white;
+}
+
+.home-service__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.home-service__link {
+    display: flex;
+    min-inline-size: 0;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    border-block-end: 1px solid rgb(255 255 255 / 0.14);
+    color: white;
+    padding: 1.25rem 1rem;
+    text-decoration: none;
+}
+
+.home-service__link:nth-child(odd) {
+    border-inline-end: 0;
+}
+
+.home-service__link:last-child {
+    border-block-end: 0;
+}
+
+.home-service__link h3 {
+    font-size: 0.9375rem;
+    font-weight: 580;
+}
+
+.home-service__link p {
+    display: block;
+    max-inline-size: 32ch;
+    margin-block-start: 0.35rem;
+    color: rgb(255 255 255 / 0.68);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+}
+
+.home-service__link > span {
+    color: #dcb665;
+    font-size: 1rem;
+    transition: translate 150ms ease;
+}
+
+.home-service__link:hover {
+    background: rgb(255 255 255 / 0.055);
+}
+
+.home-service__link:hover > span {
+    translate: 0.15rem -0.15rem;
+}
+
+.home-process {
+    background: white;
+}
+
+.home-process__grid {
+    display: grid;
+    gap: 2rem;
+    padding-block: 3.5rem;
+}
+
+.home-section__title {
+    max-inline-size: 18ch;
+    margin-block-start: 1rem;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 1.6rem + 1.4vw, 3.25rem);
+    font-weight: 520;
+    letter-spacing: -0.04em;
+    line-height: 1.06;
+}
+
+.home-process__lead {
+    max-inline-size: 35rem;
+    margin-block-start: 1.25rem;
+    color: rgb(21 52 43 / 0.64);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+}
+
+.home-steps {
+    margin-block-start: 1.75rem;
+    border-block-start: 1px solid rgb(21 52 43 / 0.16);
+}
+
+.home-steps li {
+    display: grid;
+    grid-template-columns: 0.65rem minmax(0, 1fr);
+    gap: 0.875rem;
+    border-block-end: 1px solid rgb(21 52 43 / 0.13);
+    padding-block: 1rem;
+}
+
+.home-steps__mark {
+    inline-size: 0.45rem;
+    block-size: 0.45rem;
+    margin-block-start: 0.42rem;
+    background: var(--accent);
+}
+
+.home-steps h3 {
+    font-size: 0.9375rem;
+    font-weight: 590;
+}
+
+.home-steps p {
+    margin-block-start: 0.2rem;
+    color: rgb(21 52 43 / 0.6);
+    font-size: 0.8125rem;
+    line-height: 1.55;
+}
+
+.home-process__media {
+    align-self: stretch;
+}
+
+.home-process__media img {
+    inline-size: 100%;
+    block-size: min(68vw, 23rem);
+    object-fit: cover;
+}
+
+.home-process__media figcaption {
+    margin-block-start: 0.65rem;
+    color: rgb(21 52 43 / 0.48);
+    font-size: 0.6875rem;
+}
+
+@media (min-width: 40rem) {
+    .home-hero__grid {
+        padding-block: 3rem;
+    }
+
+    .home-hero__actions {
+        display: flex;
+    }
+
+    .home-hero__media {
+        min-block-size: 24rem;
+    }
+
+    .home-service__grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .home-service__link,
+    .home-service__link:nth-child(odd) {
+        border-block-end: 0;
+        border-inline-end: 1px solid rgb(255 255 255 / 0.14);
+        padding: 1.35rem 1.25rem;
+    }
+
+    .home-service__link:last-child {
+        border-inline-end: 0;
+    }
+
+    .home-service__link p {
+        max-inline-size: 25ch;
+        font-size: 0.75rem;
+        line-height: 1.45;
+    }
+}
+
+@media (min-width: 64rem) {
+    .home-hero__grid {
+        grid-template-columns: minmax(0, 0.83fr) minmax(30rem, 1.17fr);
+        gap: clamp(3rem, 6vw, 6.5rem);
+        min-block-size: 35rem;
+        padding-block: 3.5rem;
+    }
+
+    .home-hero__media {
+        min-block-size: 29rem;
+    }
+
+    .home-process__grid {
+        grid-template-areas: "media copy";
+        grid-template-columns: minmax(0, 1.08fr) minmax(24rem, 0.92fr);
+        align-items: center;
+        gap: clamp(3.5rem, 7vw, 7rem);
+        padding-block: 5rem;
+    }
+
+    .home-process__copy {
+        grid-area: copy;
+    }
+
+    .home-process__media {
+        grid-area: media;
+    }
+
+    .home-process__media img {
+        block-size: 31rem;
+    }
+}
