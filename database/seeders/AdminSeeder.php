@@ -10,22 +10,40 @@ class AdminSeeder extends Seeder
 {
     public function run(): void
     {
-        $password = config('padelegan.initial_admin.password');
+        $created = 0;
 
-        if (blank($password)) {
-            $this->command?->warn('Admin awal dilewati. Isi INITIAL_ADMIN_PASSWORD lalu jalankan seeder kembali.');
+        foreach (config('padelegan.initial_accounts', []) as $account) {
+            if (blank($account['password'])) {
+                $this->command?->warn(sprintf(
+                    'Akun %s dilewati. Isi %s_PASSWORD lalu jalankan seeder kembali.',
+                    $account['role']->label(),
+                    $account['key'],
+                ));
 
-            return;
+                continue;
+            }
+
+            User::query()->updateOrCreate(
+                ['username' => $account['username']],
+                [
+                    'name' => $account['name'],
+                    'password' => $account['password'],
+                    'role' => $account['role'],
+                    'is_active' => true,
+                ],
+            );
+
+            $created++;
+
+            $this->command?->info(sprintf(
+                'Akun %s siap dipakai dengan username %s.',
+                $account['role']->label(),
+                $account['username'],
+            ));
         }
 
-        User::query()->updateOrCreate(
-            ['username' => config('padelegan.initial_admin.username')],
-            [
-                'name' => config('padelegan.initial_admin.name'),
-                'password' => $password,
-                'role' => UserRole::SuperAdmin,
-                'is_active' => true,
-            ],
-        );
+        if ($created === 0) {
+            $this->command?->warn('Belum ada akun petugas dibuat. Periksa nilai password pada berkas .env.');
+        }
     }
 }

@@ -19,7 +19,7 @@ class ReportFormTest extends TestCase
 
         $response
             ->assertOk()
-            ->assertSee('Jelaskan masalah kepada petugas desa.')
+            ->assertSee('Jelaskan masalah ke petugas desa.')
             ->assertSee('Lokasi &amp; foto', false)
             ->assertSee('x-data="reportForm(', false)
             ->assertSee('directUpload:', false)

@@ -18,7 +18,7 @@ class ExampleTest extends TestCase
             ->assertStatus(200)
             ->assertSee('data-depth-scene', false)
             ->assertSee('data-aos="fade-up"', false)
-            ->assertSee('Pilih yang ingin Anda lakukan.')
+            ->assertSee('Laporkan masalah desa ke petugas.')
             ->assertDontSee('Ringkasan penanganan');
     }
 
@@ -26,7 +26,7 @@ class ExampleTest extends TestCase
     {
         $this->get('/bantuan-situs')
             ->assertOk()
-            ->assertSee('Ada kendala memakai Padelegan Lapor?')
+            ->assertSee('Ada kendala memakai Sistem Lapor Padelegan?')
             ->assertSee('masalah pada situs')
             ->assertSee('Buat Laporan');
     }
