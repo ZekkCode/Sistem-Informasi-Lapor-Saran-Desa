@@ -1,3 +1,7 @@
+.home-page {
+    overflow-x: clip;
+}
+
 .home-hero {
     overflow: hidden;
     border-block-end: 1px solid rgb(21 52 43 / 0.14);
@@ -84,6 +88,26 @@
     min-block-size: 18rem;
     overflow: hidden;
     background: #d7ddd8;
+}
+
+.home-hero__media.hero-art-scene {
+    background: transparent;
+    overflow: visible;
+}
+
+.home-hero__media.hero-art-scene.is-empty {
+    display: none;
+}
+
+.hero-art {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    inline-size: min(92%, 26rem);
+    block-size: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 14px 22px rgb(23 54 45 / 0.16));
+    transform: translateZ(2.5rem);
 }
 
 .home-photo-note {

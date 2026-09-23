@@ -12,7 +12,7 @@
                     <p class="home-hero__lead">Tulis lokasi dan lampirkan foto. Simpan nomornya untuk cek pembaruan.</p>
                     <div class="home-hero__actions">
                         <x-ui.action :href="route('mulai')" size="lg">Sampaikan sekarang</x-ui.action>
-                        <x-ui.action :href="route('reports.track')" variant="secondary" size="lg">Cek status</x-ui.action>
+                        <x-ui.action :href="route('about')" variant="secondary" size="lg">Tentang situs</x-ui.action>
                     </div>
                     <dl class="home-hero__facts">
                         <div><dt>Akses</dt><dd>Tanpa akun</dd></div>
@@ -20,11 +20,9 @@
                     </dl>
                 </div>
 
-                <figure class="home-hero__media hero-depth" data-depth-scene data-aos="fade" data-aos-delay="80">
+                <figure class="home-hero__media hero-depth hero-art-scene" data-depth-scene data-aos="fade" data-aos-delay="80" aria-hidden="true">
                     <div class="hero-depth__plane" data-depth-plane>
-                        <img src="{{ asset('images/village/padelegan-dermaga-senja.webp') }}" alt="Perahu nelayan bersandar di dermaga Desa Padelegan saat senja" width="1600" height="1200" class="hero-depth__image" fetchpriority="high">
-                        <span class="hero-depth__frame" aria-hidden="true"></span>
-                        <figcaption class="home-photo-note hero-depth__caption">Dermaga nelayan Padelegan</figcaption>
+                        <img src="{{ asset('images/illustrations/checklist-3d.svg') }}" alt="" width="400" height="400" class="hero-art" fetchpriority="high" onerror="this.closest('.home-hero__media').classList.add('is-empty')">
                     </div>
                 </figure>
             </div>

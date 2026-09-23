@@ -17,6 +17,7 @@
 
         <div class="site-header__actions">
             <x-ui.action :href="route('reports.track')" variant="secondary">Cek laporan</x-ui.action>
+            <x-ui.action :href="route('usulan.lacak')" variant="secondary">Cek usulan</x-ui.action>
             <x-ui.action :href="route('mulai')">Sampaikan</x-ui.action>
         </div>
 
@@ -35,9 +36,9 @@
             <a href="{{ route('public-usulan.index') }}" @if (request()->routeIs('public-usulan.*')) aria-current="page" @endif class="border-b border-border px-2 py-3 font-medium">Usulan Warga</a>
             <a href="{{ route('about') }}" @if (request()->routeIs('about')) aria-current="page" @endif class="border-b border-border px-2 py-3 font-medium">Tentang</a>
             <div class="mt-5 grid gap-2">
-                <x-ui.action :href="route('reports.create')">Buat laporan</x-ui.action>
-                <x-ui.action :href="route('usulan.create')" variant="secondary">Kirim usulan</x-ui.action>
+                <x-ui.action :href="route('mulai')">Sampaikan</x-ui.action>
                 <x-ui.action :href="route('reports.track')" variant="secondary">Cek laporan</x-ui.action>
+                <x-ui.action :href="route('usulan.lacak')" variant="secondary">Cek usulan</x-ui.action>
             </div>
         </nav>
     </x-ui.sheet>

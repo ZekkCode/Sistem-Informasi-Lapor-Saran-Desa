@@ -35,6 +35,21 @@
     transform: translateZ(3rem);
 }
 
+.hero-art {
+    animation: hero-float 5.5s ease-in-out infinite;
+}
+
+@keyframes hero-float {
+    0%,
+    100% {
+        translate: 0 0;
+    }
+
+    50% {
+        translate: 0 -0.85rem;
+    }
+}
+
 @media (hover: hover) and (pointer: fine) {
     .hero-depth__plane {
         will-change: transform;
@@ -57,5 +72,9 @@
     .hero-depth__plane {
         transform: none !important;
         transition: none !important;
+    }
+
+    .hero-art {
+        animation: none !important;
     }
 }
