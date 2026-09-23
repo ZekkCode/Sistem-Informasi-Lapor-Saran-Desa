@@ -34,8 +34,10 @@
             <div class="site-shell home-service__grid">
                 @foreach ([
                     ['Buat laporan', 'Jelaskan kondisi dan kirim foto.', route('reports.create')],
+                    ['Kirim usulan', 'Sampaikan usulan atau saran untuk desa.', route('usulan.create')],
                     ['Cek status', 'Gunakan nomor laporan yang Anda simpan.', route('reports.track')],
                     ['Laporan publik', 'Baca laporan yang sudah diverifikasi.', route('public-reports.index')],
+                    ['Usulan warga', 'Baca usulan yang sudah ditinjau petugas.', route('public-usulan.index')],
                 ] as [$title, $description, $href])
                     <a href="{{ $href }}" class="home-service__link">
                         <div>

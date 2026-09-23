@@ -79,7 +79,9 @@ npx vercel
 npx vercel --prod
 ```
 
-Setelah deploy, periksa `/up`, beranda, form laporan, unggah foto, halaman sukses, pelacakan, halaman bantuan situs, login admin, dasbor, pembaruan status, ekspor CSV, data master, dan pengelolaan petugas.
+Setelah deploy, periksa `/up`, beranda, form laporan, unggah foto, halaman sukses, pelacakan, form usulan (`/usulan`), cek usulan (`/cek-usulan`), daftar usulan warga (`/usulan-warga`), halaman bantuan situs, login admin, dasbor, pembaruan status laporan dan usulan, ekspor CSV, data master, dan pengelolaan petugas.
+
+Fitur usulan menambah tabel `usulan` dan `riwayat_usulan`. Jalankan `php artisan migrate --env=production --force` sekali lagi setelah deploy versi ini agar kedua tabel tersedia.
 
 ## Peran pengguna
 

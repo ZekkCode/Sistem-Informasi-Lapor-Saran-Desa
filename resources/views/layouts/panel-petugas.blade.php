@@ -40,6 +40,9 @@
                 <a href="{{ route('admin.reports.index') }}" @class(['is-active' => request()->routeIs('admin.reports.*')])>
                     <span>Kelola laporan</span>
                 </a>
+                <a href="{{ route('admin.usulan.index') }}" @class(['is-active' => request()->routeIs('admin.usulan.*')])>
+                    <span>Usulan &amp; saran</span>
+                </a>
                 @if(auth()->user()->role === \App\Enums\UserRole::SuperAdmin)
                     <p class="admin-nav__label">Pengaturan sistem</p>
                     <a href="{{ route('admin.master.index') }}" @class(['is-active' => request()->routeIs('admin.master.*')])>

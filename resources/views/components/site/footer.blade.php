@@ -13,7 +13,9 @@
             <nav class="flex flex-wrap gap-x-5 gap-y-2 font-medium text-white/75" aria-label="Tautan footer">
                 <a class="hover:text-white" href="{{ route('reports.create') }}">Buat laporan</a>
                 <a class="hover:text-white" href="{{ route('reports.track') }}">Cek status</a>
+                <a class="hover:text-white" href="{{ route('usulan.create') }}">Kirim usulan</a>
                 <a class="hover:text-white" href="{{ route('public-reports.index') }}">Laporan desa</a>
+                <a class="hover:text-white" href="{{ route('public-usulan.index') }}">Usulan warga</a>
                 <a class="hover:text-white" href="{{ route('site-support') }}">Bantuan situs</a>
             </nav>
         </div>
@@ -34,7 +36,9 @@
             <ul class="mt-4 space-y-3 text-sm text-white/70">
                 <li><a class="hover:text-white" href="{{ route('reports.create') }}">Buat laporan</a></li>
                 <li><a class="hover:text-white" href="{{ route('reports.track') }}">Cek laporan</a></li>
+                <li><a class="hover:text-white" href="{{ route('usulan.create') }}">Kirim usulan</a></li>
                 <li><a class="hover:text-white" href="{{ route('public-reports.index') }}">Laporan desa</a></li>
+                <li><a class="hover:text-white" href="{{ route('public-usulan.index') }}">Usulan warga</a></li>
                 <li><a class="hover:text-white" href="{{ route('site-support') }}">Bantuan situs</a></li>
             </ul>
         </div>

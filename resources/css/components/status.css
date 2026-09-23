@@ -32,3 +32,19 @@
     background: var(--status-complete-bg);
     color: var(--status-complete-fg);
 }
+
+.status[data-status-usulan="baru"] {
+    background: var(--status-waiting-bg);
+    color: var(--status-waiting-fg);
+}
+
+.status[data-status-usulan="ditinjau"],
+.status[data-status-usulan="ditindaklanjuti"] {
+    background: var(--status-progress-bg);
+    color: var(--status-progress-fg);
+}
+
+.status[data-status-usulan="selesai"] {
+    background: var(--status-complete-bg);
+    color: var(--status-complete-fg);
+}

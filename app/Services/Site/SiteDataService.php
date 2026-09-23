@@ -65,6 +65,35 @@ class SiteDataService
         return ! $this->referenceData()['usingDemoData'];
     }
 
+    public function bisaMenerimaUsulan(): bool
+    {
+        try {
+            return Dusun::query()->active()->exists();
+        } catch (QueryException $exception) {
+            $this->logFallback('usulan-availability', $exception);
+
+            return false;
+        }
+    }
+
+    /**
+     * @return Collection<int, Dusun>
+     */
+    public function dusunUntukUsulan(): Collection
+    {
+        try {
+            $dusuns = Dusun::query()->active()->orderBy('name')->get();
+
+            if ($dusuns->isNotEmpty()) {
+                return $dusuns;
+            }
+        } catch (QueryException $exception) {
+            $this->logFallback('usulan-dusuns', $exception);
+        }
+
+        return $this->demoReferenceData()['dusuns'];
+    }
+
     public function findQrSource(string $code): ?QrSource
     {
         if ($code === '' || ! $this->canAcceptReports()) {

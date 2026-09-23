@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AlurUsulanController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\Admin\ReportMediaController;
 use App\Http\Controllers\Admin\ReportUploadController;
 use App\Http\Controllers\Admin\ReportWorkflowController;
 use App\Http\Controllers\Admin\SubcategoryController;
+use App\Http\Controllers\Admin\UsulanController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +35,10 @@ Route::middleware(['auth', 'active.admin'])->group(function () {
         ->middleware('throttle:report-upload-authorizations')
         ->name('reports.uploads.authorize');
     Route::get('/media/{media}', ReportMediaController::class)->name('media.show');
+
+    Route::get('/usulan', [UsulanController::class, 'daftar'])->name('usulan.index');
+    Route::get('/usulan/{usulan}', [UsulanController::class, 'detail'])->name('usulan.show');
+    Route::patch('/usulan/{usulan}/alur', [AlurUsulanController::class, 'perbarui'])->name('usulan.alur.update');
 
     Route::middleware('super.admin')->group(function () {
         Route::get('/data-master', MasterDataController::class)->name('master.index');

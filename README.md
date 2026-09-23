@@ -11,10 +11,12 @@ Alur publik dan operasional petugas sudah tersedia:
 - Laravel 12 dan dependency frontend terpasang;
 - migration serta seeder master data tersedia;
 - warga dapat mengirim laporan dengan 1 sampai 5 foto;
-- nomor laporan publik dibuat secara acak;
-- halaman cek laporan dan daftar laporan terverifikasi tersedia;
+- warga dapat mengirim usulan dan saran secara anonim tanpa foto;
+- nomor laporan dan nomor usulan publik dibuat secara acak;
+- halaman cek laporan, cek usulan, daftar laporan terverifikasi, dan daftar usulan warga tersedia;
 - identitas pelapor tidak dirender pada halaman publik;
 - login petugas, dasbor, filter, verifikasi, prioritas, status, catatan publik/internal, serta bukti penanganan;
+- pengelolaan usulan warga oleh Admin Desa dan Super Admin: tinjau status, catatan publik, dan publikasi anonim ke halaman warga;
 - peran Admin Desa dan Super Admin dengan pembatasan akses;
 - pengelolaan akun petugas serta data master tanpa menghapus riwayat lama;
 - rekap CSV dan halaman cetak untuk pimpinan atau tim pelaksana;

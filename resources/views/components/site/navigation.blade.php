@@ -11,6 +11,7 @@
         <nav class="site-nav" aria-label="Navigasi utama">
             <a href="{{ route('home') }}" @if (request()->routeIs('home')) aria-current="page" @endif class="site-nav__link">Beranda</a>
             <a href="{{ route('public-reports.index') }}" @if (request()->routeIs('public-reports.*')) aria-current="page" @endif class="site-nav__link">Laporan Desa</a>
+            <a href="{{ route('public-usulan.index') }}" @if (request()->routeIs('public-usulan.*')) aria-current="page" @endif class="site-nav__link">Usulan Warga</a>
             <a href="{{ route('about') }}" @if (request()->routeIs('about')) aria-current="page" @endif class="site-nav__link">Tentang</a>
         </nav>
 
@@ -31,9 +32,11 @@
         <nav class="grid gap-1 p-4" aria-label="Navigasi seluler">
             <a href="{{ route('home') }}" @if (request()->routeIs('home')) aria-current="page" @endif class="border-b border-border px-2 py-3 font-medium">Beranda</a>
             <a href="{{ route('public-reports.index') }}" @if (request()->routeIs('public-reports.*')) aria-current="page" @endif class="border-b border-border px-2 py-3 font-medium">Laporan Desa</a>
+            <a href="{{ route('public-usulan.index') }}" @if (request()->routeIs('public-usulan.*')) aria-current="page" @endif class="border-b border-border px-2 py-3 font-medium">Usulan Warga</a>
             <a href="{{ route('about') }}" @if (request()->routeIs('about')) aria-current="page" @endif class="border-b border-border px-2 py-3 font-medium">Tentang</a>
             <div class="mt-5 grid gap-2">
                 <x-ui.action :href="route('reports.create')">Buat laporan</x-ui.action>
+                <x-ui.action :href="route('usulan.create')" variant="secondary">Kirim usulan</x-ui.action>
                 <x-ui.action :href="route('reports.track')" variant="secondary">Cek laporan</x-ui.action>
             </div>
         </nav>
