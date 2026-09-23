@@ -22,7 +22,7 @@
 
                 <figure class="home-hero__media hero-depth hero-art-scene" data-depth-scene data-aos="fade" data-aos-delay="80" aria-hidden="true">
                     <div class="hero-depth__plane" data-depth-plane>
-                        <img src="{{ asset('images/illustrations/checklist-3d.svg') }}" alt="" width="400" height="400" class="hero-art" fetchpriority="high" onerror="this.closest('.home-hero__media').classList.add('is-empty')">
+                        <img src="{{ asset('images/illustrations/ilustrasi-laporan.webp') }}" alt="" width="820" height="1025" class="hero-art" fetchpriority="high" onerror="this.closest('.home-hero__media').classList.add('is-empty')">
                     </div>
                 </figure>
             </div>
@@ -70,7 +70,7 @@
                 </div>
 
                 <figure class="home-process__media home-process__media--art" data-aos="fade" data-aos-delay="80" aria-hidden="true">
-                    <img src="{{ asset('images/illustrations/proses-3d.svg') }}" alt="" width="400" height="400" loading="lazy">
+                    <img src="{{ asset('images/illustrations/ilustrasi-proses.webp') }}" alt="" width="820" height="1025" loading="lazy">
                 </figure>
             </div>
         </section>

@@ -4,10 +4,13 @@
 
 @section('content')
     <section class="site-shell py-10 sm:py-14 lg:py-16">
-        <div class="max-w-2xl" data-aos="fade-up">
-            <p class="public-kicker">Layanan warga</p>
-            <h1 class="public-page-title mt-3 text-padelegan-900">Mau menyampaikan apa?</h1>
-            <p class="reading-measure mt-4 text-base leading-7 text-padelegan-900/65">Laporan untuk masalah atau kerusakan. Usulan untuk ide dan saran. Keduanya tanpa akun.</p>
+        <div class="mulai-intro" data-aos="fade-up">
+            <div class="max-w-2xl">
+                <p class="public-kicker">Layanan warga</p>
+                <h1 class="public-page-title mt-3 text-padelegan-900">Mau menyampaikan apa?</h1>
+                <p class="reading-measure mt-4 text-base leading-7 text-padelegan-900/65">Laporan untuk masalah atau kerusakan. Usulan untuk ide dan saran. Keduanya tanpa akun.</p>
+            </div>
+            <img class="mulai-art" src="{{ asset('images/illustrations/ilustrasi-aspirasi.webp') }}" alt="" width="820" height="1025" loading="lazy">
         </div>
 
         <div class="choice-grid mt-9" data-aos="fade-up" data-aos-delay="80">

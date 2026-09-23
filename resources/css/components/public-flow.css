@@ -455,3 +455,28 @@
         gap: 1.25rem;
     }
 }
+
+.mulai-intro {
+    display: grid;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.mulai-art {
+    display: none;
+    inline-size: min(60%, 15rem);
+    block-size: auto;
+    justify-self: center;
+}
+
+@media (min-width: 48rem) {
+    .mulai-intro {
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 2.5rem;
+    }
+
+    .mulai-art {
+        display: block;
+        inline-size: 13rem;
+    }
+}
