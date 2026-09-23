@@ -69,10 +69,34 @@
                     </ol>
                 </div>
 
-                <figure class="home-process__media" data-aos="fade" data-aos-delay="80">
-                    <img src="{{ asset('images/village/padelegan-jalan-desa.webp') }}" alt="Jalan desa di antara lahan warga Padelegan" width="1600" height="1200" loading="lazy">
-                    <figcaption>Jalan lingkungan Desa Padelegan</figcaption>
+                <figure class="home-process__media home-process__media--art" data-aos="fade" data-aos-delay="80" aria-hidden="true">
+                    <img src="{{ asset('images/illustrations/proses-3d.svg') }}" alt="" width="400" height="400" loading="lazy">
                 </figure>
+            </div>
+        </section>
+
+        <section class="home-gallery" aria-labelledby="galeri-title">
+            <div class="site-shell">
+                <p class="home-kicker"><span aria-hidden="true"></span>Galeri desa</p>
+                <h2 id="galeri-title" class="home-section__title">Wajah Desa Padelegan.</h2>
+                <div class="home-gallery__grid" data-aos="fade-up">
+                    <figure class="home-gallery__item home-gallery__item--wide">
+                        <img src="{{ asset('images/village/padelegan-dermaga-senja.webp') }}" alt="Dermaga nelayan Desa Padelegan saat senja" width="1600" height="1200" loading="lazy">
+                        <figcaption>Dermaga nelayan</figcaption>
+                    </figure>
+                    <figure class="home-gallery__item">
+                        <img src="{{ asset('images/village/padelegan-tambak-senja.webp') }}" alt="Tambak Desa Padelegan memantulkan cahaya sore" width="1600" height="1200" loading="lazy">
+                        <figcaption>Tambak warga</figcaption>
+                    </figure>
+                    <figure class="home-gallery__item">
+                        <img src="{{ asset('images/village/padelegan-jalan-desa.webp') }}" alt="Jalan lingkungan di antara lahan warga Padelegan" width="1600" height="1200" loading="lazy">
+                        <figcaption>Jalan lingkungan</figcaption>
+                    </figure>
+                    <figure class="home-gallery__item home-gallery__item--wide">
+                        <img src="{{ asset('images/village/padelegan-jalur-mangrove.webp') }}" alt="Jalur bambu di antara vegetasi pesisir Desa Padelegan" width="1600" height="1200" loading="lazy">
+                        <figcaption>Jalur pesisir</figcaption>
+                    </figure>
+                </div>
             </div>
         </section>
     </div>

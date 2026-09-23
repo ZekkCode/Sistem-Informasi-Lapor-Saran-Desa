@@ -160,3 +160,75 @@
         border-block-end-color: Highlight;
     }
 }
+
+.app-tabbar {
+    position: fixed;
+    inset-block-end: 0;
+    inset-inline: 0;
+    z-index: 45;
+    display: flex;
+    align-items: stretch;
+    border-block-start: 1px solid rgb(23 54 45 / 0.14);
+    background: rgb(251 250 246 / 0.97);
+    padding-block-end: env(safe-area-inset-bottom, 0);
+    backdrop-filter: saturate(1.1);
+}
+
+.app-tabbar__link {
+    display: grid;
+    flex: 1;
+    justify-items: center;
+    gap: 0.2rem;
+    min-block-size: 3.5rem;
+    padding-block: 0.5rem 0.4rem;
+    color: rgb(23 54 45 / 0.6);
+    font-size: 0.6875rem;
+    font-weight: 550;
+    text-decoration: none;
+}
+
+.app-tabbar__link svg {
+    inline-size: 1.5rem;
+    block-size: 1.5rem;
+}
+
+.app-tabbar__link.is-active {
+    color: var(--brand-strong);
+}
+
+.app-tabbar__link--cta {
+    position: relative;
+}
+
+.app-tabbar__cta {
+    display: grid;
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    margin-block-start: -1.25rem;
+    place-items: center;
+    border-radius: 999px;
+    background: var(--brand);
+    color: white;
+    box-shadow: 0 4px 10px rgb(23 54 45 / 0.2);
+}
+
+.app-tabbar__cta svg {
+    inline-size: 1.4rem;
+    block-size: 1.4rem;
+}
+
+.app-tabbar__link--cta.is-active .app-tabbar__cta {
+    background: var(--brand-strong);
+}
+
+@media (max-width: 63.999rem) {
+    body:has(.app-tabbar) {
+        padding-block-end: 4.25rem;
+    }
+}
+
+@media (min-width: 64rem) {
+    .app-tabbar {
+        display: none;
+    }
+}
