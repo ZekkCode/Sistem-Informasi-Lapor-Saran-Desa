@@ -17,7 +17,7 @@
 
         <div class="site-header__actions">
             <x-ui.action :href="route('reports.track')" variant="secondary">Cek laporan</x-ui.action>
-            <x-ui.action :href="route('reports.create')">Buat laporan</x-ui.action>
+            <x-ui.action :href="route('mulai')">Sampaikan</x-ui.action>
         </div>
 
         <button type="button" class="site-menu-button" @click="open = !open" :aria-expanded="open.toString()" aria-controls="mobile-navigation">

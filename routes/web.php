@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
 
+Route::view('/mulai', 'site.mulai')->name('mulai');
+
 Route::get('/lapor', [ReportController::class, 'create'])->name('reports.create');
 Route::post('/lapor', [ReportController::class, 'store'])
     ->middleware('throttle:report-submission')

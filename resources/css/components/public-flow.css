@@ -376,3 +376,82 @@
         transition: none !important;
     }
 }
+
+.choice-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.choice-card {
+    display: flex;
+    flex-direction: column;
+    min-block-size: 100%;
+    border: 1px solid rgb(23 54 45 / 0.16);
+    border-radius: 0.75rem;
+    background: var(--surface);
+    padding: 1.5rem;
+    text-decoration: none;
+    transition: border-color 150ms ease, background 150ms ease;
+}
+
+.choice-card:hover {
+    border-color: var(--brand);
+    background: var(--brand-soft);
+}
+
+.choice-card:focus-visible {
+    outline: 3px solid color-mix(in oklab, var(--focus) 24%, transparent);
+    outline-offset: 2px;
+}
+
+.choice-card__icon {
+    display: grid;
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    place-items: center;
+    border: 1px solid rgb(23 54 45 / 0.16);
+    border-radius: 0.625rem;
+    color: var(--brand);
+}
+
+.choice-card__icon svg {
+    inline-size: 1.5rem;
+    block-size: 1.5rem;
+}
+
+.choice-card__title {
+    margin-block-start: 1.1rem;
+    color: var(--ink);
+    font-size: 1.25rem;
+    font-weight: 620;
+    letter-spacing: -0.02em;
+}
+
+.choice-card__desc {
+    margin-block-start: 0.5rem;
+    color: rgb(23 54 45 / 0.65);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+}
+
+.choice-card__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-block-start: 1.25rem;
+    color: var(--brand-strong);
+    font-size: 0.9375rem;
+    font-weight: 640;
+}
+
+.choice-card:hover .choice-card__cta span {
+    transition: translate 150ms ease;
+    translate: 0.2rem 0;
+}
+
+@media (min-width: 48rem) {
+    .choice-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.25rem;
+    }
+}

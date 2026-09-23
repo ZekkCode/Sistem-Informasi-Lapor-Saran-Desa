@@ -11,7 +11,7 @@
                     <h1 class="home-hero__title">Laporkan masalah desa ke petugas.</h1>
                     <p class="home-hero__lead">Tulis lokasi, lampirkan foto, simpan nomor untuk cek pembaruan.</p>
                     <div class="home-hero__actions">
-                        <x-ui.action :href="route('reports.create')" size="lg">Buat laporan</x-ui.action>
+                        <x-ui.action :href="route('mulai')" size="lg">Sampaikan sekarang</x-ui.action>
                         <x-ui.action :href="route('reports.track')" variant="secondary" size="lg">Cek status</x-ui.action>
                     </div>
                     <dl class="home-hero__facts">
