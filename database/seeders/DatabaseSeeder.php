@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             QrSourceSeeder::class,
             SettingSeeder::class,
+            UsulanSeeder::class,
             AdminSeeder::class,
         ]);
     }
