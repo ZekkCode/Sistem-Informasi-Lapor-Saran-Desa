@@ -7,7 +7,7 @@
         <div class="max-w-2xl" data-aos="fade-up">
             <p class="public-kicker">Layanan warga</p>
             <h1 class="public-page-title mt-3 text-padelegan-900">Mau menyampaikan apa?</h1>
-            <p class="reading-measure mt-4 text-base leading-7 text-padelegan-900/65">Pilih laporan untuk masalah atau kerusakan, atau usulan untuk ide dan saran. Keduanya tanpa akun.</p>
+            <p class="reading-measure mt-4 text-base leading-7 text-padelegan-900/65">Laporan untuk masalah atau kerusakan. Usulan untuk ide dan saran. Keduanya tanpa akun.</p>
         </div>
 
         <div class="choice-grid mt-9" data-aos="fade-up" data-aos-delay="80">

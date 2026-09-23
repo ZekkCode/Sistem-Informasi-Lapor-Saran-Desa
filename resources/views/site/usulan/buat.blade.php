@@ -42,7 +42,7 @@
                 <header class="report-panel__header">
                     <p>Usulan</p>
                     <h2>Jelaskan usulan Anda</h2>
-                    <span>Pilih jenis dan dusun, lalu tulis usulan secara ringkas.</span>
+                    <span>Pilih jenis dan dusun, lalu tulis usulan Anda.</span>
                 </header>
 
                 <div class="report-panel__body">

@@ -9,7 +9,7 @@
                 <div class="home-hero__copy" data-aos="fade-up">
                     <p class="home-kicker"><span aria-hidden="true"></span>Layanan pengaduan Desa Padelegan</p>
                     <h1 class="home-hero__title">Laporkan masalah desa ke petugas.</h1>
-                    <p class="home-hero__lead">Tulis lokasi, lampirkan foto, simpan nomor untuk cek pembaruan.</p>
+                    <p class="home-hero__lead">Tulis lokasi dan lampirkan foto. Simpan nomornya untuk cek pembaruan.</p>
                     <div class="home-hero__actions">
                         <x-ui.action :href="route('mulai')" size="lg">Sampaikan sekarang</x-ui.action>
                         <x-ui.action :href="route('reports.track')" variant="secondary" size="lg">Cek status</x-ui.action>
