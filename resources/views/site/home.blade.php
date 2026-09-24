@@ -7,7 +7,7 @@
         <section class="home-hero">
             <div class="site-shell home-hero__grid">
                 <div class="home-hero__copy" data-aos="fade-up">
-                    <p class="home-kicker"><span aria-hidden="true">Layanan pengaduan Desa Padelegan</p>
+                    <p class="home-kicker">Layanan pengaduan Desa Padelegan</p>
                     <h1 class="home-hero__title">Laporkan masalah desa ke petugas.</h1>
                     <p class="home-hero__lead">Tulis lokasi dan lampirkan foto. Simpan nomornya untuk cek pembaruan.</p>
                     <div class="home-hero__actions">
