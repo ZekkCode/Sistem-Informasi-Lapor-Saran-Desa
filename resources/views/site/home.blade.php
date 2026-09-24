@@ -11,8 +11,8 @@
                     <h1 class="home-hero__title">Laporkan masalah desa ke petugas.</h1>
                     <p class="home-hero__lead">Tulis lokasi dan lampirkan foto. Simpan nomornya untuk cek pembaruan.</p>
                     <div class="home-hero__actions">
-                        <x-ui.action :href="route('mulai')" size="lg">Sampaikan sekarang</x-ui.action>
-                        <x-ui.action :href="route('about')" variant="secondary" size="lg">Tentang situs</x-ui.action>
+                        <x-ui.action :href="route('mulai')">Sampaikan sekarang</x-ui.action>
+                        <x-ui.action :href="route('about')" variant="secondary">Tentang situs</x-ui.action>
                     </div>
                     <dl class="home-hero__facts">
                         <div><dt>Akses</dt><dd>Tanpa akun</dd></div>
@@ -36,6 +36,7 @@
                     ['Cek status', 'Gunakan nomor laporan yang Anda simpan.', route('reports.track')],
                     ['Laporan publik', 'Baca laporan yang sudah diverifikasi.', route('public-reports.index')],
                     ['Usulan warga', 'Baca usulan yang sudah ditinjau petugas.', route('public-usulan.index')],
+                    ['Bantuan situs', 'Laporkan kendala teknis pada situs.', route('site-support')],
                 ] as [$title, $description, $href])
                     <a href="{{ $href }}" class="home-service__link">
                         <div>
