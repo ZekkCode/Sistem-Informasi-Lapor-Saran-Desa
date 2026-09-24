@@ -52,7 +52,7 @@
         <section id="alur" class="home-process">
             <div class="site-shell home-process__grid">
                 <div class="home-process__copy" data-aos="fade-up">
-                    <p class="home-kicker"><span aria-hidden="true"></span>Alur laporan</p>
+                    <p class="home-kicker">Alur laporan</p>
                     <h2 class="home-section__title">Petugas periksa dan tanggapi.</h2>
                     <p class="home-process__lead">Kirim satu masalah per laporan. Petugas periksa lokasi dan bukti yang Anda kirim.</p>
 
@@ -78,7 +78,7 @@
 
         <section class="home-gallery" aria-labelledby="galeri-title">
             <div class="site-shell">
-                <p class="home-kicker"><span aria-hidden="true"></span>Galeri desa</p>
+                <p class="home-kicker">Galeri desa</p>
                 <h2 id="galeri-title" class="home-section__title">Desa Padelegan.</h2>
                 <div class="home-gallery__grid" data-aos="fade-up">
                     <figure class="home-gallery__item home-gallery__item--wide">
