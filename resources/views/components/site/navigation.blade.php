@@ -16,8 +16,6 @@
         </nav>
 
         <div class="site-header__actions">
-            <x-ui.action :href="route('reports.track')" variant="secondary">Cek laporan</x-ui.action>
-            <x-ui.action :href="route('usulan.lacak')" variant="secondary">Cek usulan</x-ui.action>
             <x-ui.action :href="route('mulai')">Sampaikan</x-ui.action>
         </div>
     </div>

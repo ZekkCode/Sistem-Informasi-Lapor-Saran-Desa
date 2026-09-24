@@ -23,19 +23,27 @@
 
 .public-report-grid {
     display: grid;
-    border-block: 1px solid rgb(23 54 45 / 0.16);
-    background: rgb(23 54 45 / 0.16);
-    gap: 1px;
+    grid-template-columns: 1fr;
+    gap: 0.875rem;
 }
 
 .public-report-card {
     position: relative;
     display: flex;
     min-inline-size: 0;
-    min-block-size: 15rem;
+    min-block-size: 12.5rem;
     flex-direction: column;
-    background: var(--page);
-    padding: 1.25rem 0;
+    border: 1px solid rgb(23 54 45 / 0.14);
+    border-radius: 0.875rem;
+    background: var(--surface);
+    padding: 1.25rem;
+    transition: border-color 150ms ease, box-shadow 150ms ease, translate 150ms ease;
+}
+
+.public-report-card:hover {
+    border-color: color-mix(in oklab, var(--brand) 55%, transparent);
+    box-shadow: 0 6px 18px rgb(23 54 45 / 0.08);
+    translate: 0 -2px;
 }
 
 .public-report-card__meta {
@@ -43,21 +51,22 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 0.75rem;
+    gap: 0.5rem;
 }
 
 .public-report-card__code {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     font-size: 0.6875rem;
     letter-spacing: 0.04em;
+    color: rgb(23 54 45 / 0.5);
 }
 
 .public-report-card__title {
-    margin-block-start: 1rem;
+    margin-block-start: 0.85rem;
     color: var(--ink);
-    font-size: clamp(1.05rem, 0.95rem + 0.35vw, 1.3rem);
-    font-weight: 620;
-    letter-spacing: -0.022em;
+    font-size: 1.125rem;
+    font-weight: 640;
+    letter-spacing: -0.02em;
     line-height: 1.35;
 }
 
@@ -72,10 +81,14 @@
 }
 
 .public-report-card__body {
-    margin-block-start: 0.75rem;
-    color: rgb(23 54 45 / 0.62);
-    font-size: 0.8125rem;
-    line-height: 1.65;
+    display: -webkit-box;
+    margin-block-start: 0.5rem;
+    color: rgb(23 54 45 / 0.7);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
 }
 
 .public-report-card__footer {
@@ -84,22 +97,25 @@
     justify-content: space-between;
     gap: 1rem;
     margin-block-start: auto;
-    padding-block-start: 1.5rem;
-    color: rgb(23 54 45 / 0.52);
+    padding-block-start: 1rem;
+    border-block-start: 1px solid rgb(23 54 45 / 0.1);
+    color: rgb(23 54 45 / 0.58);
     font-size: 0.75rem;
+    font-weight: 500;
 }
 
 .public-report-card__arrow {
     color: var(--brand);
+    font-size: 1rem;
     transition: translate 150ms ease;
 }
 
 .public-report-card:hover .public-report-card__title {
-    color: var(--brand);
+    color: var(--brand-strong);
 }
 
 .public-report-card:hover .public-report-card__arrow {
-    translate: 0.2rem 0;
+    translate: 0.25rem 0;
 }
 
 .receipt-layout {
