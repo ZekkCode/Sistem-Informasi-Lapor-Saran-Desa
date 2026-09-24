@@ -54,6 +54,8 @@ npm run build
 php artisan serve
 ```
 
+Di Windows, jalankan server dengan `php artisan serve --no-reload`. Fitur reload bawaan meneruskan ulang variabel environment ke proses server, dan `APP_KEY` base64 yang diakhiri `=` menjadi kosong sehingga muncul galat "No application encryption key". Opsi `--no-reload` melewati jalur tersebut.
+
 Untuk membuat admin awal, isi `INITIAL_ADMIN_PASSWORD` pada `.env`, lalu jalankan:
 
 ```bash

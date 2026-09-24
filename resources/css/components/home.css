@@ -318,6 +318,27 @@
     }
 }
 
+/* Ratakan tengah heading hero hanya di layar ponsel. */
+@media (max-width: 47.999rem) {
+    .home-hero__copy {
+        text-align: center;
+    }
+
+    .home-kicker {
+        justify-content: center;
+    }
+
+    .home-hero__title,
+    .home-hero__lead {
+        margin-inline: auto;
+    }
+
+    .home-hero__facts {
+        justify-items: center;
+        text-align: center;
+    }
+}
+
 @media (min-width: 40rem) {
     .home-hero__grid {
         padding-block: 3rem;
