@@ -43,6 +43,17 @@ if (! getenv('VIEW_COMPILED_PATH')) {
     $setRuntimeEnvironment('VIEW_COMPILED_PATH', $storagePath.'/framework/views');
 }
 
+// Filesystem fungsi Vercel bersifat read-only kecuali /tmp. Arahkan manifest
+// paket dan service ke /tmp agar Laravel dapat membangunnya saat boot ketika
+// cache tidak ikut dalam bundle (mis. pada deploy langsung dari Git).
+if (! getenv('APP_PACKAGES_CACHE')) {
+    $setRuntimeEnvironment('APP_PACKAGES_CACHE', $storagePath.'/framework/cache/packages.php');
+}
+
+if (! getenv('APP_SERVICES_CACHE')) {
+    $setRuntimeEnvironment('APP_SERVICES_CACHE', $storagePath.'/framework/cache/services.php');
+}
+
 $vercelHost = getenv('VERCEL_PROJECT_PRODUCTION_URL') ?: getenv('VERCEL_URL');
 $configuredUrl = getenv('APP_URL');
 
