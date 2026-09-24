@@ -7,16 +7,16 @@
         <section class="home-hero">
             <div class="site-shell home-hero__grid">
                 <div class="home-hero__copy" data-aos="fade-up">
-                    <p class="home-kicker"><span aria-hidden="true"></span>Layanan pengaduan Desa Padelegan</p>
+                    <p class="home-kicker"><span aria-hidden="true">Layanan pengaduan Desa Padelegan</p>
                     <h1 class="home-hero__title">Laporkan masalah desa ke petugas.</h1>
                     <p class="home-hero__lead">Tulis lokasi dan lampirkan foto. Simpan nomornya untuk cek pembaruan.</p>
                     <div class="home-hero__actions">
-                        <x-ui.action :href="route('mulai')">Sampaikan sekarang</x-ui.action>
-                        <x-ui.action :href="route('about')" variant="secondary">Tentang situs</x-ui.action>
+                        <x-ui.action :href="route('mulai')">Sampaikan</x-ui.action>
+                        <x-ui.action :href="route('about')" variant="secondary">Tentang</x-ui.action>
                     </div>
                     <dl class="home-hero__facts">
                         <div><dt>Akses</dt><dd>Tanpa akun</dd></div>
-                        <div><dt>Privasi</dt><dd>Petugas saja yang lihat identitas</dd></div>
+                        <div><dt>Privasi</dt><dd>Anonim hanya Admin yang Lihat</dd></div>
                     </dl>
                 </div>
 
@@ -79,7 +79,7 @@
         <section class="home-gallery" aria-labelledby="galeri-title">
             <div class="site-shell">
                 <p class="home-kicker"><span aria-hidden="true"></span>Galeri desa</p>
-                <h2 id="galeri-title" class="home-section__title">Wajah Desa Padelegan.</h2>
+                <h2 id="galeri-title" class="home-section__title">Desa Padelegan.</h2>
                 <div class="home-gallery__grid" data-aos="fade-up">
                     <figure class="home-gallery__item home-gallery__item--wide">
                         <img src="{{ asset('images/village/padelegan-dermaga-senja.webp') }}" alt="Dermaga nelayan Desa Padelegan saat senja" width="1600" height="1200" loading="lazy">
