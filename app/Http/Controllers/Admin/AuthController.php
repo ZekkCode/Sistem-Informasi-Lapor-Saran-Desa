@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\LoginRequest;
 use App\Services\Admin\AuditService;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
@@ -20,7 +21,15 @@ class AuthController extends Controller
     {
         $credentials = $request->safe()->only(['username', 'password']);
 
-        if (! Auth::attempt($credentials, $request->boolean('remember'))) {
+        try {
+            $berhasil = Auth::attempt($credentials, $request->boolean('remember'));
+        } catch (QueryException) {
+            throw ValidationException::withMessages([
+                'username' => 'Login petugas belum aktif karena database belum tersambung. Hubungi pengelola situs.',
+            ]);
+        }
+
+        if (! $berhasil) {
             throw ValidationException::withMessages([
                 'username' => 'Username atau password belum sesuai.',
             ]);
