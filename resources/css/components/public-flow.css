@@ -496,3 +496,59 @@
         inline-size: 13rem;
     }
 }
+
+.support-contact {
+    margin-block-start: 1.75rem;
+    border: 1px solid rgb(23 54 45 / 0.15);
+    border-radius: 0.875rem;
+    background: var(--surface);
+    padding: 1.25rem;
+}
+
+.support-contact__person {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    margin-block-start: 0.85rem;
+}
+
+.support-contact__avatar {
+    display: grid;
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    flex: 0 0 auto;
+    place-items: center;
+    border: 1px solid rgb(23 54 45 / 0.16);
+    border-radius: 999px;
+    color: var(--brand);
+}
+
+.support-contact__avatar svg {
+    inline-size: 1.4rem;
+    block-size: 1.4rem;
+}
+
+.support-contact__name {
+    color: var(--ink);
+    font-size: 1rem;
+    font-weight: 640;
+}
+
+.support-contact__role {
+    color: rgb(23 54 45 / 0.6);
+    font-size: 0.8125rem;
+}
+
+.support-contact__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+    margin-block-start: 1.1rem;
+}
+
+.support-contact__note {
+    margin-block-start: 0.85rem;
+    color: rgb(23 54 45 / 0.55);
+    font-size: 0.75rem;
+    line-height: 1.5;
+}
