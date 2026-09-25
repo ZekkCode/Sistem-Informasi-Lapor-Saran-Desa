@@ -137,9 +137,8 @@
 .home-service__link {
     display: flex;
     min-inline-size: 0;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 0.75rem;
+    flex-direction: column;
+    gap: 0.3rem;
     background: var(--brand-strong);
     color: white;
     padding: 1.05rem 0.9rem;
@@ -154,24 +153,13 @@
 .home-service__link p {
     display: none;
     max-inline-size: 32ch;
-    margin-block-start: 0.35rem;
     color: rgb(255 255 255 / 0.68);
     font-size: 0.8125rem;
     line-height: 1.5;
 }
 
-.home-service__link > span {
-    color: #dcb665;
-    font-size: 1rem;
-    transition: translate 150ms ease;
-}
-
 .home-service__link:hover {
     background: rgb(255 255 255 / 0.055);
-}
-
-.home-service__link:hover > span {
-    translate: 0.15rem -0.15rem;
 }
 
 .home-process {
@@ -276,7 +264,7 @@
 .home-gallery__item {
     position: relative;
     overflow: hidden;
-    border: 1px solid rgb(21 52 43 / 0.12);
+    border: 1px solid rgb(23 54 45 / 0.15);
     border-radius: 0.75rem;
 }
 

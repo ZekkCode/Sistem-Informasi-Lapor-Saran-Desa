@@ -33,17 +33,16 @@
     min-inline-size: 0;
     min-block-size: 12.5rem;
     flex-direction: column;
-    border: 1px solid rgb(23 54 45 / 0.14);
-    border-radius: 0.875rem;
+    border: 1px solid rgb(23 54 45 / 0.15);
+    border-radius: 0.75rem;
     background: var(--surface);
     padding: 1.25rem;
-    transition: border-color 150ms ease, box-shadow 150ms ease, translate 150ms ease;
+    transition: border-color 150ms ease, background 150ms ease;
 }
 
 .public-report-card:hover {
-    border-color: color-mix(in oklab, var(--brand) 55%, transparent);
-    box-shadow: 0 6px 18px rgb(23 54 45 / 0.08);
-    translate: 0 -2px;
+    border-color: var(--brand);
+    background: var(--brand-soft);
 }
 
 .public-report-card__meta {
@@ -402,7 +401,7 @@
     display: flex;
     flex-direction: column;
     min-block-size: 100%;
-    border: 1px solid rgb(23 54 45 / 0.16);
+    border: 1px solid rgb(23 54 45 / 0.15);
     border-radius: 0.75rem;
     background: var(--surface);
     padding: 1.5rem;
@@ -500,7 +499,7 @@
 .support-contact {
     margin-block-start: 1.75rem;
     border: 1px solid rgb(23 54 45 / 0.15);
-    border-radius: 0.875rem;
+    border-radius: 0.75rem;
     background: var(--surface);
     padding: 1.25rem;
 }

@@ -13,7 +13,6 @@
 
     <div class="public-report-card__footer">
         <span>{{ $report->dusun->name }} · {{ $report->subcategory->category->name }}</span>
-        <span class="public-report-card__arrow" aria-hidden="true">→</span>
     </div>
     <time class="mt-2 text-[0.6875rem] text-padelegan-900/40" datetime="{{ $report->submitted_at->toDateString() }}">Diterima {{ $report->submitted_at->translatedFormat('d M Y') }}</time>
 </article>

@@ -20,7 +20,7 @@
                 </span>
                 <h2 class="choice-card__title">Laporan masalah</h2>
                 <p class="choice-card__desc">Kerusakan fasilitas, lingkungan, atau pelayanan. Sertakan foto dan patokan lokasi.</p>
-                <span class="choice-card__cta">Buat laporan <span aria-hidden="true">→</span></span>
+                <span class="choice-card__cta">Buat laporan</span>
             </a>
 
             <a href="{{ route('usulan.create') }}" class="choice-card">
@@ -29,7 +29,7 @@
                 </span>
                 <h2 class="choice-card__title">Usulan &amp; saran</h2>
                 <p class="choice-card__desc">Ide untuk pembangunan, pelayanan, atau kegiatan desa. Boleh dikirim anonim.</p>
-                <span class="choice-card__cta">Kirim usulan <span aria-hidden="true">→</span></span>
+                <span class="choice-card__cta">Kirim usulan</span>
             </a>
         </div>
 

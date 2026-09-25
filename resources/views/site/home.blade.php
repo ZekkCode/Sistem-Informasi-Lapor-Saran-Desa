@@ -39,11 +39,8 @@
                     ['Bantuan situs', 'Laporkan kendala teknis pada situs.', route('site-support')],
                 ] as [$title, $description, $href])
                     <a href="{{ $href }}" class="home-service__link">
-                        <div>
-                            <h3>{{ $title }}</h3>
-                            <p>{{ $description }}</p>
-                        </div>
-                        <span aria-hidden="true">↗</span>
+                        <h3>{{ $title }}</h3>
+                        <p>{{ $description }}</p>
                     </a>
                 @endforeach
             </div>
