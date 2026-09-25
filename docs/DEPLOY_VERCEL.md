@@ -44,10 +44,10 @@ Salin seluruh variable dari `.env.vercel.example` ke Settings → Environment Va
 - `APP_KEY`: hasil `php artisan key:generate --show`.
 - `APP_URL`: domain production menggunakan HTTPS.
 - `DB_CONNECTION` dan `DB_URL`.
-- `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_BUCKET`, dan `AWS_ENDPOINT` dari R2.
-- `REPORT_MEDIA_DISK=s3`, `REPORT_DIRECT_UPLOAD=true`, `REPORT_DIRECT_UPLOAD_REQUIRED=true`, dan `REPORT_DIRECT_UPLOAD_DISK=s3`.
+- `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_BUCKET`, dan `AWS_ENDPOINT` dari R2. Begitu `AWS_BUCKET` terisi, disk media pindah ke `s3` dan unggah langsung aktif otomatis, jadi `REPORT_MEDIA_DISK` dan `REPORT_DIRECT_UPLOAD*` tidak perlu diisi kecuali ingin menimpa.
+- `DB_URL` Supabase: pakai Connection Pooler mode Transaction (port 6543), bukan koneksi langsung 5432, agar koneksi serverless tidak cepat habis.
 - `SESSION_DRIVER=cookie`, `CACHE_STORE=array`, dan `QUEUE_CONNECTION=sync`. Setelah database stabil, session dan cache boleh dipindahkan ke driver `database`.
-- `INITIAL_ADMIN_PASSWORD` hanya diperlukan ketika seeder pertama dijalankan.
+- `INITIAL_ADMIN_PASSWORD` dan `INITIAL_ADMIN_DESA_PASSWORD` hanya diperlukan ketika seeder pertama dijalankan.
 - `SITE_SUPPORT_EMAIL` opsional. Isi alamat bantuan teknis desa agar tombol **Laporkan kendala situs** membuka email dengan format laporan yang sudah disiapkan.
 
 Jangan memasukkan secret ke `vercel.json` atau repository.
@@ -65,6 +65,17 @@ php artisan db:seed --env=production --force
 Jalankan seeder hanya pada instalasi pertama. Deployment berikutnya cukup menjalankan migrasi baru. Migrasi sengaja tidak berjalan otomatis saat build agar preview deployment tidak mengubah database production.
 
 Pastikan `INITIAL_ADMIN_PASSWORD` berisi password awal yang kuat saat seeder pertama dijalankan. Setelah berhasil masuk, buat akun petugas sesuai kebutuhan melalui **Panel Petugas → Akun petugas**. Kosongkan kembali variable tersebut setelah akun awal tersedia agar secret bootstrap tidak disimpan lebih lama dari yang diperlukan.
+
+### Akun demo untuk buyer
+
+`AdminSeeder` membuat dua akun dari environment variable, jadi begitu Supabase tersambung dan seeder dijalankan sekali, akun langsung siap dipakai di `/admin/login`:
+
+| Peran | Username | Password (dari env) | Akses |
+| --- | --- | --- | --- |
+| Super Admin | `INITIAL_ADMIN_USERNAME` (mis. `admin`) | `INITIAL_ADMIN_PASSWORD` | Semua fitur, data master, dan akun petugas |
+| Admin Desa | `INITIAL_ADMIN_DESA_USERNAME` (mis. `admindesa`) | `INITIAL_ADMIN_DESA_PASSWORD` | Laporan, usulan, verifikasi, status, dan rekap |
+
+Nilai demo yang siap pakai ada di `.env.vercel.example`. Seeder aman dijalankan ulang (`updateOrCreate` per username) dan otomatis melewati akun yang password-nya kosong. Alur otomatisnya: isi env di Vercel, jalankan `php artisan db:seed --force` sekali, akun langsung aktif. Ganti password lewat panel setelah demo.
 
 ## Mode pratinjau tanpa database
 
