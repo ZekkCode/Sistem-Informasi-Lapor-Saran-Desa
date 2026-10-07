@@ -35,4 +35,15 @@ return [
         ],
     ],
 
+    /*
+    | Masuk petugas lewat Google (Socialite). Kredensial OAuth ini terpisah dari
+    | GOOGLE_DRIVE_* yang dipakai untuk cadangan Drive. Kosongkan redirect agar
+    | URL callback dibentuk dari domain yang sedang diakses.
+    */
+    'google' => [
+        'client_id' => env('GOOGLE_SSO_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_SSO_CLIENT_SECRET'),
+        'redirect' => env('GOOGLE_SSO_REDIRECT_URI'),
+    ],
+
 ];

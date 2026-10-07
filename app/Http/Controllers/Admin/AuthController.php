@@ -14,7 +14,9 @@ class AuthController extends Controller
 {
     public function create()
     {
-        return view('auth.admin-login');
+        return view('auth.admin-login', [
+            'googleAktif' => MasukGoogleController::aktif(),
+        ]);
     }
 
     public function store(LoginRequest $request, AuditService $audit): RedirectResponse

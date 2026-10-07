@@ -6,6 +6,7 @@ import { initHomeMotion } from './features/home-motion';
 import { reportForm } from './features/report-form';
 import { initSiteMotion } from './features/site-motion';
 import { initFormValidation } from './features/form-validation';
+import { initDialogOtomatis } from './features/dialog-otomatis';
 
 window.Alpine = Alpine;
 
@@ -17,3 +18,4 @@ initSubmitOnce();
 initSiteMotion();
 initHomeMotion();
 initFormValidation();
+initDialogOtomatis();

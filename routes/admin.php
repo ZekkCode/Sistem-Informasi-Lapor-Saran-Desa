@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DusunController;
 use App\Http\Controllers\Admin\MasterDataController;
+use App\Http\Controllers\Admin\MasukGoogleController;
 use App\Http\Controllers\Admin\QrSourceController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\ReportExportController;
@@ -20,6 +21,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'create'])->name('login');
     Route::post('/login', [AuthController::class, 'store'])->middleware('throttle:admin-login')->name('login.store');
+
+    Route::get('/login/google', [MasukGoogleController::class, 'arahkan'])->name('login.google');
+    Route::get('/login/google/callback', [MasukGoogleController::class, 'kembali'])
+        ->middleware('throttle:admin-login')
+        ->name('login.google.callback');
 });
 
 Route::middleware(['auth', 'active.admin'])->group(function () {

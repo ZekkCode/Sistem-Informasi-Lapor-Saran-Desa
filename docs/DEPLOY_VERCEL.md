@@ -66,6 +66,26 @@ Jalankan seeder hanya pada instalasi pertama. Deployment berikutnya cukup menjal
 
 Pastikan `INITIAL_ADMIN_PASSWORD` berisi password awal yang kuat saat seeder pertama dijalankan. Setelah berhasil masuk, buat akun petugas sesuai kebutuhan melalui **Panel Petugas → Akun petugas**. Kosongkan kembali variable tersebut setelah akun awal tersedia agar secret bootstrap tidak disimpan lebih lama dari yang diperlukan.
 
+### Masuk petugas dengan Google
+
+Petugas dapat masuk lewat akun Google, tetapi hanya untuk email di `GOOGLE_SSO_ALLOWED_EMAILS`. Nilai bawaannya akun resmi desa `laporpadelegan@gmail.com`. Login username dan password tetap tersedia.
+
+Aturan peran:
+- Email di daftar yang belum punya akun dibuatkan akun petugas dengan peran `GOOGLE_SSO_ROLE` (bawaan `admin`, tampil sebagai Admin Desa). Password akun itu diisi acak, jadi akun hanya bisa dibuka lewat Google sampai Super Admin mengaturnya.
+- Email yang sudah terpasang pada akun petugas tetap memakai peran akun tersebut.
+- Akun yang dinonaktifkan Super Admin tetap ditolak walau emailnya ada di daftar.
+- Email di luar daftar selalu ditolak.
+
+Langkah setup:
+1. Masuk ke Google Cloud Console dengan akun resmi desa. Buka APIs & Services, OAuth consent screen, pilih External, lalu tambahkan `laporpadelegan@gmail.com` sebagai test user. Scope yang dipakai hanya `openid`, `email`, dan `profile`, jadi tidak perlu verifikasi aplikasi.
+2. Buka Credentials, buat OAuth client ID jenis Web application, dan daftarkan Authorized redirect URI `https://DOMAIN-ANDA/admin/login/google/callback`. Untuk lokal tambahkan `http://127.0.0.1:8001/admin/login/google/callback`.
+3. Isi `GOOGLE_SSO_CLIENT_ID` dan `GOOGLE_SSO_CLIENT_SECRET` di Vercel. Kosongkan `GOOGLE_SSO_REDIRECT_URI` agar callback mengikuti domain yang diakses, atau isi bila memakai domain kustom.
+4. Opsional: isi `INITIAL_ADMIN_DESA_EMAIL=laporpadelegan@gmail.com` sebelum seeder agar akun `admindesa` dan akun Google menjadi satu akun.
+
+Popup penolakan muncul untuk setiap kondisi gagal: email di luar daftar ("Akun ini bukan akun admin desa"), akun nonaktif, email Google belum terverifikasi, proses dibatalkan, dan database belum tersambung. Login berhasil, pembuatan akun otomatis, dan setiap penolakan tercatat di audit log. Tombol Google otomatis disembunyikan selama client ID dan secret belum diisi.
+
+SSO membutuhkan database karena sistem mencocokkan email Google dengan tabel `users`. Di produksi, fitur ini baru berfungsi setelah Supabase tersambung.
+
 ### Akun demo untuk buyer
 
 `AdminSeeder` membuat dua akun dari environment variable, jadi begitu Supabase tersambung dan seeder dijalankan sekali, akun langsung siap dipakai di `/admin/login`:
