@@ -11,7 +11,7 @@ class SettingSeeder extends Seeder
     {
         $settings = [
             'village_name' => 'Desa Padelegan',
-            'website_title' => 'Padelegan Lapor',
+            'website_title' => 'Sistem Lapor Padelegan',
             'contact_phone' => null,
             'report_form_open' => '1',
         ];

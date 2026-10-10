@@ -9,9 +9,40 @@ Proyek ini menjalankan Laravel sebagai satu Vercel Function menggunakan `vercel-
 - Cloudflare R2 atau penyimpanan kompatibel S3 untuk foto laporan.
 - Google Drive bersifat opsional dan tetap berfungsi sebagai salinan cadangan.
 
-## 1. Siapkan database
+## 1. Siapkan database Supabase
 
-Buat database MySQL/PostgreSQL yang lokasinya dekat dengan region Singapore. Salin connection string ke `DB_URL` dan pilih driver yang sesuai melalui `DB_CONNECTION=mysql` atau `DB_CONNECTION=pgsql`.
+Laravel terhubung ke Supabase lewat koneksi PostgreSQL langsung. Publishable key, secret key, dan URL `/rest/v1` tidak dipakai aplikasi, jadi jangan disimpan di environment.
+
+### Connection string
+
+Di dashboard Supabase klik **Connect**, pilih **Session pooler**, lalu salin string-nya ke `DB_URL` di Vercel. Ganti `[YOUR-PASSWORD]` dengan password database dari Project Settings, Database. Encode karakter khusus pada password: `@` jadi `%40`, `#` jadi `%23`, `?` jadi `%3F`, `&` jadi `%26`, `/` jadi `%2F`. Tambahkan `?sslmode=require` di akhir.
+
+```text
+postgresql://postgres.wgadkdgapbvxcqojfbqb:PASSWORD@aws-0-ap-northeast-2.pooler.supabase.com:5432/postgres?sslmode=require
+```
+
+Salin host dari dialog Connect, karena awalan `aws-0` atau `aws-1` tidak bisa ditebak dari region. Cukup isi `DB_URL`. Koneksi otomatis memakai `pgsql` bila URL diawali `postgres://` atau `postgresql://`.
+
+Jangan memakai **Transaction pooler** port 6543. Mode itu mewajibkan prepared statement dimatikan, dan pada Laravel semua kondisi boolean seperti `is_active = true` lalu gagal dengan `operator does not exist: boolean = integer`. Session pooler port 5432 mendukung prepared statement dan tetap bisa dijangkau lewat IPv4 dari Vercel. Koneksi langsung `db.<ref>.supabase.co` hanya IPv6 pada paket gratis.
+
+### Skema dan data lewat SQL Editor
+
+Berkas SQL ada di `database/supabase/` dan disusun dari migrasi serta seeder dengan `php artisan supabase:sql`. Jalankan berurutan di SQL Editor Supabase:
+
+1. `01_skema.sql`: 20 tabel, indeks, foreign key, riwayat migrasi, dan kunci akses REST API.
+2. `02_data_awal.sql`: 6 dusun, 5 kategori, 17 jenis masalah, 6 sumber QR (`DSN01` sampai `DSN06`), dan pengaturan.
+3. `03_contoh_usulan.sql`: opsional, usulan contoh untuk demo.
+4. `akun-admin.local.sql`: akun `admin` dan `admindesa` dengan hash password dari `.env` lokal. Berkas ini diabaikan Git. Hapus setelah dijalankan.
+
+Setiap berkas berjalan dalam satu transaksi. Bila ada perintah yang gagal, tidak ada perubahan yang tersimpan. Berkas `02` dan `03` aman diulang. Berkas `01` hanya untuk database kosong.
+
+Setelah ada migrasi baru, susun ulang berkas dengan `php artisan supabase:sql`, lalu jalankan bagian migrasi yang baru saja. Cara lain, jalankan `php artisan migrate` langsung ke Supabase dari mesin yang punya ekstensi `pdo_pgsql`. Riwayat migrasi di `01_skema.sql` membuat Laravel hanya menjalankan migrasi baru.
+
+### Keamanan Data API
+
+`01_skema.sql` menyalakan Row Level Security tanpa policy di semua tabel dan mencabut hak akses `anon`, `authenticated`, serta `service_role`. Hasilnya, endpoint `/rest/v1` tidak bisa membaca data walaupun memakai publishable key atau secret key. Laravel tidak terpengaruh karena terhubung sebagai pemilik tabel. Sebagai lapisan tambahan, matikan Data API di Project Settings, Data API bila tidak dipakai.
+
+Secret key yang pernah dibagikan di luar dashboard perlu dirotasi. Buat secret key baru di Project Settings, API Keys, lalu hapus yang lama.
 
 ## 2. Siapkan Cloudflare R2
 
@@ -43,9 +74,8 @@ Salin seluruh variable dari `.env.vercel.example` ke Settings → Environment Va
 
 - `APP_KEY`: hasil `php artisan key:generate --show`.
 - `APP_URL`: domain production menggunakan HTTPS.
-- `DB_CONNECTION` dan `DB_URL`.
+- `DB_URL` dari Supabase Session pooler (port 5432) dengan `?sslmode=require`. `DB_CONNECTION` tidak perlu diisi karena terdeteksi dari URL. Lihat bagian 1.
 - `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_BUCKET`, dan `AWS_ENDPOINT` dari R2. Begitu `AWS_BUCKET` terisi, disk media pindah ke `s3` dan unggah langsung aktif otomatis, jadi `REPORT_MEDIA_DISK` dan `REPORT_DIRECT_UPLOAD*` tidak perlu diisi kecuali ingin menimpa.
-- `DB_URL` Supabase: pakai Connection Pooler mode Transaction (port 6543), bukan koneksi langsung 5432, agar koneksi serverless tidak cepat habis.
 - `SESSION_DRIVER=cookie`, `CACHE_STORE=array`, dan `QUEUE_CONNECTION=sync`. Setelah database stabil, session dan cache boleh dipindahkan ke driver `database`.
 - `INITIAL_ADMIN_PASSWORD` dan `INITIAL_ADMIN_DESA_PASSWORD` hanya diperlukan ketika seeder pertama dijalankan.
 - `SITE_SUPPORT_EMAIL` opsional. Isi alamat bantuan teknis desa agar tombol **Laporkan kendala situs** membuka email dengan format laporan yang sudah disiapkan.
@@ -54,7 +84,7 @@ Jangan memasukkan secret ke `vercel.json` atau repository.
 
 ## 4. Migrasi dan data awal
 
-Tarik environment production ke file lokal yang sudah diabaikan Git:
+Untuk Supabase, pakai berkas SQL di bagian 1. Untuk database lain, atau bila mesin lokal punya ekstensi `pdo_pgsql`, tarik environment production ke file lokal yang diabaikan Git lalu jalankan migrasi:
 
 ```bash
 npx vercel env pull .env.production --environment=production
@@ -94,6 +124,8 @@ SSO membutuhkan database karena sistem mencocokkan email Google dengan tabel `us
 | --- | --- | --- | --- |
 | Super Admin | `INITIAL_ADMIN_USERNAME` (mis. `admin`) | `INITIAL_ADMIN_PASSWORD` | Semua fitur, data master, dan akun petugas |
 | Admin Desa | `INITIAL_ADMIN_DESA_USERNAME` (mis. `admindesa`) | `INITIAL_ADMIN_DESA_PASSWORD` | Laporan, usulan, verifikasi, status, dan rekap |
+
+Untuk Supabase, akun ini dibuat lewat `database/supabase/akun-admin.local.sql` yang dihasilkan `php artisan supabase:sql` dari nilai `INITIAL_*` di `.env` lokal. Akun `admindesa` ditautkan ke `laporpadelegan@gmail.com` lewat `INITIAL_ADMIN_DESA_EMAIL`, jadi login Google dan login password membuka akun yang sama.
 
 Nilai demo yang siap pakai ada di `.env.vercel.example`. Seeder aman dijalankan ulang (`updateOrCreate` per username) dan otomatis melewati akun yang password-nya kosong. Alur otomatisnya: isi env di Vercel, jalankan `php artisan db:seed --force` sekali, akun langsung aktif. Ganti password lewat panel setelah demo.
 

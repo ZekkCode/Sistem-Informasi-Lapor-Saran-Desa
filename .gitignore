@@ -74,6 +74,9 @@ Homestead.yaml
 Thumbs.db
 desktop.ini
 
+# SQL akun petugas berisi hash password (php artisan supabase:sql)
+/database/supabase/*.local.sql
+
 # ---------------------------------------------
 # Berkas kerja sementara
 # ---------------------------------------------

@@ -20,7 +20,9 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'sqlite'),
+    // Cukup isi DB_URL Supabase: koneksi otomatis memakai pgsql bila URL
+    // diawali postgres:// atau postgresql://. DB_CONNECTION tetap bisa menimpa.
+    'default' => env('DB_CONNECTION', preg_match('/^postgres(ql)?:\/\//i', (string) env('DB_URL')) ? 'pgsql' : 'sqlite'),
 
     /*
     |--------------------------------------------------------------------------
@@ -98,7 +100,8 @@ return [
             'prefix' => '',
             'prefix_indexes' => true,
             'search_path' => 'public',
-            'sslmode' => 'prefer',
+            // Nilai sslmode pada DB_URL (mis. ?sslmode=require) menimpa nilai ini.
+            'sslmode' => env('DB_SSLMODE', 'prefer'),
         ],
 
         'sqlsrv' => [
