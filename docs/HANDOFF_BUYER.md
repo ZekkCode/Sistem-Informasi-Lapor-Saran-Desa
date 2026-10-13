@@ -8,6 +8,7 @@
 - Dasbor operasional, antrean, pencarian/filter, detail laporan, dan riwayat perubahan.
 - Verifikasi, status penanganan, prioritas, catatan publik/internal, serta foto setelah penanganan.
 - Akun Admin Desa dan Super Admin.
+- Kunci formulir laporan dan usulan oleh petugas, dengan kunci pengembang khusus Super Admin.
 - Data master dusun, kategori, jenis masalah, dan sumber QR.
 - Rekap CSV dan halaman cetak.
 - Penyimpanan utama Cloudflare R2 dan cadangan Google Drive opsional.
@@ -60,6 +61,7 @@ Uji manual minimal:
 5. Masuk sebagai Super Admin, tambah akun petugas, lalu pastikan Admin Desa tidak dapat membuka data master atau akun petugas.
 6. Unduh CSV dan buka halaman cetak.
 7. Periksa object foto di R2 dan, bila diaktifkan, status cadangan Google Drive.
+8. Tutup formulir laporan dari Panel Petugas → Kunci formulir, pastikan /lapor menampilkan pemberitahuan dan cek status tetap bisa dibuka, lalu buka kembali.
 
 ## Hasil verifikasi pengembangan terakhir
 

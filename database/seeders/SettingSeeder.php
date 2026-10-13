@@ -13,7 +13,6 @@ class SettingSeeder extends Seeder
             'village_name' => 'Desa Padelegan',
             'website_title' => 'Sistem Lapor Padelegan',
             'contact_phone' => null,
-            'report_form_open' => '1',
         ];
 
         foreach ($settings as $key => $value) {

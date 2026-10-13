@@ -3,6 +3,12 @@
 @section('title', 'Mulai Sampaikan')
 
 @section('content')
+    @inject('kunciFormulir', \App\Services\Formulir\LayananKunciFormulir::class)
+    @php
+        $laporanTerbuka = $kunciFormulir->status(\App\Enums\JenisFormulir::Laporan)->terbuka();
+        $usulanTerbuka = $kunciFormulir->status(\App\Enums\JenisFormulir::Usulan)->terbuka();
+    @endphp
+
     <section class="site-shell py-10 sm:py-14 lg:py-16">
         <div class="mulai-intro" data-aos="fade-up">
             <div class="max-w-2xl">
@@ -20,7 +26,7 @@
                 </span>
                 <h2 class="choice-card__title">Laporan masalah</h2>
                 <p class="choice-card__desc">Kerusakan fasilitas, lingkungan, atau pelayanan. Sertakan foto dan patokan lokasi.</p>
-                <span class="choice-card__cta">Buat laporan</span>
+                <span class="choice-card__cta">{{ $laporanTerbuka ? 'Buat laporan' : 'Ditutup sementara' }}</span>
             </a>
 
             <a href="{{ route('usulan.create') }}" class="choice-card">
@@ -29,7 +35,7 @@
                 </span>
                 <h2 class="choice-card__title">Usulan &amp; saran</h2>
                 <p class="choice-card__desc">Ide untuk pembangunan, pelayanan, atau kegiatan desa. Boleh dikirim anonim.</p>
-                <span class="choice-card__cta">Kirim usulan</span>
+                <span class="choice-card__cta">{{ $usulanTerbuka ? 'Kirim usulan' : 'Ditutup sementara' }}</span>
             </a>
         </div>
 

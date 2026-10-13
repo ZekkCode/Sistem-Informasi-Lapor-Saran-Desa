@@ -43,6 +43,9 @@
                 <a href="{{ route('admin.usulan.index') }}" @class(['is-active' => request()->routeIs('admin.usulan.*')])>
                     <span>Usulan &amp; saran</span>
                 </a>
+                <a href="{{ route('admin.formulir.index') }}" @class(['is-active' => request()->routeIs('admin.formulir.*')])>
+                    <span>Kunci formulir</span>
+                </a>
                 @if(auth()->user()->role === \App\Enums\UserRole::SuperAdmin)
                     <p class="admin-nav__label">Pengaturan sistem</p>
                     <a href="{{ route('admin.master.index') }}" @class(['is-active' => request()->routeIs('admin.master.*')])>

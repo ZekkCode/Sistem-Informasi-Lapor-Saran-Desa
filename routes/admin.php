@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DusunController;
+use App\Http\Controllers\Admin\KunciFormulirController;
 use App\Http\Controllers\Admin\MasterDataController;
 use App\Http\Controllers\Admin\MasukGoogleController;
 use App\Http\Controllers\Admin\QrSourceController;
@@ -45,6 +46,13 @@ Route::middleware(['auth', 'active.admin'])->group(function () {
     Route::get('/usulan', [UsulanController::class, 'daftar'])->name('usulan.index');
     Route::get('/usulan/{usulan}', [UsulanController::class, 'detail'])->name('usulan.show');
     Route::patch('/usulan/{usulan}/alur', [AlurUsulanController::class, 'perbarui'])->name('usulan.alur.update');
+
+    // Hak ubah tiap kunci dijaga KunciFormulirPolicy, termasuk kunci pengembang.
+    Route::get('/formulir', [KunciFormulirController::class, 'daftar'])->name('formulir.index');
+    Route::patch('/formulir/{formulir}/kunci-admin', [KunciFormulirController::class, 'aturKunciAdmin'])
+        ->name('formulir.kunci-admin.update');
+    Route::patch('/formulir/{formulir}/kunci-pengembang', [KunciFormulirController::class, 'aturKunciPengembang'])
+        ->name('formulir.kunci-pengembang.update');
 
     Route::middleware('super.admin')->group(function () {
         Route::get('/data-master', MasterDataController::class)->name('master.index');

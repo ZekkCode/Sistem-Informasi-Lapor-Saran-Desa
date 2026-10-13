@@ -54,6 +54,7 @@ class EksporSqlSupabaseTest extends TestCase
         $this->assertStringContainsString("select setval(pg_get_serial_sequence('public.\"subcategories\"', 'id')", $data);
         $this->assertStringNotContainsString('insert into "users"', $data);
         $this->assertStringNotContainsString('insert into "usulan"', $data);
+        $this->assertStringNotContainsString("'report_form_open'", $data);
 
         $usulan = File::get($this->folder.'/03_contoh_usulan.sql');
         $this->assertStringContainsString('insert into "usulan"', $usulan);

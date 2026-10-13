@@ -8,6 +8,7 @@ Sudah tersedia:
 - Modul pengaduan penuh: kirim, verifikasi, status penanganan, riwayat, bukti, ekspor, audit.
 - Modul usulan: kirim, lacak, tabel usulan publik, kelola status, publikasi anonim.
 - Dua peran: `admin` (akses pengaduan dan usulan) dan `super_admin`.
+- Kunci formulir laporan dan usulan di /admin/formulir: kunci admin (admin, super_admin) dan kunci pengembang (super_admin), disimpan di tabel settings.
 
 Target infografik yang belum ada (kerjakan saat diminta):
 - Pemisahan peran Admin Pengaduan dan Admin Usulan beserta pembatasan akses per modul.

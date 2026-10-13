@@ -19,6 +19,7 @@ Alur publik dan operasional petugas sudah tersedia:
 - pengelolaan usulan warga oleh Admin Desa dan Super Admin: tinjau status, catatan publik, dan publikasi anonim ke halaman warga;
 - peran Admin Desa dan Super Admin dengan pembatasan akses;
 - pengelolaan akun petugas serta data master tanpa menghapus riwayat lama;
+- petugas dapat menutup formulir laporan dan usulan dengan catatan untuk warga; Super Admin punya kunci pengembang untuk pemeliharaan yang menimpa kunci admin;
 - rekap CSV dan halaman cetak untuk pimpinan atau tim pelaksana;
 - submit idempoten dan kunci versi workflow untuk mencegah data ganda atau perubahan petugas saling menimpa.
 

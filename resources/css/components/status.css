@@ -48,3 +48,18 @@
     background: var(--status-complete-bg);
     color: var(--status-complete-fg);
 }
+
+.status[data-status-kunci="terbuka"] {
+    background: var(--status-complete-bg);
+    color: var(--status-complete-fg);
+}
+
+.status[data-status-kunci="admin"] {
+    background: var(--status-progress-bg);
+    color: var(--status-progress-fg);
+}
+
+.status[data-status-kunci="pengembang"] {
+    background: var(--status-waiting-bg);
+    color: var(--status-waiting-fg);
+}

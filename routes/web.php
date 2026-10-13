@@ -16,10 +16,10 @@ Route::view('/mulai', 'site.mulai')->name('mulai');
 
 Route::get('/lapor', [ReportController::class, 'create'])->name('reports.create');
 Route::post('/lapor', [ReportController::class, 'store'])
-    ->middleware('throttle:report-submission')
+    ->middleware(['throttle:report-submission', 'formulir.terbuka:laporan'])
     ->name('reports.store');
 Route::post('/lapor/uploads', ReportUploadController::class)
-    ->middleware('throttle:report-upload-authorizations')
+    ->middleware(['throttle:report-upload-authorizations', 'formulir.terbuka:laporan'])
     ->name('reports.uploads.authorize');
 Route::get('/lapor/sukses/{reportCode}', [ReportController::class, 'success'])->name('reports.success');
 
@@ -29,7 +29,7 @@ Route::get('/laporan/{reportCode}', [PublicReportController::class, 'show'])->na
 
 Route::get('/usulan', [UsulanController::class, 'buat'])->name('usulan.create');
 Route::post('/usulan', [UsulanController::class, 'simpan'])
-    ->middleware('throttle:suggestion-submission')
+    ->middleware(['throttle:suggestion-submission', 'formulir.terbuka:usulan'])
     ->name('usulan.store');
 Route::get('/usulan/sukses/{kode}', [UsulanController::class, 'sukses'])->name('usulan.sukses');
 Route::get('/cek-usulan', LacakUsulanController::class)->name('usulan.lacak');

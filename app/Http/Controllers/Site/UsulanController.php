@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Site;
 
+use App\Enums\JenisFormulir;
 use App\Enums\JenisUsulan;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Site\KirimUsulanRequest;
 use App\Models\Usulan;
+use App\Services\Formulir\LayananKunciFormulir;
 use App\Services\Site\SiteDataService;
 use App\Services\Usulan\LayananKirimUsulan;
 use Illuminate\Contracts\View\View;
@@ -14,8 +16,14 @@ use Illuminate\Support\Str;
 
 class UsulanController extends Controller
 {
-    public function buat(SiteDataService $siteData): View
+    public function buat(SiteDataService $siteData, LayananKunciFormulir $kunciFormulir): View
     {
+        $status = $kunciFormulir->status(JenisFormulir::Usulan);
+
+        if (! $status->terbuka()) {
+            return view('site.formulir.ditutup', ['status' => $status]);
+        }
+
         return view('site.usulan.buat', [
             'dusuns' => $siteData->dusunUntukUsulan(),
             'jenisUsulan' => JenisUsulan::cases(),

@@ -2,9 +2,13 @@
 
 namespace App\Providers;
 
+use App\Enums\JenisFormulir;
+use App\Policies\KunciFormulirPolicy;
+use App\Services\Formulir\LayananKunciFormulir;
 use App\Services\Site\SiteDataService;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 
@@ -16,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton(SiteDataService::class);
+        $this->app->scoped(LayananKunciFormulir::class);
     }
 
     /**
@@ -23,6 +28,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Gate::policy(JenisFormulir::class, KunciFormulirPolicy::class);
+
         RateLimiter::for('report-submission', function (Request $request) {
             return Limit::perMinute(5)->by($request->ip());
         });

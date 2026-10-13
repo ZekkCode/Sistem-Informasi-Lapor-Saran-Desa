@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Site;
 
 use App\Enums\CitizenPriority;
+use App\Enums\JenisFormulir;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Site\StoreReportRequest;
 use App\Models\QrSource;
 use App\Models\Report;
+use App\Services\Formulir\LayananKunciFormulir;
 use App\Services\Reports\ReportSubmissionService;
 use App\Services\Site\SiteDataService;
 use Illuminate\Contracts\View\View;
@@ -16,8 +18,14 @@ use Illuminate\Support\Str;
 
 class ReportController extends Controller
 {
-    public function create(Request $request, SiteDataService $siteData): View
+    public function create(Request $request, SiteDataService $siteData, LayananKunciFormulir $kunciFormulir): View
     {
+        $status = $kunciFormulir->status(JenisFormulir::Laporan);
+
+        if (! $status->terbuka()) {
+            return view('site.formulir.ditutup', ['status' => $status]);
+        }
+
         $references = $siteData->referenceData();
         $qrSource = $siteData->findQrSource($request->string('qr')->upper()->toString());
 
