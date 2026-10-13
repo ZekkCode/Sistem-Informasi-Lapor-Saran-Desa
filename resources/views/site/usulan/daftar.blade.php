@@ -33,9 +33,15 @@
             @forelse ($daftarUsulan as $usulan)
                 <x-usulan.card :usulan="$usulan" />
             @empty
-                <x-ui.empty-state title="Belum ada usulan yang sesuai" description="Ubah atau hapus beberapa filter untuk melihat hasil lain." class="my-10">
-                    <x-slot:action><x-ui.action :href="route('public-usulan.index')" variant="secondary">Reset filter</x-ui.action></x-slot:action>
-                </x-ui.empty-state>
+                @if (collect(request()->only(['q', 'jenis', 'dusun']))->filter()->isNotEmpty())
+                    <x-ui.empty-state title="Belum ada usulan yang sesuai" description="Ubah atau hapus beberapa filter untuk melihat hasil lain." class="my-10">
+                        <x-slot:action><x-ui.action :href="route('public-usulan.index')" variant="secondary">Reset filter</x-ui.action></x-slot:action>
+                    </x-ui.empty-state>
+                @else
+                    <x-ui.empty-state title="Belum ada usulan yang dipublikasikan" description="Usulan muncul di sini setelah petugas meninjau dan mempublikasikannya." class="my-10">
+                        <x-slot:action><x-ui.action :href="route('usulan.create')" variant="primary">Sampaikan usulan</x-ui.action></x-slot:action>
+                    </x-ui.empty-state>
+                @endif
             @endforelse
         </div>
 

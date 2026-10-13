@@ -38,6 +38,37 @@ class DemoFallbackTest extends TestCase
             ->assertSee('demoMode: false', false);
     }
 
+    public function test_database_tersambung_tanpa_laporan_tidak_memakai_mode_pratinjau(): void
+    {
+        $this->seed([DusunSeeder::class, CategorySeeder::class]);
+        $kodeDemo = 'PDL-'.now()->format('Y').'-DEMO02';
+
+        $this->get(route('public-reports.index'))
+            ->assertOk()
+            ->assertDontSee('Mode pratinjau')
+            ->assertDontSee($kodeDemo)
+            ->assertSee('0 laporan terverifikasi')
+            ->assertSee('Belum ada laporan terverifikasi')
+            ->assertSee(route('reports.create'));
+
+        $this->get(route('public-reports.index', ['q' => 'jalan']))
+            ->assertOk()
+            ->assertSee('Belum ada laporan yang sesuai')
+            ->assertSee('Reset filter');
+
+        $this->get(route('reports.track'))
+            ->assertOk()
+            ->assertDontSee('Mode pratinjau')
+            ->assertDontSee($kodeDemo);
+
+        $this->get(route('reports.track', ['code' => $kodeDemo]))
+            ->assertOk()
+            ->assertSee('Nomor laporan tidak ditemukan.')
+            ->assertDontSee('Lampu penerangan jalan tidak menyala');
+
+        $this->get(route('public-reports.show', $kodeDemo))->assertNotFound();
+    }
+
     public function test_public_reports_and_tracking_have_a_demo_dataset(): void
     {
         $demoCode = 'PDL-'.now()->format('Y').'-DEMO02';

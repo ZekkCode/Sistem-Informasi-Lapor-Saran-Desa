@@ -34,9 +34,15 @@
             @forelse ($reports as $report)
                 <x-reports.card :report="$report" />
             @empty
-                <x-ui.empty-state title="Belum ada laporan yang sesuai" description="Ubah atau hapus beberapa filter untuk melihat hasil lain." class="my-10">
-                    <x-slot:action><x-ui.action :href="route('public-reports.index')" variant="secondary">Reset filter</x-ui.action></x-slot:action>
-                </x-ui.empty-state>
+                @if (collect(request()->only(['q', 'status', 'dusun', 'category']))->filter()->isNotEmpty())
+                    <x-ui.empty-state title="Belum ada laporan yang sesuai" description="Ubah atau hapus beberapa filter untuk melihat hasil lain." class="my-10">
+                        <x-slot:action><x-ui.action :href="route('public-reports.index')" variant="secondary">Reset filter</x-ui.action></x-slot:action>
+                    </x-ui.empty-state>
+                @else
+                    <x-ui.empty-state title="Belum ada laporan terverifikasi" description="Laporan muncul di sini setelah petugas memverifikasinya." class="my-10">
+                        <x-slot:action><x-ui.action :href="route('reports.create')" variant="primary">Buat laporan</x-ui.action></x-slot:action>
+                    </x-ui.empty-state>
+                @endif
             @endforelse
         </div>
 

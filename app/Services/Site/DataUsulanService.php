@@ -25,8 +25,10 @@ class DataUsulanService
             return $this->memakaiDemo;
         }
 
+        // Data contoh hanya untuk database yang belum terbaca atau belum berisi dusun.
+        // Database tersambung tanpa usulan terpublikasi menampilkan daftar kosong.
         try {
-            return $this->memakaiDemo = ! Usulan::query()->tampilPublik()->exists();
+            return $this->memakaiDemo = ! Dusun::query()->active()->exists();
         } catch (QueryException $exception) {
             $this->catatFallback('usulan-publik-tersedia', $exception);
 

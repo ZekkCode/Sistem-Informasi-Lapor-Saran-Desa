@@ -240,17 +240,10 @@ class SiteDataService
             return $this->publicReportsUseDemoData;
         }
 
-        if ($this->referenceData()['usingDemoData']) {
-            return $this->publicReportsUseDemoData = true;
-        }
-
-        try {
-            return $this->publicReportsUseDemoData = ! Report::query()->visibleToPublic()->exists();
-        } catch (QueryException $exception) {
-            $this->logFallback('public-report-availability', $exception);
-
-            return $this->publicReportsUseDemoData = true;
-        }
+        // Data contoh hanya untuk database yang belum bisa dibaca atau belum berisi
+        // data awal. Database yang tersambung tetapi belum punya laporan
+        // terverifikasi menampilkan daftar kosong, bukan mode pratinjau.
+        return $this->publicReportsUseDemoData = $this->referenceData()['usingDemoData'];
     }
 
     public function trackingUsesDemoData(): bool
@@ -259,17 +252,8 @@ class SiteDataService
             return $this->trackingUsesDemoData;
         }
 
-        if ($this->referenceData()['usingDemoData']) {
-            return $this->trackingUsesDemoData = true;
-        }
-
-        try {
-            return $this->trackingUsesDemoData = ! Report::query()->exists();
-        } catch (QueryException $exception) {
-            $this->logFallback('tracking-availability', $exception);
-
-            return $this->trackingUsesDemoData = true;
-        }
+        // Sama seperti daftar publik: belum ada laporan bukan alasan memakai data contoh.
+        return $this->trackingUsesDemoData = $this->referenceData()['usingDemoData'];
     }
 
     public function demoTrackingCode(): string
