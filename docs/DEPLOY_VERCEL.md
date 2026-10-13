@@ -23,6 +23,24 @@ postgresql://postgres.wgadkdgapbvxcqojfbqb:PASSWORD@aws-0-ap-northeast-2.pooler.
 
 Salin host dari dialog Connect, karena awalan `aws-0` atau `aws-1` tidak bisa ditebak dari region. Cukup isi `DB_URL`. Koneksi otomatis memakai `pgsql` bila URL diawali `postgres://` atau `postgresql://`.
 
+Produksi tidak memakai akun `postgres`. Laravel masuk sebagai peran `padelegan_app` yang hanya boleh membaca, menambah, mengubah, dan menghapus baris di schema `public`. Peran ini tidak bisa membuat atau mengubah tabel, jadi perubahan skema tetap dijalankan sebagai `postgres` lewat SQL Editor. Username pada `DB_URL` menjadi `padelegan_app.wgadkdgapbvxcqojfbqb`. Buat atau ganti password peran ini di SQL Editor, lalu perbarui `DB_URL` di Vercel:
+
+```sql
+do $$ begin
+  if not exists (select 1 from pg_roles where rolname = 'padelegan_app') then
+    create role padelegan_app login;
+  end if;
+end $$;
+alter role padelegan_app with login bypassrls nocreatedb nocreaterole password 'PASSWORD_BARU';
+grant usage on schema public to padelegan_app;
+grant select, insert, update, delete on all tables in schema public to padelegan_app;
+grant usage, select, update on all sequences in schema public to padelegan_app;
+alter default privileges for role postgres in schema public grant select, insert, update, delete on tables to padelegan_app;
+alter default privileges for role postgres in schema public grant usage, select, update on sequences to padelegan_app;
+```
+
+`bypassrls` dibutuhkan karena semua tabel memakai RLS tanpa policy. Default privileges membuat tabel baru yang dibuat `postgres` langsung bisa dipakai aplikasi.
+
 Jangan memakai **Transaction pooler** port 6543. Mode itu mewajibkan prepared statement dimatikan, dan pada Laravel semua kondisi boolean seperti `is_active = true` lalu gagal dengan `operator does not exist: boolean = integer`. Session pooler port 5432 mendukung prepared statement dan tetap bisa dijangkau lewat IPv4 dari Vercel. Koneksi langsung `db.<ref>.supabase.co` hanya IPv6 pada paket gratis.
 
 ### Skema dan data lewat SQL Editor
@@ -40,7 +58,7 @@ Setelah ada migrasi baru, susun ulang berkas dengan `php artisan supabase:sql`, 
 
 ### Keamanan Data API
 
-`01_skema.sql` menyalakan Row Level Security tanpa policy di semua tabel dan mencabut hak akses `anon`, `authenticated`, serta `service_role`. Hasilnya, endpoint `/rest/v1` tidak bisa membaca data walaupun memakai publishable key atau secret key. Laravel tidak terpengaruh karena terhubung sebagai pemilik tabel. Sebagai lapisan tambahan, matikan Data API di Project Settings, Data API bila tidak dipakai.
+`01_skema.sql` menyalakan Row Level Security tanpa policy di semua tabel dan mencabut hak akses `anon`, `authenticated`, serta `service_role`. Hasilnya, endpoint `/rest/v1` tidak bisa membaca data walaupun memakai publishable key atau secret key. Laravel tidak terpengaruh karena peran `padelegan_app` melewati RLS. Sebagai lapisan tambahan, matikan Data API di Project Settings, Data API bila tidak dipakai.
 
 Secret key yang pernah dibagikan di luar dashboard perlu dirotasi. Buat secret key baru di Project Settings, API Keys, lalu hapus yang lama.
 
@@ -76,7 +94,8 @@ Salin seluruh variable dari `.env.vercel.example` ke Settings → Environment Va
 - `APP_URL`: domain production menggunakan HTTPS.
 - `DB_URL` dari Supabase Session pooler (port 5432) dengan `?sslmode=require`. `DB_CONNECTION` tidak perlu diisi karena terdeteksi dari URL. Lihat bagian 1.
 - `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_BUCKET`, dan `AWS_ENDPOINT` dari R2. Begitu `AWS_BUCKET` terisi, disk media pindah ke `s3` dan unggah langsung aktif otomatis, jadi `REPORT_MEDIA_DISK` dan `REPORT_DIRECT_UPLOAD*` tidak perlu diisi kecuali ingin menimpa.
-- `SESSION_DRIVER=cookie`, `CACHE_STORE=array`, dan `QUEUE_CONNECTION=sync`. Setelah database stabil, session dan cache boleh dipindahkan ke driver `database`.
+- `SESSION_DRIVER=cookie`, `CACHE_STORE=database`, dan `QUEUE_CONNECTION=sync`. Pembatas percobaan login dan pengiriman formulir menyimpan hitungan di cache. Driver `array` hilang di setiap request Vercel, jadi pembatas baru berfungsi setelah cache memakai `database`. Pakai `array` hanya selama database belum tersambung.
+- `SESSION_SECURE_COOKIE=true` agar cookie sesi hanya terkirim lewat HTTPS.
 - `INITIAL_ADMIN_PASSWORD` dan `INITIAL_ADMIN_DESA_PASSWORD` hanya diperlukan ketika seeder pertama dijalankan.
 - `SITE_SUPPORT_EMAIL` opsional. Isi alamat bantuan teknis desa agar tombol **Laporkan kendala situs** membuka email dengan format laporan yang sudah disiapkan.
 
