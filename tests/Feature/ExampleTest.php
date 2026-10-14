@@ -19,7 +19,7 @@ class ExampleTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertSee('home-hero--slider', false)
-            ->assertSee('heroSlider', false)
+            ->assertSee('data-hero-bg-slider', false)
             ->assertSee('data-aos="fade-up"', false)
             ->assertSee('Laporkan masalah desa ke petugas.')
             ->assertDontSee('Ringkasan penanganan');

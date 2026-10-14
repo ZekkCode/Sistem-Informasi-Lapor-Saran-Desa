@@ -35,57 +35,28 @@
 
     <div class="home-page">
         <section
-            class="home-hero home-hero--slider relative overflow-hidden bg-padelegan-950 text-white min-h-[540px] sm:min-h-[580px] lg:min-h-[620px] flex items-center"
-            x-data="heroSlider(@js($heroSlides))"
-            @mouseenter="pause()"
-            @mouseleave="resume()"
-            @focusin="pause()"
-            @focusout="resume()"
+            class="home-hero home-hero--slider relative overflow-hidden bg-padelegan-950 text-white min-h-[520px] sm:min-h-[560px] lg:min-h-[600px] flex items-center"
             aria-label="Tampilan Utama Desa Padelegan"
         >
-            {{-- Background Cover Slides --}}
-            <div class="absolute inset-0 z-0 overflow-hidden select-none" aria-hidden="true">
-                <template x-for="(slide, index) in slides" :key="index">
+            {{-- Background Cover Slides (SSR Langsung) --}}
+            <div class="home-hero__bg-slider absolute inset-0 z-0 overflow-hidden select-none pointer-events-none" aria-hidden="true" data-hero-bg-slider>
+                @foreach ($heroSlides as $idx => $slide)
                     <img
-                        :src="slide.image"
-                        :alt="slide.caption"
-                        class="absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-in-out"
-                        :class="current === index ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'"
-                        loading="lazy"
+                        src="{{ $slide['image'] }}"
+                        alt="{{ $slide['caption'] }}"
+                        class="absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-in-out {{ $idx === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0' }}"
+                        data-slide-index="{{ $idx }}"
+                        {{ $idx === 0 ? 'fetchpriority=high' : 'loading=lazy' }}
                     >
-                </template>
+                @endforeach
 
-                {{-- Sedikit transparan dark gradient overlay agar teks terbaca tajam dan elegan --}}
-                <div class="absolute inset-0 bg-gradient-to-r from-padelegan-950/95 via-padelegan-950/80 to-padelegan-950/55 z-20"></div>
-                <div class="absolute inset-0 bg-gradient-to-t from-padelegan-950/80 via-transparent to-padelegan-950/40 z-20"></div>
+                {{-- Sedikit transparan overlay agar foto terlihat jelas tapi teks tetap terbaca tajam --}}
+                <div class="absolute inset-0 bg-gradient-to-r from-padelegan-950/85 via-padelegan-950/65 to-padelegan-950/35 z-20"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-padelegan-950/70 via-transparent to-padelegan-950/25 z-20"></div>
             </div>
 
-            {{-- Navigasi Kiri (Previous) --}}
-            <button
-                type="button"
-                @click="prev()"
-                aria-label="Foto desa sebelumnya"
-                class="absolute left-2.5 sm:left-6 top-1/2 -translate-y-1/2 z-30 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full border border-white/20 bg-black/40 text-white/90 shadow-md backdrop-blur-md transition hover:bg-black/75 hover:border-white/40 hover:text-white hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-emerald-400"
-            >
-                <svg class="h-5 w-5 sm:h-6 sm:w-6" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="15 18 9 12 15 6"></polyline>
-                </svg>
-            </button>
-
-            {{-- Navigasi Kanan (Next) --}}
-            <button
-                type="button"
-                @click="next()"
-                aria-label="Foto desa berikutnya"
-                class="absolute right-2.5 sm:right-6 top-1/2 -translate-y-1/2 z-30 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full border border-white/20 bg-black/40 text-white/90 shadow-md backdrop-blur-md transition hover:bg-black/75 hover:border-white/40 hover:text-white hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-emerald-400"
-            >
-                <svg class="h-5 w-5 sm:h-6 sm:w-6" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="9 18 15 12 9 6"></polyline>
-                </svg>
-            </button>
-
-            {{-- Konten Utama Hero --}}
-            <div class="site-shell relative z-20 w-full py-12 sm:py-16 lg:py-20">
+            {{-- Konten Utama Hero (Hanya hero utama tanpa navigasi sesuai instruksi) --}}
+            <div class="site-shell relative z-30 w-full py-12 sm:py-16 lg:py-20">
                 <div class="max-w-2xl" data-aos="fade-up">
                     <div class="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-950/60 px-3 py-1 text-xs font-medium text-emerald-300 backdrop-blur-sm">
                         <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -96,7 +67,7 @@
                         Laporkan masalah desa ke petugas.
                     </h1>
 
-                    <p class="mt-4 text-sm sm:text-base leading-relaxed text-white/85 max-w-xl">
+                    <p class="mt-4 text-sm sm:text-base leading-relaxed text-white/90 max-w-xl">
                         Tulis lokasi dan lampirkan foto. Simpan nomornya untuk cek pembaruan.
                     </p>
 
@@ -111,40 +82,14 @@
 
                     <dl class="mt-8 grid grid-cols-2 gap-4 border-t border-white/15 pt-5 max-w-lg text-xs sm:text-sm">
                         <div>
-                            <dt class="text-[11px] uppercase tracking-wider text-white/50 font-medium">Akses</dt>
+                            <dt class="text-[11px] uppercase tracking-wider text-white/60 font-medium">Akses</dt>
                             <dd class="mt-1 font-medium text-white/95">Tanpa akun</dd>
                         </div>
                         <div>
-                            <dt class="text-[11px] uppercase tracking-wider text-white/50 font-medium">Privasi</dt>
+                            <dt class="text-[11px] uppercase tracking-wider text-white/60 font-medium">Privasi</dt>
                             <dd class="mt-1 font-medium text-white/95">Anonim hanya Admin yang Lihat</dd>
                         </div>
                     </dl>
-                </div>
-
-                {{-- Status Foto & Indikator Titik di Bawah --}}
-                <div class="mt-8 sm:mt-10 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-4 text-xs text-white/75">
-                    <div class="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-black/35 px-3 py-1.5 backdrop-blur-sm">
-                        <svg class="h-3.5 w-3.5 text-emerald-400 shrink-0" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
-                            <circle cx="12" cy="10" r="3"/>
-                        </svg>
-                        <span class="font-medium text-white" x-text="slides[current].caption"></span>
-                        <span class="text-white/40">&bull;</span>
-                        <span class="text-white/60" x-text="slides[current].location"></span>
-                    </div>
-
-                    {{-- Titik Pagination --}}
-                    <div class="flex items-center gap-1.5" role="tablist" aria-label="Pilih foto latar">
-                        <template x-for="(slide, idx) in slides" :key="idx">
-                            <button
-                                type="button"
-                                @click="goTo(idx)"
-                                :aria-label="'Buka foto ' + (idx + 1) + ': ' + slide.caption"
-                                class="h-2 rounded-full transition-all focus:outline-none focus:ring-1 focus:ring-emerald-400"
-                                :class="current === idx ? 'w-6 bg-emerald-400' : 'w-2 bg-white/35 hover:bg-white/60'"
-                            ></button>
-                        </template>
-                    </div>
                 </div>
             </div>
         </section>
