@@ -33,10 +33,13 @@
     font-weight: 560;
 }
 
-.home-kicker > span {
+.home-kicker > span:first-child:empty,
+.home-kicker > .home-kicker__line {
+    display: inline-block;
     inline-size: 1.75rem;
     block-size: 1px;
     background: var(--accent);
+    flex-shrink: 0;
 }
 
 .home-hero__title {
@@ -388,3 +391,9 @@
         block-size: 31rem;
     }
 }
+
+.home-showcase {
+    background-color: #051a14;
+    color: #ffffff;
+}
+

@@ -4,14 +4,6 @@
 
 @section('content')
     @php
-        $heroLandscapeSlides = [
-            asset('images/village/hero-padelegan.webp'),
-            asset('images/village/padelegan-dermaga-senja.webp'),
-            asset('images/village/padelegan-tambak-senja.webp'),
-            asset('images/village/padelegan-jalur-mangrove.webp'),
-            asset('images/village/padelegan-jalan-desa.webp'),
-        ];
-
         $heroSlides = [
             [
                 'image' => asset('images/village/foto-bersama-pemdes-dan-kkn.webp'),
@@ -51,8 +43,8 @@
             class="home-hero home-hero--slider relative overflow-hidden bg-padelegan-950 text-white min-h-[500px] sm:min-h-[540px] lg:min-h-[580px] flex items-center"
             aria-label="Tampilan Utama Desa Padelegan"
         >
-            {{-- Background Cover (Satu foto lansekap dengan ijo transparasi halus tanpa tumpang tindih) --}}
-            <div class="home-hero__bg-slider absolute inset-0 z-0 overflow-hidden select-none pointer-events-none" aria-hidden="true" data-hero-bg-slider>
+            {{-- Background Cover: Satu foto pemandangan damai Padelegan dengan overlay hijau transparan tenang --}}
+            <div class="absolute inset-0 z-0 overflow-hidden select-none pointer-events-none" aria-hidden="true" data-hero-bg-slider>
                 <img
                     src="{{ asset('images/village/hero-padelegan.webp') }}"
                     alt=""
@@ -69,8 +61,8 @@
             <div class="site-shell relative z-30 w-full py-12 sm:py-16 lg:py-20">
                 <div class="max-w-2xl" data-aos="fade-up">
                     <p class="home-kicker text-emerald-400">
-                        <span class="bg-emerald-400"></span>
-                        <span>Layanan pengaduan</span>
+                        <span class="home-kicker__line bg-emerald-400"></span>
+                        <span class="text-xs uppercase tracking-wider font-semibold text-emerald-400">Layanan pengaduan</span>
                     </p>
 
                     <h1 class="mt-3 text-3xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl leading-[1.08]">
@@ -150,13 +142,13 @@
         </section>
 
         {{-- Slider Foto Desa Sebelum Footer Lengkap dengan Navigasi Kanan & Kiri --}}
-        <section class="border-t border-padelegan-800/10 bg-padelegan-950 py-12 text-white sm:py-16" aria-labelledby="showcase-title">
+        <section class="home-showcase border-t border-white/10 py-12 text-white sm:py-16" aria-labelledby="showcase-title">
             <div class="site-shell">
                 <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between mb-6 sm:mb-8" data-aos="fade-up">
                     <div>
                         <p class="home-kicker text-emerald-400">
-                            <span class="bg-emerald-400"></span>
-                            <span>Dokumentasi desa</span>
+                            <span class="home-kicker__line bg-emerald-400"></span>
+                            <span class="text-xs uppercase tracking-wider font-semibold text-emerald-400">Dokumentasi desa</span>
                         </p>
                         <h2 id="showcase-title" class="home-section__title text-white">Suasana Desa Padelegan.</h2>
                         <p class="mt-2 text-sm leading-6 text-white/70 sm:text-base max-w-2xl">
