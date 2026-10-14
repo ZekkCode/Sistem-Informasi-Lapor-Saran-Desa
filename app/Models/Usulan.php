@@ -66,6 +66,11 @@ class Usulan extends Model
         return $this->hasMany(RiwayatUsulan::class)->latest();
     }
 
+    public function media(): HasMany
+    {
+        return $this->hasMany(UsulanMedia::class);
+    }
+
     public function scopeTampilPublik(Builder $query): Builder
     {
         return $query->where('tampil_publik', true);

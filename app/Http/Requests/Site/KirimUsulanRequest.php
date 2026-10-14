@@ -43,6 +43,10 @@ class KirimUsulanRequest extends FormRequest
             'jenis' => ['required', Rule::enum(JenisUsulan::class)],
             'judul' => ['required', 'string', 'max:120'],
             'isi' => ['required', 'string', 'min:20', 'max:5000'],
+            'photos' => ['nullable', 'array', 'max:3'],
+            'photos.*' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
+            'uploaded_media' => ['nullable', 'array', 'max:3'],
+            'uploaded_media.*' => ['required', 'string', 'max:4096'],
             'consent' => ['accepted'],
         ];
     }
@@ -72,6 +76,11 @@ class KirimUsulanRequest extends FormRequest
             'judul.required' => 'Isi judul singkat usulan.',
             'dusun_id.required' => 'Pilih dusun yang berkaitan dengan usulan.',
             'jenis.required' => 'Pilih jenis usulan.',
+            'photos.max' => 'Maksimal 3 foto untuk satu usulan.',
+            'photos.*.image' => 'Setiap lampiran harus berupa gambar.',
+            'photos.*.mimes' => 'Format foto harus JPG, PNG, atau WEBP.',
+            'photos.*.max' => 'Ukuran setiap foto maksimal 5 MB.',
+            'uploaded_media.max' => 'Maksimal 3 foto untuk satu usulan.',
             'consent.accepted' => 'Setujui pernyataan sebelum mengirim usulan.',
         ];
     }

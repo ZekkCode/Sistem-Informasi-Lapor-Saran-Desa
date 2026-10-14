@@ -24,17 +24,28 @@ class UsulanController extends Controller
             return view('site.formulir.ditutup', ['status' => $status]);
         }
 
+        $bisaTerima = $siteData->bisaMenerimaUsulan();
+
         return view('site.usulan.buat', [
             'dusuns' => $siteData->dusunUntukUsulan(),
             'jenisUsulan' => JenisUsulan::cases(),
             'tokenKirim' => old('token_kirim', Str::uuid()->toString()),
-            'usingDemoData' => ! $siteData->bisaMenerimaUsulan(),
+            'usingDemoData' => ! $bisaTerima,
+            'directUpload' => [
+                'enabled' => $bisaTerima && (bool) config('report-media.direct_upload.enabled'),
+                'url' => route('reports.uploads.authorize'),
+            ],
         ]);
     }
 
     public function simpan(KirimUsulanRequest $request, LayananKirimUsulan $layanan): RedirectResponse
     {
-        $usulan = $layanan->kirim($request->validated());
+        $data = $request->validated();
+        $usulan = $layanan->kirim(
+            $data,
+            $request->file('photos', []),
+            $data['uploaded_media'] ?? [],
+        );
 
         return redirect()->route('usulan.sukses', $usulan->kode);
     }

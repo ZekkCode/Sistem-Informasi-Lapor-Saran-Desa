@@ -14,7 +14,7 @@
         $errorFields = collect($errors->keys());
         $initialStep = match (true) {
             $errorFields->intersect(['category_id', 'subcategory_id', 'title', 'description', 'citizen_priority'])->isNotEmpty() => 1,
-            $errorFields->intersect(['dusun_id', 'location_text', 'photos', 'photos.0', 'photos.1', 'photos.2', 'photos.3', 'photos.4'])->isNotEmpty() => 2,
+            $errorFields->intersect(['dusun_id', 'location_text', 'photos', 'photos.0', 'photos.1', 'photos.2'])->isNotEmpty() => 2,
             $errorFields->isNotEmpty() => 3,
             default => 1,
         };
@@ -111,7 +111,7 @@
                     <div class="grid gap-5 sm:grid-cols-2">
                         <div class="field">
                             <x-ui.label for="category_id" required>Kategori</x-ui.label>
-                            <x-ui.select id="category_id" name="category_id" x-model="selectedCategory" @change="changeCategory()" required>
+                            <x-ui.select id="category_id" name="category_id" x-model="selectedCategory" @change="changeCategory($event)" required>
                                 <option value="">Pilih kategori</option>
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}" @selected((string) old('category_id') === (string) $category->id)>{{ $category->name }}</option>
@@ -125,7 +125,7 @@
                             <x-ui.select id="subcategory_id" name="subcategory_id" x-model="selectedSubcategory" x-bind:disabled="!selectedCategory" required>
                                 <option value="">Pilih jenis masalah</option>
                                 <template x-for="item in subcategories" :key="item.id">
-                                    <option :value="item.id" x-text="item.name"></option>
+                                    <option :value="item.id" x-text="item.name" :selected="selectedSubcategory == item.id"></option>
                                 </template>
                             </x-ui.select>
                             <x-ui.field-error name="subcategory_id" />
@@ -202,21 +202,36 @@
 
                     <div>
                         <span class="field__label">Foto kondisi<abbr class="required-mark" title="Wajib diisi" aria-label="wajib">*</abbr></span>
-                        <p class="field__hint mt-1" id="photos-hint">Pilih 1 sampai 5 foto JPG, PNG, atau WEBP. Maksimal 5 MB per foto.</p>
+                        <p class="field__hint mt-1" id="photos-hint">Pilih 1 sampai 3 foto yang jelas (JPG, PNG, atau WEBP). Maksimal 5 MB per foto.</p>
                         <div class="report-upload mt-3">
-                            <input id="photos" name="photos[]" type="file" accept="image/jpeg,image/png,image/webp" multiple required aria-describedby="photos-hint photos-status" @change="previewFiles">
+                            <input id="photos" name="photos[]" type="file" accept="image/jpeg,image/png,image/webp" multiple required aria-describedby="photos-hint photos-status" @change="previewFiles($event)">
                             <label for="photos">
                                 <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 13v5.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V13"/></svg>
-                                <span><strong>Pilih foto</strong><small>Ambil dari galeri atau kamera</small></span>
+                                <span><strong>Pilih foto</strong><small>Ambil dari galeri atau kamera (Maksimal 3 foto)</small></span>
                             </label>
                         </div>
-                        <p id="photos-status" class="mt-2 text-xs text-padelegan-900/55" aria-live="polite" x-text="photoMessage">Belum ada foto dipilih</p>
+                        <p id="photos-status" class="mt-2 text-xs text-padelegan-900/55" aria-live="polite" x-text="photoMessage">Belum ada foto dipilih (Maksimal 3 foto)</p>
 
                         <div x-show="previews.length" class="report-preview-list">
-                            <template x-for="item in previews" :key="item.url">
-                                <figure>
-                                    <img :src="item.url" alt="" class="aspect-[4/3] w-full object-cover">
-                                    <figcaption x-text="item.name"></figcaption>
+                            <template x-for="(item, index) in previews" :key="item.id || index">
+                                <figure class="relative group">
+                                    <img :src="item.url" :alt="item.name" class="aspect-[4/3] w-full object-cover">
+                                    <figcaption class="flex items-center justify-between gap-2">
+                                        <span class="truncate font-medium" x-text="item.name"></span>
+                                        <span class="text-[10px] text-muted shrink-0" x-text="item.sizeText"></span>
+                                    </figcaption>
+                                    <button
+                                        type="button"
+                                        class="preview-remove-btn"
+                                        @click="removePhoto(index)"
+                                        title="Hapus foto ini"
+                                        aria-label="Hapus foto ini"
+                                    >
+                                        <svg aria-hidden="true" viewBox="0 0 20 20" fill="currentColor" class="size-3.5">
+                                            <path fill-rule="evenodd" d="M8.75 1A2.75 2.75 0 0 0 6 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 1 0 .23 1.482l.149-.022.841 10.518A2.75 2.75 0 0 0 7.596 19h4.807a2.75 2.75 0 0 0 2.742-2.53l.841-10.52.149.023a.75.75 0 0 0 .23-1.482A41.03 41.03 0 0 0 14 4.193V3.75A2.75 2.75 0 0 0 11.25 1h-2.5ZM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4ZM8.58 7.72a.75.75 0 0 1 .75.74l.5 6a.75.75 0 1 1-1.498.12l-.5-6a.75.75 0 0 1 .748-.86Zm3.58.74a.75.75 0 0 0-1.498-.12l-.5 6a.75.75 0 0 0 1.498.12l.5-6Z" clip-rule="evenodd" />
+                                        </svg>
+                                        <span>Hapus</span>
+                                    </button>
                                 </figure>
                             </template>
                         </div>

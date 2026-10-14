@@ -110,6 +110,53 @@ class DirectUploadService
     }
 
     /**
+     * @param  array<int, string>  $tokens
+     */
+    public function attachUploadedUsulanEvidence(
+        \App\Models\Usulan $usulan,
+        array $tokens,
+        ?int $uploadedBy = null,
+    ): void {
+        $manifests = collect($tokens)->map(fn (string $token): array => $this->decodeToken($token));
+
+        if ($manifests->pluck('path')->duplicates()->isNotEmpty()) {
+            $this->invalidUpload('Foto yang sama tidak dapat digunakan dua kali.');
+        }
+
+        $diskName = $this->diskName();
+        $disk = Storage::disk($diskName);
+        $storedPaths = [];
+
+        try {
+            foreach ($manifests as $manifest) {
+                $this->verifyManifest($disk, $diskName, $manifest);
+
+                $folder = 'photos';
+                $finalPath = "usulan/{$usulan->kode}/{$folder}/"
+                    .Str::ulid().'.'.$this->extensionFor($manifest['mime_type']);
+
+                if (! $disk->move($manifest['path'], $finalPath)) {
+                    throw new RuntimeException('Foto bukti usulan tidak dapat dipindahkan ke penyimpanan.');
+                }
+
+                $storedPaths[] = $finalPath;
+
+                $usulan->media()->create([
+                    'storage_disk' => $diskName,
+                    'file_path' => $finalPath,
+                    'mime_type' => $manifest['mime_type'],
+                    'file_size' => $manifest['file_size'],
+                    'uploaded_by' => $uploadedBy,
+                ]);
+            }
+        } catch (Throwable $exception) {
+            $disk->delete($storedPaths);
+
+            throw $exception;
+        }
+    }
+
+    /**
      * @return array{version: int, disk: string, path: string, mime_type: string, file_size: int, expires_at: int}
      */
     private function decodeToken(string $token): array

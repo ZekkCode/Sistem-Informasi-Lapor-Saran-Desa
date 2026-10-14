@@ -74,6 +74,18 @@ function getCustomMessage(input) {
     return input.validationMessage;
 }
 
+function isElementVisible(el) {
+    if (el.disabled) {
+        return false;
+    }
+    // Check if element or any ancestor is hidden
+    return el.offsetParent !== null && !el.closest('[style*="display: none"], [hidden]');
+}
+
+function getTargetContainer(input) {
+    return input.closest('.field') || input.parentElement;
+}
+
 export function initFormValidation() {
     const forms = document.querySelectorAll('form[data-validate]');
     
@@ -85,10 +97,27 @@ export function initFormValidation() {
         
         inputs.forEach(input => {
             // Validate on blur
-            input.addEventListener('blur', () => validateField(input));
+            input.addEventListener('blur', () => {
+                if (isElementVisible(input)) {
+                    validateField(input);
+                }
+            });
             
             // Clear error on input
-            input.addEventListener('input', () => clearFieldError(input));
+            input.addEventListener('input', () => {
+                if (input.checkValidity()) {
+                    clearFieldError(input);
+                }
+            });
+
+            // Clear or update on change (vital for select, file, radio, checkbox)
+            input.addEventListener('change', () => {
+                if (input.checkValidity()) {
+                    clearFieldError(input);
+                } else if (isElementVisible(input)) {
+                    validateField(input);
+                }
+            });
         });
         
         // Custom submit handler
@@ -97,6 +126,10 @@ export function initFormValidation() {
             let firstInvalidField = null;
             
             inputs.forEach(input => {
+                if (!isElementVisible(input)) {
+                    return;
+                }
+
                 if (!validateField(input)) {
                     isValid = false;
                     if (!firstInvalidField) {
@@ -127,9 +160,9 @@ export function initFormValidation() {
     });
 }
 
-function validateField(input) {
-    // Skip if disabled
-    if (input.disabled) {
+export function validateField(input) {
+    // Skip if disabled or not visible
+    if (input.disabled || !isElementVisible(input)) {
         return true;
     }
     
@@ -146,22 +179,27 @@ function validateField(input) {
     }
 }
 
-function showFieldError(input, message) {
+export function showFieldError(input, message) {
     // Mark input as invalid
     input.setAttribute('aria-invalid', 'true');
     
-    // Find or create error tooltip
-    let tooltip = input.parentElement.querySelector('.validation-tooltip');
+    const container = getTargetContainer(input);
+    if (!container) return;
+
+    // Remove any excess duplicate tooltips in container
+    const existingTooltips = container.querySelectorAll('.validation-tooltip');
+    let tooltip = existingTooltips[0] || null;
+
+    for (let i = 1; i < existingTooltips.length; i++) {
+        existingTooltips[i].remove();
+    }
     
     if (!tooltip) {
         tooltip = document.createElement('div');
         tooltip.className = 'validation-tooltip';
         tooltip.setAttribute('role', 'alert');
         tooltip.setAttribute('aria-live', 'polite');
-        
-        // Insert after input or after control wrapper
-        const targetElement = input.closest('.field') || input.parentElement;
-        targetElement.appendChild(tooltip);
+        container.appendChild(tooltip);
     }
     
     // Set message
@@ -173,20 +211,26 @@ function showFieldError(input, message) {
     });
 }
 
-function clearFieldError(input) {
+export function clearFieldError(input) {
     // Remove invalid state
     input.removeAttribute('aria-invalid');
     
-    // Hide tooltip
-    const tooltip = input.parentElement.querySelector('.validation-tooltip');
-    if (tooltip) {
+    const container = getTargetContainer(input);
+    if (!container) return;
+
+    const tooltips = container.querySelectorAll('.validation-tooltip');
+    tooltips.forEach(tooltip => {
         tooltip.classList.remove('is-visible');
-        
-        // Remove after animation
         setTimeout(() => {
             if (!tooltip.classList.contains('is-visible')) {
                 tooltip.remove();
             }
-        }, 200);
-    }
+        }, 180);
+    });
+}
+
+// Attach globally for Alpine components if needed
+if (typeof window !== 'undefined') {
+    window.validateFormField = validateField;
+    window.clearFormFieldError = clearFieldError;
 }

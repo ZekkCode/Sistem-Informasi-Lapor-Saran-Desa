@@ -22,7 +22,7 @@ class AuthorizeReportUploadsRequest extends FormRequest
                 'required',
                 'array',
                 'min:1',
-                'max:'.config('report-media.direct_upload.max_files', 5),
+                'max:'.config('report-media.direct_upload.max_files', 3),
             ],
             'files.*.name' => ['required', 'string', 'max:255'],
             'files.*.type' => [
@@ -45,7 +45,7 @@ class AuthorizeReportUploadsRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'files.max' => 'Maksimal lima foto untuk satu laporan.',
+            'files.max' => 'Maksimal 3 foto untuk satu laporan.',
             'files.*.type.in' => 'Format foto harus JPG, PNG, atau WEBP.',
             'files.*.size.max' => 'Ukuran setiap foto maksimal 5 MB.',
         ];

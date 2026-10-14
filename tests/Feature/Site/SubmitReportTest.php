@@ -25,6 +25,9 @@ class SubmitReportTest extends TestCase
     public function test_citizen_can_submit_a_report_and_receive_a_public_code(): void
     {
         Storage::fake('public');
+        config()->set('report-media.disk', 'public');
+        config()->set('report-media.direct_upload.enabled', false);
+        config()->set('report-media.direct_upload.required', false);
         $this->seed([DusunSeeder::class, CategorySeeder::class]);
 
         $dusun = Dusun::query()->firstOrFail();
@@ -250,5 +253,40 @@ class SubmitReportTest extends TestCase
         $response->assertRedirect();
         $this->assertSame(MediaBackupStatus::Pending, $media->google_drive_status);
         Queue::assertPushedOn('backups', MirrorReportMediaToGoogleDrive::class);
+    }
+
+    public function test_report_rejects_more_than_three_photos(): void
+    {
+        Storage::fake('public');
+        config()->set('report-media.disk', 'public');
+        config()->set('report-media.direct_upload.enabled', false);
+        config()->set('report-media.direct_upload.required', false);
+        $this->seed([DusunSeeder::class, CategorySeeder::class]);
+
+        $category = Category::query()->with('subcategories')->firstOrFail();
+
+        $response = $this->from(route('reports.create'))->post(route('reports.store'), $this->withAntiBotFields([
+            'submission_token' => Str::uuid()->toString(),
+            'reporter_name' => 'Warga Padelegan',
+            'reporter_phone' => '081234567890',
+            'dusun_id' => Dusun::query()->value('id'),
+            'location_text' => 'Dekat balai dusun',
+            'category_id' => $category->id,
+            'subcategory_id' => $category->subcategories->firstOrFail()->id,
+            'title' => 'Lampu jalan rusak',
+            'description' => 'Lampu jalan tidak menyala dan membutuhkan perbaikan segera.',
+            'citizen_priority' => 'important',
+            'photos' => [
+                UploadedFile::fake()->image('bukti1.jpg'),
+                UploadedFile::fake()->image('bukti2.jpg'),
+                UploadedFile::fake()->image('bukti3.jpg'),
+                UploadedFile::fake()->image('bukti4.jpg'),
+            ],
+            'consent' => '1',
+        ]));
+
+        $response->assertRedirect(route('reports.create'));
+        $response->assertSessionHasErrors('photos');
+        $this->assertDatabaseCount('reports', 0);
     }
 }

@@ -96,4 +96,56 @@ class FormUsulanTest extends TestCase
 
         $this->assertDatabaseCount('usulan', 0);
     }
+
+    public function test_warga_dapat_mengirim_usulan_dengan_foto_pendukung(): void
+    {
+        \Illuminate\Support\Facades\Storage::fake('public');
+        config()->set('report-media.disk', 'public');
+        $this->seed(DusunSeeder::class);
+        $dusunId = Dusun::query()->value('id');
+
+        $response = $this->post(route('usulan.store'), $this->withAntiBotFields([
+            'token_kirim' => Str::uuid()->toString(),
+            'nama_pengusul' => 'Warga Padelegan',
+            'telepon_pengusul' => '081234567890',
+            'dusun_id' => $dusunId,
+            'jenis' => 'pembangunan',
+            'judul' => 'Pembangunan jembatan kecil',
+            'isi' => 'Usulan pembangunan jembatan kecil penghubung jalan dusun yang rusak.',
+            'photos' => [
+                \Illuminate\Http\UploadedFile::fake()->image('kondisi1.jpg'),
+                \Illuminate\Http\UploadedFile::fake()->image('kondisi2.png'),
+            ],
+            'consent' => '1',
+        ]));
+
+        $usulan = Usulan::query()->with('media')->firstOrFail();
+        $response->assertRedirect(route('usulan.sukses', $usulan->kode));
+        $this->assertCount(2, $usulan->media);
+    }
+
+    public function test_usulan_menolak_lebih_dari_tiga_foto(): void
+    {
+        $this->seed(DusunSeeder::class);
+        $dusunId = Dusun::query()->value('id');
+
+        $response = $this->from(route('usulan.create'))->post(route('usulan.store'), $this->withAntiBotFields([
+            'token_kirim' => Str::uuid()->toString(),
+            'dusun_id' => $dusunId,
+            'jenis' => 'pembangunan',
+            'judul' => 'Pembangunan fasilitas dusun',
+            'isi' => 'Usulan pembangunan fasilitas dusun untuk kegiatan masyarakat desa.',
+            'photos' => [
+                \Illuminate\Http\UploadedFile::fake()->image('foto1.jpg'),
+                \Illuminate\Http\UploadedFile::fake()->image('foto2.jpg'),
+                \Illuminate\Http\UploadedFile::fake()->image('foto3.jpg'),
+                \Illuminate\Http\UploadedFile::fake()->image('foto4.jpg'),
+            ],
+            'consent' => '1',
+        ]));
+
+        $response->assertRedirect(route('usulan.create'));
+        $response->assertSessionHasErrors('photos');
+        $this->assertDatabaseCount('usulan', 0);
+    }
 }

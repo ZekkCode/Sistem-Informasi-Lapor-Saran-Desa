@@ -16,8 +16,20 @@ export function reportForm(config) {
             return this.subcategoryMap[this.selectedCategory] || [];
         },
 
-        changeCategory() {
+        changeCategory(event) {
+            if (event?.target?.value !== undefined) {
+                this.selectedCategory = event.target.value;
+            }
             this.selectedSubcategory = '';
+            this.$nextTick(() => {
+                const subcategorySelect = this.$root.querySelector('#subcategory_id');
+                if (subcategorySelect) {
+                    subcategorySelect.removeAttribute('aria-invalid');
+                    if (typeof window.clearFormFieldError === 'function') {
+                        window.clearFormFieldError(subcategorySelect);
+                    }
+                }
+            });
         },
 
         goTo(nextStep) {
@@ -43,7 +55,9 @@ export function reportForm(config) {
                 return true;
             }
 
-            invalidField.reportValidity();
+            if (typeof window.validateFormField === 'function') {
+                window.validateFormField(invalidField);
+            }
             invalidField.focus({ preventScroll: false });
 
             return false;
@@ -61,35 +75,70 @@ export function reportForm(config) {
         },
 
         previewFiles(event) {
-            const input = event.currentTarget;
-            const files = Array.from(input.files || []);
+            const input = event?.currentTarget || event?.target || this.$root.querySelector('#photos');
+            if (!input) return;
+
+            const rawFiles = Array.from(input.files || []);
             const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+            const files = rawFiles.slice(0, 3);
             const oversized = files.some((file) => file.size > 5 * 1024 * 1024);
             const invalidType = files.some((file) => !allowedTypes.includes(file.type));
+            const tooMany = rawFiles.length > 3;
 
             this.previews.forEach((item) => URL.revokeObjectURL(item.url));
+
             input.setCustomValidity(
-                files.length > 5
-                    ? 'Pilih maksimal lima foto.'
+                tooMany
+                    ? 'Pilih maksimal 3 foto yang jelas.'
                     : oversized
                         ? 'Ukuran setiap foto maksimal 5 MB.'
                         : invalidType
                             ? 'Format foto harus JPG, PNG, atau WEBP.'
                             : '',
             );
-            this.previews = files.slice(0, 5).map((file) => ({
+
+            this.previews = files.map((file, idx) => ({
+                id: `${idx}-${file.name}`,
                 name: file.name,
+                sizeText: (file.size / (1024 * 1024)).toFixed(1) + ' MB',
                 url: URL.createObjectURL(file),
             }));
-            this.photoMessage = files.length > 5
-                ? `${files.length} foto dipilih. Kurangi menjadi maksimal lima.`
-                : oversized
-                    ? 'Ada foto berukuran lebih dari 5 MB.'
-                    : invalidType
-                        ? 'Gunakan foto JPG, PNG, atau WEBP.'
-                : files.length > 0
-                    ? `${files.length} foto dipilih.`
-                    : 'Belum ada foto dipilih';
+
+            if (tooMany) {
+                this.photoMessage = `Maksimal 3 foto. Anda memilih ${rawFiles.length} foto, hanya 3 pertama yang digunakan.`;
+            } else if (oversized) {
+                this.photoMessage = 'Ada foto berukuran lebih dari 5 MB.';
+            } else if (invalidType) {
+                this.photoMessage = 'Gunakan format foto JPG, PNG, atau WEBP.';
+            } else if (files.length > 0) {
+                this.photoMessage = `${files.length} dari maksimal 3 foto dipilih.`;
+            } else {
+                this.photoMessage = 'Belum ada foto dipilih (Maksimal 3 foto)';
+            }
+
+            if (typeof window.validateFormField === 'function') {
+                window.validateFormField(input);
+            }
+        },
+
+        removePhoto(index) {
+            const input = this.$root.querySelector('#photos');
+            if (!input) return;
+
+            try {
+                const dataTransfer = new DataTransfer();
+                const currentFiles = Array.from(input.files || []).slice(0, 3);
+                currentFiles.forEach((file, idx) => {
+                    if (idx !== index) {
+                        dataTransfer.items.add(file);
+                    }
+                });
+                input.files = dataTransfer.files;
+            } catch {
+                input.value = '';
+            }
+
+            this.previewFiles({ currentTarget: input, target: input });
         },
 
         async handleSubmit(event) {
