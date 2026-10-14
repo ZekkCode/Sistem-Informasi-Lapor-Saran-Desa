@@ -9,9 +9,9 @@
 }
 
 .home-hero--slider {
-    background: #051a14;
-    color: #ffffff;
-    border-block-end: 1px solid rgb(255 255 255 / 0.12);
+    background: var(--page);
+    color: var(--ink);
+    border-block-end: 1px solid rgb(21 52 43 / 0.12);
 }
 
 .home-hero__grid {
@@ -393,7 +393,7 @@
 }
 
 .home-showcase {
-    background-color: #051a14;
-    color: #ffffff;
+    background-color: #ffffff;
+    color: var(--ink);
 }
 

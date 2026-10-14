@@ -40,56 +40,56 @@
 
     <div class="home-page">
         <section
-            class="home-hero home-hero--slider relative overflow-hidden bg-padelegan-950 text-white min-h-[500px] sm:min-h-[540px] lg:min-h-[580px] flex items-center"
+            class="home-hero home-hero--slider relative overflow-hidden bg-[#f4f7f5] text-padelegan-900 min-h-[480px] sm:min-h-[520px] lg:min-h-[560px] flex items-center border-b border-padelegan-800/10"
             aria-label="Tampilan Utama Desa Padelegan"
         >
-            {{-- Background Cover: Satu foto pemandangan damai Padelegan dengan overlay hijau transparan tenang --}}
+            {{-- Background Cover: Satu foto pemandangan damai Padelegan dengan nuansa hijau lembut transparan (terang & bersih) --}}
             <div class="absolute inset-0 z-0 overflow-hidden select-none pointer-events-none" aria-hidden="true" data-hero-bg-slider>
                 <img
                     src="{{ asset('images/village/hero-padelegan.webp') }}"
                     alt=""
-                    class="absolute inset-0 h-full w-full object-cover opacity-20 mix-blend-luminosity"
+                    class="absolute inset-0 h-full w-full object-cover opacity-35 object-center"
                     fetchpriority="high"
                 >
 
-                {{-- Lapisan hijau transparasi agar foto tidak mencolok dan menyatu dengan palet Padelegan --}}
-                <div class="absolute inset-0 bg-gradient-to-r from-padelegan-950/95 via-padelegan-950/90 to-emerald-950/80 z-20"></div>
-                <div class="absolute inset-0 bg-emerald-950/40 mix-blend-multiply z-20"></div>
+                {{-- Lapisan hijau transparasi lembut agar foto berpadu dengan tema hijau Padelegan secara terang --}}
+                <div class="absolute inset-0 bg-gradient-to-r from-[#f4f7f5] via-[#f4f7f5]/85 to-emerald-100/40 z-10"></div>
+                <div class="absolute inset-0 bg-emerald-700/10 mix-blend-multiply z-10"></div>
             </div>
 
-            {{-- Konten Utama Hero (Bersih tanpa tombol navigasi) --}}
-            <div class="site-shell relative z-30 w-full py-12 sm:py-16 lg:py-20">
+            {{-- Konten Utama Hero --}}
+            <div class="site-shell relative z-20 w-full py-12 sm:py-16 lg:py-20">
                 <div class="max-w-2xl" data-aos="fade-up">
-                    <p class="home-kicker text-emerald-400">
-                        <span class="home-kicker__line bg-emerald-400"></span>
-                        <span class="text-xs uppercase tracking-wider font-semibold text-emerald-400">Layanan pengaduan</span>
+                    <p class="home-kicker text-padelegan-600">
+                        <span class="home-kicker__line bg-emerald-600"></span>
+                        <span class="text-xs uppercase tracking-wider font-semibold text-emerald-800">Layanan pengaduan</span>
                     </p>
 
-                    <h1 class="mt-3 text-3xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl leading-[1.08]">
+                    <h1 class="mt-3 text-3xl font-semibold tracking-tight text-padelegan-900 sm:text-5xl lg:text-6xl leading-[1.08]">
                         Laporkan masalah desa ke petugas.
                     </h1>
 
-                    <p class="mt-4 text-sm sm:text-base leading-relaxed text-white/90 max-w-xl">
+                    <p class="mt-4 text-sm sm:text-base leading-relaxed text-padelegan-800/80 max-w-xl">
                         Tulis lokasi dan lampirkan foto bukti. Simpan nomor laporan untuk mengecek status penanganan.
                     </p>
 
                     <div class="mt-6 flex flex-wrap items-center gap-3">
-                        <a href="{{ route('reports.create') }}" class="inline-flex items-center justify-center rounded-lg bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-semibold text-sm px-6 py-2.5 transition shadow-sm">
+                        <a href="{{ route('reports.create') }}" class="inline-flex items-center justify-center rounded-lg bg-emerald-700 hover:bg-emerald-800 active:bg-emerald-900 text-white font-semibold text-sm px-6 py-2.5 transition shadow-sm">
                             Buat laporan
                         </a>
-                        <a href="{{ route('reports.track') }}" class="inline-flex items-center justify-center rounded-lg border border-white/30 bg-white/10 hover:bg-white/20 text-white font-semibold text-sm px-5 py-2.5 transition backdrop-blur-sm">
+                        <a href="{{ route('reports.track') }}" class="inline-flex items-center justify-center rounded-lg border border-padelegan-800/20 bg-white/90 hover:bg-white text-padelegan-900 font-semibold text-sm px-5 py-2.5 transition backdrop-blur-sm shadow-xs">
                             Cek status
                         </a>
                     </div>
 
-                    <dl class="mt-8 grid grid-cols-2 gap-4 border-t border-white/15 pt-5 max-w-lg text-xs sm:text-sm">
+                    <dl class="mt-8 grid grid-cols-2 gap-4 border-t border-padelegan-800/15 pt-5 max-w-lg text-xs sm:text-sm">
                         <div>
-                            <dt class="text-[11px] uppercase tracking-wider text-white/60 font-medium">Akses</dt>
-                            <dd class="mt-1 font-medium text-white/95">Tanpa login</dd>
+                            <dt class="text-[11px] uppercase tracking-wider text-padelegan-700/70 font-medium">Akses</dt>
+                            <dd class="mt-1 font-semibold text-padelegan-900">Tanpa login</dd>
                         </div>
                         <div>
-                            <dt class="text-[11px] uppercase tracking-wider text-white/60 font-medium">Identitas</dt>
-                            <dd class="mt-1 font-medium text-white/95">Privat untuk petugas</dd>
+                            <dt class="text-[11px] uppercase tracking-wider text-padelegan-700/70 font-medium">Identitas</dt>
+                            <dd class="mt-1 font-semibold text-padelegan-900">Privat untuk petugas</dd>
                         </div>
                     </dl>
                 </div>
@@ -142,23 +142,23 @@
         </section>
 
         {{-- Slider Foto Desa Sebelum Footer Lengkap dengan Navigasi Kanan & Kiri --}}
-        <section class="home-showcase border-t border-white/10 py-12 text-white sm:py-16" aria-labelledby="showcase-title">
+        <section class="home-showcase border-t border-padelegan-800/10 bg-white py-12 text-padelegan-900 sm:py-16" aria-labelledby="showcase-title">
             <div class="site-shell">
                 <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between mb-6 sm:mb-8" data-aos="fade-up">
                     <div>
-                        <p class="home-kicker text-emerald-400">
-                            <span class="home-kicker__line bg-emerald-400"></span>
-                            <span class="text-xs uppercase tracking-wider font-semibold text-emerald-400">Dokumentasi desa</span>
+                        <p class="home-kicker text-padelegan-600">
+                            <span class="home-kicker__line bg-emerald-600"></span>
+                            <span class="text-xs uppercase tracking-wider font-semibold text-emerald-800">Dokumentasi desa</span>
                         </p>
-                        <h2 id="showcase-title" class="home-section__title text-white">Suasana Desa Padelegan.</h2>
-                        <p class="mt-2 text-sm leading-6 text-white/70 sm:text-base max-w-2xl">
+                        <h2 id="showcase-title" class="home-section__title text-padelegan-900">Suasana Desa Padelegan.</h2>
+                        <p class="mt-2 text-sm leading-6 text-padelegan-800/70 sm:text-base max-w-2xl">
                             Dokumentasi balai desa bersama perangkat dan mahasiswa KKN, pesisir dermaga, tambak garam, hingga kawasan konservasi mangrove.
                         </p>
                     </div>
 
                     {{-- Counter info --}}
-                    <div class="hidden sm:inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium text-white/80">
-                        <svg class="h-3.5 w-3.5 text-emerald-400" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <div class="hidden sm:inline-flex items-center gap-2 rounded-full border border-padelegan-800/15 bg-padelegan-50 px-3 py-1 text-xs font-medium text-padelegan-800">
+                        <svg class="h-3.5 w-3.5 text-emerald-700" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/>
                             <circle cx="9" cy="9" r="2"/>
                             <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
@@ -169,7 +169,7 @@
 
                 {{-- Showcase Box dengan Navigasi Kiri & Kanan --}}
                 <div
-                    class="relative overflow-hidden rounded-2xl border border-white/15 bg-padelegan-900 shadow-2xl focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                    class="relative overflow-hidden rounded-2xl border border-padelegan-800/15 bg-black shadow-xl focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     tabindex="0"
                     data-village-showcase
                     data-aos="fade-up"
