@@ -21,7 +21,7 @@ class AboutPageTest extends TestCase
             ->assertSee('Sekretaris')
             ->assertSee('FASYAROTUL JANNAH')
             ->assertSee('Kominfo')
-            ->assertSee('zekkcode by web')
+            ->assertSee('zekkcode webdev')
             ->assertSee('https://github.com/zekkcode');
     }
 
@@ -31,14 +31,14 @@ class AboutPageTest extends TestCase
         $this->get(route('home'))
             ->assertOk()
             ->assertSee('Tim KKN')
-            ->assertSee('zekkcode by web')
+            ->assertSee('zekkcode webdev')
             ->assertSee('https://github.com/zekkcode');
 
         // Uji di halaman tentang (normal footer)
         $this->get(route('about'))
             ->assertOk()
             ->assertSee('Tentang & Tim KKN', false)
-            ->assertSee('zekkcode by web')
+            ->assertSee('zekkcode webdev')
             ->assertSee('https://github.com/zekkcode');
     }
 
@@ -48,7 +48,7 @@ class AboutPageTest extends TestCase
 
         $response->assertOk()
             ->assertSee('<meta name="author" content="ZekkCode">', false)
-            ->assertSee('<meta name="developer" content="ZekkCode (zekkcode by web)">', false)
-            ->assertSee('zekkcode by web');
+            ->assertSee('<meta name="developer" content="ZekkCode (zekkcode webdev)">', false)
+            ->assertSee('zekkcode webdev');
     }
 }

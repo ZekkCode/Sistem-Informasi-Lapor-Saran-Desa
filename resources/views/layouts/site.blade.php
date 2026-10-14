@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="Sistem Lapor Padelegan, layanan pengaduan warga untuk mengirim dan memantau laporan desa.">
     <meta name="author" content="ZekkCode">
-    <meta name="developer" content="ZekkCode (zekkcode by web)">
+    <meta name="developer" content="ZekkCode (zekkcode webdev)">
     <meta name="creator" content="ZekkCode">
     <meta name="publisher" content="Pemerintah Desa Padelegan">
     <meta property="og:site_name" content="Sistem Lapor Padelegan">

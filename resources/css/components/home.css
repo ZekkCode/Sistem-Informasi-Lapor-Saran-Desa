@@ -8,6 +8,12 @@
     background: var(--page);
 }
 
+.home-hero--slider {
+    background: #051a14;
+    color: #ffffff;
+    border-block-end: 1px solid rgb(255 255 255 / 0.12);
+}
+
 .home-hero__grid {
     display: grid;
     gap: 2rem;

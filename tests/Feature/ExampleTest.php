@@ -2,11 +2,13 @@
 
 namespace Tests\Feature;
 
-// use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class ExampleTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * A basic test example.
      */
@@ -16,7 +18,8 @@ class ExampleTest extends TestCase
 
         $response
             ->assertStatus(200)
-            ->assertSee('data-depth-scene', false)
+            ->assertSee('home-hero--slider', false)
+            ->assertSee('heroSlider', false)
             ->assertSee('data-aos="fade-up"', false)
             ->assertSee('Laporkan masalah desa ke petugas.')
             ->assertDontSee('Ringkasan penanganan');
