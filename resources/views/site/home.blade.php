@@ -137,6 +137,10 @@
                 <h2 id="galeri-title" class="home-section__title">Desa Padelegan.</h2>
                 <div class="home-gallery__grid" data-aos="fade-up">
                     <figure class="home-gallery__item home-gallery__item--wide">
+                        <img src="{{ asset('images/village/foto-bersama-pemdes-dan-kkn.webp') }}" alt="Pemerintah Desa Padelegan bersama Tim Mahasiswa KKN" width="1600" height="1200" loading="lazy">
+                        <figcaption>Pemerintah Desa & Mahasiswa KKN</figcaption>
+                    </figure>
+                    <figure class="home-gallery__item">
                         <img src="{{ asset('images/village/padelegan-dermaga-senja.webp') }}" alt="Dermaga nelayan Desa Padelegan saat senja" width="1600" height="1200" loading="lazy">
                         <figcaption>Dermaga nelayan</figcaption>
                     </figure>

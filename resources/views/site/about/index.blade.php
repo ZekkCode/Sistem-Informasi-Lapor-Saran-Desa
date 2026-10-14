@@ -36,6 +36,14 @@
                     Sistem Lapor Padelegan disusun bersama mahasiswa Kuliah Kerja Nyata (KKN) untuk mempermudah komunikasi warga dengan Pemerintah Desa Padelegan, didukung pengembangan website oleh ZekkCode.
                 </p>
 
+                <figure class="mt-6 overflow-hidden rounded-xl border border-padelegan-100 bg-white" data-aos="fade-up">
+                    <img src="{{ asset('images/village/foto-bersama-pemdes-dan-kkn.webp') }}" alt="Pemerintah Desa Padelegan bersama Tim Mahasiswa KKN dan Babinsa" width="1600" height="1200" class="aspect-[16/10] w-full object-cover" loading="lazy">
+                    <figcaption class="px-5 py-3 text-xs text-padelegan-900/60 bg-padelegan-50/50 border-t border-padelegan-100 flex items-center justify-between">
+                        <span>Pemerintah Desa Padelegan bersama Tim Mahasiswa KKN</span>
+                        <span class="font-medium text-padelegan-800">Balai Desa Padelegan</span>
+                    </figcaption>
+                </figure>
+
                 <div class="mt-8 overflow-hidden rounded-xl border border-padelegan-100 bg-white">
                     <div class="px-5 py-3.5 bg-padelegan-50/70 border-b border-padelegan-100 font-semibold text-xs tracking-wider uppercase text-padelegan-900">
                         Susunan Tim KKN Desa Padelegan

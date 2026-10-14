@@ -124,9 +124,11 @@
                             <x-ui.label for="subcategory_id" required>Jenis masalah</x-ui.label>
                             <x-ui.select id="subcategory_id" name="subcategory_id" x-model="selectedSubcategory" x-bind:disabled="!selectedCategory" required>
                                 <option value="">Pilih jenis masalah</option>
-                                <template x-for="item in subcategories" :key="item.id">
-                                    <option :value="item.id" x-text="item.name" :selected="selectedSubcategory == item.id"></option>
-                                </template>
+                                @if (old('category_id') && isset($subcategoryMap[(string) old('category_id')]))
+                                    @foreach ($subcategoryMap[(string) old('category_id')] as $sub)
+                                        <option value="{{ $sub['id'] }}" @selected((string) old('subcategory_id') === (string) $sub['id'])>{{ $sub['name'] }}</option>
+                                    @endforeach
+                                @endif
                             </x-ui.select>
                             <x-ui.field-error name="subcategory_id" />
                         </div>

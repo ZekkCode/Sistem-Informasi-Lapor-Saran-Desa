@@ -12,8 +12,46 @@ export function reportForm(config) {
         uploadStatus: '',
         submitError: '',
 
-        get subcategories() {
-            return this.subcategoryMap[this.selectedCategory] || [];
+        init() {
+            this.updateSubcategories();
+            this.$watch('selectedCategory', () => {
+                this.updateSubcategories();
+            });
+        },
+
+        updateSubcategories() {
+            const select = this.$root.querySelector('#subcategory_id');
+            if (!select) return;
+
+            const currentVal = String(this.selectedSubcategory || '');
+            select.innerHTML = '<option value="">Pilih jenis masalah</option>';
+
+            if (!this.selectedCategory) {
+                select.disabled = true;
+                this.selectedSubcategory = '';
+                return;
+            }
+
+            select.disabled = false;
+            const items = this.subcategoryMap[String(this.selectedCategory)] || [];
+
+            items.forEach((item) => {
+                const opt = document.createElement('option');
+                opt.value = String(item.id);
+                opt.textContent = item.name;
+                if (String(item.id) === currentVal) {
+                    opt.selected = true;
+                }
+                select.appendChild(opt);
+            });
+
+            if (items.some((item) => String(item.id) === currentVal)) {
+                this.selectedSubcategory = currentVal;
+                select.value = currentVal;
+            } else {
+                this.selectedSubcategory = '';
+                select.value = '';
+            }
         },
 
         changeCategory(event) {
@@ -21,6 +59,7 @@ export function reportForm(config) {
                 this.selectedCategory = event.target.value;
             }
             this.selectedSubcategory = '';
+            this.updateSubcategories();
             this.$nextTick(() => {
                 const subcategorySelect = this.$root.querySelector('#subcategory_id');
                 if (subcategorySelect) {
