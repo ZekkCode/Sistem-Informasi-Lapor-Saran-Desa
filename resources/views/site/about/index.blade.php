@@ -85,13 +85,13 @@
                             <p class="text-xs text-padelegan-700 mt-0.5">Dirancang dan dibangun oleh <strong>ZekkCode</strong> untuk Desa Padelegan.</p>
                         </div>
                     </div>
-                    <span class="inline-flex items-center gap-1.5 self-start sm:self-auto px-3 py-1.5 rounded-lg text-xs font-semibold bg-padelegan-900 text-white tracking-wide shadow-sm">
+                    <a href="https://github.com/zekkcode" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 self-start sm:self-auto px-3 py-1.5 rounded-lg text-xs font-semibold bg-padelegan-900 text-white tracking-wide shadow-sm hover:bg-padelegan-800 transition" title="Kunjungi GitHub ZekkCode">
                         <svg class="h-3.5 w-3.5 text-padelegan-300" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polyline points="16 18 22 12 16 6"></polyline>
                             <polyline points="8 6 2 12 8 18"></polyline>
                         </svg>
                         <span>zekkcode by web</span>
-                    </span>
+                    </a>
                 </div>
             </div>
         </section>

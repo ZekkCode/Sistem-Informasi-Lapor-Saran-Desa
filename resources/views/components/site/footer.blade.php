@@ -65,7 +65,7 @@
 
                 <div class="flex flex-wrap items-center gap-4">
                     {{-- Rebranding ZekkCode --}}
-                    <a href="{{ route('about') }}" class="group inline-flex items-center gap-2 rounded-lg border border-white/15 bg-white/5 px-2.5 py-1 text-xs font-semibold text-white/90 transition hover:border-emerald-400/50 hover:bg-white/10 hover:text-white" title="Dirancang dan dibangun oleh ZekkCode">
+                    <a href="https://github.com/zekkcode" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-2 rounded-lg border border-white/15 bg-white/5 px-2.5 py-1 text-xs font-semibold text-white/90 transition hover:border-emerald-400/50 hover:bg-white/10 hover:text-white" title="Kunjungi GitHub ZekkCode">
                         <span class="flex h-4 w-4 items-center justify-center rounded bg-emerald-500/20 text-emerald-400 group-hover:bg-emerald-500/30">
                             <svg class="h-2.5 w-2.5" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                                 <polyline points="16 18 22 12 16 6"></polyline>
@@ -211,7 +211,7 @@
 
                 <div class="flex flex-wrap items-center gap-4">
                     {{-- Rebranding ZekkCode --}}
-                    <a href="{{ route('about') }}" class="group inline-flex items-center gap-2 rounded-lg border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white/90 transition hover:border-emerald-400/50 hover:bg-white/10 hover:text-white" title="Dirancang dan dibangun oleh ZekkCode">
+                    <a href="https://github.com/zekkcode" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-2 rounded-lg border border-white/15 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white/90 transition hover:border-emerald-400/50 hover:bg-white/10 hover:text-white" title="Kunjungi GitHub ZekkCode">
                         <span class="flex h-4 w-4 items-center justify-center rounded bg-emerald-500/20 text-emerald-400 group-hover:bg-emerald-500/30">
                             <svg class="h-2.5 w-2.5" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                                 <polyline points="16 18 22 12 16 6"></polyline>
