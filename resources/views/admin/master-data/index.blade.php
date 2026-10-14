@@ -5,7 +5,7 @@
 @section('eyebrow', 'Konfigurasi layanan')
 
 @section('content')
-    <p class="admin-intro">Kelola pilihan yang dipakai pada formulir warga. Data lama tidak dihapus; nonaktifkan item agar riwayat laporan tetap utuh.</p>
+    <p class="admin-intro">Kelola pilihan data formulir warga. Nonaktifkan item jika sudah tidak digunakan.</p>
 
     <div x-data="{ tab: 'dusun' }">
         <nav class="admin-tabs" aria-label="Jenis data master">

@@ -5,7 +5,7 @@
 @section('eyebrow', 'Pengaturan layanan')
 
 @section('content')
-    <p class="admin-intro">Tutup formulir laporan atau usulan saat pengiriman perlu dihentikan. Cek status, laporan desa, dan usulan warga tetap terbuka untuk warga.</p>
+    <p class="admin-intro">Atur akses pengiriman laporan atau usulan warga. Fitur cek status tetap dapat diakses publik.</p>
 
     <div class="grid items-start gap-4 lg:grid-cols-2">
         @foreach ($statuses as $status)

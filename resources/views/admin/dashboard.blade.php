@@ -8,14 +8,14 @@
 @endsection
 
 @section('content')
-    <p class="admin-intro">Pantau antrean masuk dan pekerjaan yang perlu didahulukan. Angka berikut berasal dari database aktif.</p>
+    <p class="admin-intro">Pantau antrean verifikasi dan laporan prioritas desa.</p>
 
     <dl class="admin-metrics">
-        <div class="admin-metric"><dt>Semua laporan</dt><dd>{{ number_format($metrics['total']) }}</dd><small>Sejak layanan dibuka</small></div>
-        <div class="admin-metric"><dt>Perlu verifikasi</dt><dd>{{ number_format($metrics['pending']) }}</dd><small>Belum ditinjau petugas</small></div>
-        <div class="admin-metric"><dt>Belum ditangani</dt><dd>{{ number_format($metrics['not_started']) }}</dd><small>Sudah terverifikasi</small></div>
-        <div class="admin-metric"><dt>Sedang diproses</dt><dd>{{ number_format($metrics['in_progress']) }}</dd><small>Penanganan berjalan</small></div>
-        <div class="admin-metric"><dt>Selesai</dt><dd>{{ number_format($metrics['completed']) }}</dd><small>{{ $metrics['completion_rate'] }}% dari seluruh laporan</small></div>
+        <div class="admin-metric"><dt>Semua laporan</dt><dd>{{ number_format($metrics['total']) }}</dd><small>Total data</small></div>
+        <div class="admin-metric"><dt>Perlu verifikasi</dt><dd>{{ number_format($metrics['pending']) }}</dd><small>Belum diverifikasi</small></div>
+        <div class="admin-metric"><dt>Belum ditangani</dt><dd>{{ number_format($metrics['not_started']) }}</dd><small>Terverifikasi</small></div>
+        <div class="admin-metric"><dt>Sedang diproses</dt><dd>{{ number_format($metrics['in_progress']) }}</dd><small>Dalam proses</small></div>
+        <div class="admin-metric"><dt>Selesai</dt><dd>{{ number_format($metrics['completed']) }}</dd><small>{{ $metrics['completion_rate'] }}% tuntas</small></div>
     </dl>
 
     <div class="admin-dashboard-grid">

@@ -161,6 +161,7 @@ class MasukGoogleTest extends TestCase
     public function test_email_resmi_desa_terdaftar_secara_bawaan(): void
     {
         $this->assertContains(self::EMAIL_ADMIN, config('padelegan.google_sso.allowed_emails'));
+        $this->assertContains('padelaganlapor@gmail.com', config('padelegan.google_sso.allowed_emails'));
         $this->assertSame('admin', config('padelegan.google_sso.role'));
     }
 

@@ -5,7 +5,7 @@
 @section('eyebrow', 'Akses pengguna internal')
 
 @section('content')
-    <p class="admin-intro">Berikan akses sesuai tugas kerja. Admin Pengaduan menangani laporan warga, Admin Usulan mengelola usulan, Admin Desa memiliki akses operasional keduanya, dan Super Admin mengelola seluruh sistem.</p>
+    <p class="admin-intro">Atur akses petugas sesuai bidang tugas operasional dan pengelolaan sistem.</p>
 
     <div class="admin-manage-layout">
         <form action="{{ route('admin.users.store') }}" method="POST" class="admin-panel admin-panel__body admin-form-grid" data-submit-once>
