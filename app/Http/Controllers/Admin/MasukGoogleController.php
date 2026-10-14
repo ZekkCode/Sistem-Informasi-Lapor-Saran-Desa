@@ -90,13 +90,25 @@ class MasukGoogleController extends Controller
             return $this->tolak('belum_terverifikasi', $email, $audit);
         }
 
-        if (! in_array($email, config('padelegan.google_sso.allowed_emails', []), true)) {
+        if (! in_array($email, self::emailDiizinkan(), true)) {
             return $this->tolak('bukan_admin', $email, $audit);
         }
 
+        $isPengembang = in_array($email, self::emailPengembang(), true);
+
         try {
-            $petugas = User::query()->whereRaw('lower(email) = ?', [$email])->first()
-                ?? $this->buatAkunPetugas($email, $akunGoogle->getName(), $audit);
+            $petugas = User::query()->whereRaw('lower(email) = ?', [$email])->first();
+
+            if (! $petugas) {
+                $targetRole = $isPengembang
+                    ? UserRole::SuperAdmin
+                    : (UserRole::tryFrom((string) config('padelegan.google_sso.role')) ?? UserRole::Admin);
+
+                $petugas = $this->buatAkunPetugas($email, $akunGoogle->getName(), $targetRole, $audit);
+            } elseif ($isPengembang && $petugas->role !== UserRole::SuperAdmin) {
+                // Pengembang selalu memiliki peran Super Admin
+                $petugas->forceFill(['role' => UserRole::SuperAdmin])->save();
+            }
         } catch (QueryException) {
             return $this->tolak('database', $email);
         }
@@ -109,35 +121,57 @@ class MasukGoogleController extends Controller
         Auth::login($petugas);
         $request->session()->regenerate();
         $petugas->forceFill(['last_login_at' => now()])->save();
-        $audit->record('auth.login', $petugas, ['metode' => 'google'], $request);
+        $audit->record('auth.login', $petugas, ['metode' => 'google', 'is_developer' => $isPengembang], $request);
 
         return redirect()->intended(route('admin.dashboard'));
     }
 
     /**
-     * SSO hanya aktif bila kredensial OAuth lengkap dan daftar email admin terisi.
+     * Menggabungkan daftar email admin desa dan pengembang sistem.
+     *
+     * @return list<string>
+     */
+    public static function emailDiizinkan(): array
+    {
+        $admin = (array) config('padelegan.google_sso.allowed_emails', []);
+        $pengembang = (array) config('padelegan.google_sso.developer_emails', []);
+
+        return array_values(array_unique(array_merge($admin, $pengembang)));
+    }
+
+    /**
+     * Daftar email pengembang sistem yang mendapatkan hak Super Admin.
+     *
+     * @return list<string>
+     */
+    public static function emailPengembang(): array
+    {
+        return (array) config('padelegan.google_sso.developer_emails', []);
+    }
+
+    /**
+     * SSO hanya aktif bila kredensial OAuth lengkap dan daftar email terisi.
      * Daftar kosong menutup jalur Google sepenuhnya.
      */
     public static function aktif(): bool
     {
         return filled(config('services.google.client_id'))
             && filled(config('services.google.client_secret'))
-            && config('padelegan.google_sso.allowed_emails', []) !== [];
+            && self::emailDiizinkan() !== [];
     }
 
     /**
      * Buat akun petugas untuk email resmi yang pertama kali masuk lewat Google.
-     * Peran mengikuti konfigurasi (bawaan Admin Desa). Password diisi acak agar
-     * akun ini hanya bisa dibuka lewat Google sampai Super Admin mengaturnya.
+     * Peran mengikuti konfigurasi atau Super Admin untuk pengembang sistem.
      */
-    private function buatAkunPetugas(string $email, ?string $nama, AuditService $audit): User
+    private function buatAkunPetugas(string $email, ?string $nama, UserRole $peran, AuditService $audit): User
     {
-        $peran = UserRole::tryFrom((string) config('padelegan.google_sso.role')) ?? UserRole::Admin;
+        $defaultName = $peran === UserRole::SuperAdmin ? 'Zakaria Mujur (Pengembang)' : 'Admin Desa';
 
         $petugas = User::query()->createOrFirst(
             ['email' => $email],
             [
-                'name' => filled($nama) ? Str::limit($nama, 120, '') : 'Admin Desa',
+                'name' => filled($nama) ? Str::limit($nama, 120, '') : $defaultName,
                 'username' => $this->usernameUnik($email),
                 'password' => Str::random(48),
                 'role' => $peran,

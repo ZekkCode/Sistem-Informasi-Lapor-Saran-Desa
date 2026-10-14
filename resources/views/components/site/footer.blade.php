@@ -67,12 +67,12 @@
                         <span class="sr-only">zekkcode webdev</span>
                     </a>
 
-                    <a href="{{ route('admin.login') }}" class="inline-flex items-center gap-1 text-white/70 transition hover:text-white">
+                    <a href="{{ route('admin.login') }}" class="inline-flex items-center gap-1 text-white/70 transition hover:text-white" title="Masuk Petugas &amp; Pengembang">
                         <svg class="h-3 w-3 text-white/50" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
                             <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                         </svg>
-                        <span>Akses petugas</span>
+                        <span>Akses petugas &amp; pengembang</span>
                     </a>
                 </div>
             </div>
@@ -225,12 +225,12 @@
                         <span class="sr-only">zekkcode webdev</span>
                     </a>
 
-                    <a href="{{ route('admin.login') }}" class="inline-flex items-center gap-1 text-white/70 transition hover:text-white">
+                    <a href="{{ route('admin.login') }}" class="inline-flex items-center gap-1 text-white/70 transition hover:text-white" title="Masuk Petugas &amp; Pengembang">
                         <svg class="h-3 w-3 text-white/50" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
                             <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                         </svg>
-                        <span>Akses petugas</span>
+                        <span>Akses petugas &amp; pengembang</span>
                     </a>
                 </div>
             </div>

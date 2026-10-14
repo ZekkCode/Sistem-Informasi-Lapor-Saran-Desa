@@ -17,13 +17,14 @@ class MasukGoogleTest extends TestCase
 
     private const EMAIL_ADMIN = 'laporpadelegan@gmail.com';
 
-    private function aktifkanSso(array $daftarEmail = [self::EMAIL_ADMIN]): void
+    private function aktifkanSso(array $daftarEmail = [self::EMAIL_ADMIN], array $developerEmails = []): void
     {
         config([
             'services.google.client_id' => 'id-uji',
             'services.google.client_secret' => 'rahasia-uji',
             'services.google.redirect' => null,
             'padelegan.google_sso.allowed_emails' => $daftarEmail,
+            'padelegan.google_sso.developer_emails' => $developerEmails,
         ]);
     }
 
@@ -233,4 +234,44 @@ class MasukGoogleTest extends TestCase
 
         $this->assertAuthenticatedAs($petugas);
     }
+
+    public function test_email_pengembang_berhasil_masuk_otomatis_sebagai_super_admin(): void
+    {
+        $emailPengembang = 'zakariamujur6@gmail.com';
+        $this->aktifkanSso([self::EMAIL_ADMIN]);
+        config(['padelegan.google_sso.developer_emails' => [$emailPengembang]]);
+
+        $this->balasanGoogle($emailPengembang);
+
+        $this->get(route('admin.login.google.callback', ['code' => 'kode-uji']))
+            ->assertRedirect(route('admin.dashboard'));
+
+        $pengembang = User::query()->where('email', $emailPengembang)->sole();
+        $this->assertAuthenticatedAs($pengembang);
+        $this->assertSame(UserRole::SuperAdmin, $pengembang->role);
+        $this->assertTrue($pengembang->is_active);
+        $this->assertDatabaseHas('audit_logs', [
+            'action' => 'auth.akun_google_dibuat',
+            'entity_id' => $pengembang->id,
+            'meta' => json_encode(['peran' => 'super_admin']),
+        ]);
+    }
+
+    public function test_email_pengembang_yang_sudah_ada_dijamin_peran_super_admin(): void
+    {
+        $emailPengembang = 'zakariamujur6@gmail.com';
+        $this->aktifkanSso([self::EMAIL_ADMIN]);
+        config(['padelegan.google_sso.developer_emails' => [$emailPengembang]]);
+
+        // User awalnya dibuat dengan peran admin biasa
+        $user = User::factory()->create(['email' => $emailPengembang, 'role' => UserRole::Admin]);
+        $this->balasanGoogle($emailPengembang);
+
+        $this->get(route('admin.login.google.callback', ['code' => 'kode-uji']))
+            ->assertRedirect(route('admin.dashboard'));
+
+        $this->assertAuthenticatedAs($user);
+        $this->assertSame(UserRole::SuperAdmin, $user->fresh()->role);
+    }
 }
+

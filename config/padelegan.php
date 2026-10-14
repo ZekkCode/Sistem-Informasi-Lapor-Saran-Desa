@@ -23,6 +23,10 @@ return [
             static fn (string $email): string => strtolower(trim($email)),
             explode(',', (string) env('GOOGLE_SSO_ALLOWED_EMAILS', 'padelaganlapor@gmail.com,laporpadelegan@gmail.com')),
         ))),
+        'developer_emails' => array_values(array_filter(array_map(
+            static fn (string $email): string => strtolower(trim($email)),
+            explode(',', (string) env('GOOGLE_SSO_DEVELOPER_EMAILS', 'zakariamujur6@gmail.com')),
+        ))),
         'role' => env('GOOGLE_SSO_ROLE', 'admin'),
     ],
 
