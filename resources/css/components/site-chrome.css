@@ -128,11 +128,11 @@
 .site-footer-brand {
     display: flex;
     align-items: center;
-    gap: 0.875rem;
+    gap: 0.625rem;
 }
 
 .site-footer-brand__crest {
-    inline-size: 3.5rem;
+    inline-size: 2.25rem;
     block-size: auto;
     flex: 0 0 auto;
 }

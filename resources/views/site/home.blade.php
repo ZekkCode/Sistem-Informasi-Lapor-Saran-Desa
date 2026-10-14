@@ -62,7 +62,7 @@
                 <div class="max-w-2xl" data-aos="fade-up">
                     <p class="home-kicker text-padelegan-600">
                         <span class="home-kicker__line bg-emerald-600"></span>
-                        <span class="text-xs uppercase tracking-wider font-semibold text-emerald-800">Layanan pengaduan</span>
+                        <span class="text-xs uppercase tracking-wider font-semibold text-emerald-800">Pemerintah Desa Padelegan</span>
                     </p>
 
                     <h1 class="mt-3 text-3xl font-semibold tracking-tight text-padelegan-900 sm:text-5xl lg:text-6xl leading-[1.08]">
@@ -70,7 +70,7 @@
                     </h1>
 
                     <p class="mt-4 text-sm sm:text-base leading-relaxed text-padelegan-800/80 max-w-xl">
-                        Tulis lokasi dan lampirkan foto bukti. Simpan nomor laporan untuk mengecek status penanganan.
+                        Sistem Informasi Pengaduan & Aspirasi Warga Desa Padelegan. Tulis lokasi, lampirkan foto bukti, dan simpan nomor laporan untuk mengecek status penanganan.
                     </p>
 
                     <div class="mt-6 flex flex-wrap items-center gap-3">

@@ -50,7 +50,8 @@ class AboutPageTest extends TestCase
 
         $response->assertOk()
             ->assertSee('<meta name="author" content="ZekkCode">', false)
-            ->assertSee('<meta name="developer" content="ZekkCode (zekkcode webdev)">', false)
+            ->assertSee('<meta name="developer" content="Zakaria Mujur / Zekk Code (zekkcode webdev)">', false)
+            ->assertSee('Zakaria Mujur (Zekk Code)')
             ->assertSee('zekkcode webdev');
     }
 }

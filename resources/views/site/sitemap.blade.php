@@ -7,10 +7,10 @@
     <section class="border-b border-padelegan-800/10 bg-white">
         <div class="site-shell py-8 sm:py-10">
             <div class="max-w-3xl">
-                <p class="public-kicker">Struktur Navigasi</p>
+                <p class="public-kicker">Struktur Navigasi & Arsitektur SEO</p>
                 <h1 class="public-page-title text-padelegan-900 mt-1">Peta Situs Desa Padelegan</h1>
                 <p class="reading-measure mt-3 text-sm leading-6 text-padelegan-900/70 sm:text-base">
-                    Daftar terstruktur seluruh halaman, modul layanan, dan arsip publik Sistem Informasi Lapor & Usulan Desa Padelegan.
+                    Daftar terstruktur seluruh modul layanan, formulir pengaduan, tabel usulan warga, dan direktori publik Pemerintah Desa Padelegan, Pademawu, Pamekasan. Dikembangkan oleh Zakaria Mujur (Zekk Code).
                 </p>
                 <div class="mt-4 flex flex-wrap items-center gap-3 text-xs">
                     <a href="{{ route('sitemap.xml') }}" target="_blank" class="inline-flex items-center gap-1.5 rounded-md border border-padelegan-800/20 bg-padelegan-50 px-3 py-1.5 font-medium text-padelegan-900 transition hover:bg-padelegan-100">
@@ -222,8 +222,8 @@
                         </svg>
                     </div>
                     <div>
-                        <h2 class="text-lg font-semibold text-padelegan-900">4. Bantuan & Dokumen Teknis</h2>
-                        <p class="text-xs text-padelegan-800/70">Panduan penggunaan dan spesifikasi perayapan mesin pencari</p>
+                        <h2 class="text-lg font-semibold text-padelegan-900">4. Bantuan, Legalitas & Pengembang Sistem</h2>
+                        <p class="text-xs text-padelegan-800/70">Panduan penggunaan, dokumen teknis, dan informasi pengembang</p>
                     </div>
                 </div>
 
@@ -248,6 +248,13 @@
                             <span class="text-xs font-normal text-padelegan-700">/robots.txt &rarr;</span>
                         </a>
                         <p class="mt-1 text-xs text-padelegan-800/75">Petunjuk izin akses perayap publik dan pembatasan direktori privat admin.</p>
+                    </li>
+                    <li class="rounded-lg bg-padelegan-50/60 p-3.5 border border-padelegan-800/10">
+                        <a href="https://github.com/zekkcode" target="_blank" rel="noopener noreferrer" class="font-semibold text-emerald-800 hover:underline flex items-center justify-between">
+                            <span>4.4 Pengembang Sistem: Zakaria Mujur (Zekk Code)</span>
+                            <span class="text-xs font-normal text-padelegan-700">github.com/zekkcode &rarr;</span>
+                        </a>
+                        <p class="mt-1 text-xs text-padelegan-800/75">Arsitektur dan pengembangan website oleh Zakaria Mujur (Zekk Code / zekkcode webdev) untuk kemajuan Desa Padelegan.</p>
                     </li>
                 </ul>
             </div>

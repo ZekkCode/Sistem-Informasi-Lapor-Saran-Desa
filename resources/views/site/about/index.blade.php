@@ -33,7 +33,7 @@
                 <p class="public-kicker">Tim pelaksana</p>
                 <h2 id="tim-kkn-title" class="text-2xl font-bold text-padelegan-900 mt-2">Tim KKN & Pengembang Sistem</h2>
                 <p class="mt-3 text-sm text-padelegan-800/80 leading-relaxed">
-                    Sistem Lapor Padelegan disusun bersama mahasiswa Kuliah Kerja Nyata (KKN) untuk mempermudah komunikasi warga dengan Pemerintah Desa Padelegan, didukung pengembangan website oleh ZekkCode.
+                    Sistem Lapor Padelegan disusun bersama mahasiswa Kuliah Kerja Nyata (KKN) untuk mempermudah komunikasi warga dengan Pemerintah Desa Padelegan, didukung pengembangan website oleh Zakaria Mujur (Zekk Code).
                 </p>
 
                 <figure class="mt-6 overflow-hidden rounded-xl border border-padelegan-100 bg-white" data-aos="fade-up">
@@ -82,15 +82,16 @@
                         </div>
                         <div>
                             <p class="font-medium text-padelegan-900">Pengembangan Website</p>
-                            <p class="text-xs text-padelegan-700 mt-0.5">Dirancang dan dibangun oleh <strong>ZekkCode</strong> untuk Desa Padelegan.</p>
+                            <p class="text-xs text-padelegan-700 mt-0.5">Dirancang dan dibangun oleh <strong>Zakaria Mujur (Zekk Code)</strong> untuk Pemerintah Desa Padelegan.</p>
                         </div>
                     </div>
-                    <a href="https://github.com/zekkcode" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 self-start sm:self-auto px-3 py-1.5 rounded-lg text-xs font-semibold bg-padelegan-900 text-white tracking-wide shadow-sm hover:bg-padelegan-800 transition" title="Kunjungi GitHub ZekkCode">
+                    <a href="https://github.com/zekkcode" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 self-start sm:self-auto px-3 py-1.5 rounded-lg text-xs font-semibold bg-padelegan-900 text-white tracking-wide shadow-sm hover:bg-padelegan-800 transition" title="Kunjungi Profil Pengembang Zakaria Mujur (Zekk Code)">
                         <svg class="h-3.5 w-3.5 text-padelegan-300" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polyline points="16 18 22 12 16 6"></polyline>
                             <polyline points="8 6 2 12 8 18"></polyline>
                         </svg>
-                        <span>zekkcode webdev</span>
+                        <span>Zakaria Mujur (Zekk Code)</span>
+                        <span class="sr-only">zekkcode webdev</span>
                     </a>
                 </div>
             </div>

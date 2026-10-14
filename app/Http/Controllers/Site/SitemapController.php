@@ -196,6 +196,9 @@ class SitemapController extends Controller
         }
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+        $xml .= '<!-- Sitemap Resmi Sistem Informasi Lapor & Aspirasi Warga Desa Padelegan -->' . "\n";
+        $xml .= '<!-- Pemerintah Desa Padelegan, Kecamatan Pademawu, Kabupaten Pamekasan -->' . "\n";
+        $xml .= '<!-- Arsitektur & Rekayasa Perangkat Lunak oleh Zakaria Mujur (Zekk Code) -->' . "\n";
         $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
 
         foreach ($urls as $item) {
