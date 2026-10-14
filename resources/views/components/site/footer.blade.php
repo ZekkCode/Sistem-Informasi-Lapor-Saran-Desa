@@ -48,10 +48,6 @@
                         <svg class="h-3.5 w-3.5 text-emerald-400/80" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
                         <span>Bantuan situs</span>
                     </a>
-                    <a class="inline-flex items-center gap-1.5 transition hover:text-white" href="{{ route('sitemap.html') }}">
-                        <svg class="h-3.5 w-3.5 text-emerald-400/80" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-                        <span>Peta situs</span>
-                    </a>
                 </nav>
             </div>
         </div>
@@ -167,12 +163,6 @@
                         <a class="inline-flex items-center gap-2 hover:text-white transition" href="{{ route('site-support') }}">
                             <svg class="h-4 w-4 text-emerald-400 shrink-0" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
                             <span>Bantuan situs</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="inline-flex items-center gap-2 hover:text-white transition" href="{{ route('sitemap.html') }}">
-                            <svg class="h-4 w-4 text-emerald-400 shrink-0" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-                            <span>Peta situs</span>
                         </a>
                     </li>
                 </ul>
