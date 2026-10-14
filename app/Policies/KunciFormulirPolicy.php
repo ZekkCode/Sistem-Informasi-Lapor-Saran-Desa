@@ -16,9 +16,15 @@ class KunciFormulirPolicy
 {
     public function ubahKunciAdmin(User $user, JenisFormulir $formulir): Response
     {
-        return in_array($user->role, [UserRole::Admin, UserRole::SuperAdmin], true)
+        $diizinkan = match ($user->role) {
+            UserRole::SuperAdmin, UserRole::Admin => true,
+            UserRole::AdminPengaduan => $formulir === JenisFormulir::Laporan,
+            UserRole::AdminUsulan => $formulir === JenisFormulir::Usulan,
+        };
+
+        return $diizinkan
             ? Response::allow()
-            : Response::deny('Akun ini tidak dapat mengubah kunci formulir.');
+            : Response::deny("Akun {$user->role->label()} tidak berwenang mengubah {$formulir->label()}.");
     }
 
     public function ubahKunciPengembang(User $user, JenisFormulir $formulir): Response

@@ -8,12 +8,17 @@ use App\Enums\VerificationStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Report;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
-    public function __invoke(): View
+    public function __invoke(Request $request): View|RedirectResponse
     {
+        if (! $request->user()?->canAccessReports()) {
+            return redirect()->route('admin.usulan.index');
+        }
         $total = Report::query()->count();
         $metrics = [
             'total' => $total,

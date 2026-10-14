@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Middleware\EnsureCanAccessReports;
+use App\Http\Middleware\EnsureCanAccessUsulan;
 use App\Http\Middleware\EnsureSuperAdmin;
 use App\Http\Middleware\EnsureUserIsActive;
 use App\Http\Middleware\PastikanFormulirTerbuka;
@@ -31,6 +33,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'active.admin' => EnsureUserIsActive::class,
             'super.admin' => EnsureSuperAdmin::class,
+            'akses.laporan' => EnsureCanAccessReports::class,
+            'akses.usulan' => EnsureCanAccessUsulan::class,
             'formulir.terbuka' => PastikanFormulirTerbuka::class,
         ]);
 

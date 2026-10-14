@@ -64,4 +64,42 @@ class User extends Authenticatable
     {
         return $this->hasMany(AuditLog::class);
     }
+
+    public function isSuperAdmin(): bool
+    {
+        return $this->role === UserRole::SuperAdmin;
+    }
+
+    public function isAdminDesa(): bool
+    {
+        return $this->role === UserRole::Admin;
+    }
+
+    public function isAdminPengaduan(): bool
+    {
+        return $this->role === UserRole::AdminPengaduan;
+    }
+
+    public function isAdminUsulan(): bool
+    {
+        return $this->role === UserRole::AdminUsulan;
+    }
+
+    public function canAccessReports(): bool
+    {
+        return in_array($this->role, [
+            UserRole::SuperAdmin,
+            UserRole::Admin,
+            UserRole::AdminPengaduan,
+        ], true);
+    }
+
+    public function canAccessUsulan(): bool
+    {
+        return in_array($this->role, [
+            UserRole::SuperAdmin,
+            UserRole::Admin,
+            UserRole::AdminUsulan,
+        ], true);
+    }
 }

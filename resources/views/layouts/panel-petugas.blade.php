@@ -16,7 +16,7 @@
     </a>
 
     <header class="admin-mobile-bar">
-        <a href="{{ route('admin.dashboard') }}" class="admin-mobile-brand" aria-label="Sistem Lapor Padelegan, Dasbor">
+        <a href="{{ auth()->user()->canAccessReports() ? route('admin.dashboard') : route('admin.usulan.index') }}" class="admin-mobile-brand" aria-label="Sistem Lapor Padelegan, Dasbor">
             <img src="{{ asset('images/brand/lambang-pamekasan.png') }}" alt="" width="418" height="387" class="admin-brand__crest">
             <strong>Sistem Lapor Padelegan</strong>
         </a>
@@ -34,15 +34,19 @@
             </div>
 
             <nav class="admin-nav" aria-label="Navigasi petugas">
-                <a href="{{ route('admin.dashboard') }}" @class(['is-active' => request()->routeIs('admin.dashboard')])>
-                    <span>Ikhtisar</span>
-                </a>
-                <a href="{{ route('admin.reports.index') }}" @class(['is-active' => request()->routeIs('admin.reports.*')])>
-                    <span>Kelola laporan</span>
-                </a>
-                <a href="{{ route('admin.usulan.index') }}" @class(['is-active' => request()->routeIs('admin.usulan.*')])>
-                    <span>Usulan &amp; saran</span>
-                </a>
+                @if(auth()->user()->canAccessReports())
+                    <a href="{{ route('admin.dashboard') }}" @class(['is-active' => request()->routeIs('admin.dashboard')])>
+                        <span>Ikhtisar</span>
+                    </a>
+                    <a href="{{ route('admin.reports.index') }}" @class(['is-active' => request()->routeIs('admin.reports.*')])>
+                        <span>Kelola laporan</span>
+                    </a>
+                @endif
+                @if(auth()->user()->canAccessUsulan())
+                    <a href="{{ route('admin.usulan.index') }}" @class(['is-active' => request()->routeIs('admin.usulan.*')])>
+                        <span>Usulan &amp; saran</span>
+                    </a>
+                @endif
                 <a href="{{ route('admin.formulir.index') }}" @class(['is-active' => request()->routeIs('admin.formulir.*')])>
                     <span>Kunci formulir</span>
                 </a>

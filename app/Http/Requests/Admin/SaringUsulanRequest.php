@@ -11,7 +11,7 @@ class SaringUsulanRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->user() !== null;
+        return $this->user()?->canAccessUsulan() ?? false;
     }
 
     /** @return array<string, mixed> */

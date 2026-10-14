@@ -65,6 +65,13 @@
                                 <button type="submit" class="action action--primary">Simpan kunci admin</button>
                             </div>
                         </form>
+                    @else
+                        <div class="mb-4">
+                            <h3 class="admin-section-title">Kunci admin</h3>
+                            <p class="text-sm leading-6 text-muted">
+                                Kunci formulir {{ $kata }} hanya dapat diubah oleh {{ $kode === 'laporan' ? 'Admin Pengaduan' : 'Admin Usulan' }} atau Super Admin.
+                            </p>
+                        </div>
                     @endcan
 
                     <div class="mt-6 border-t border-border pt-5">

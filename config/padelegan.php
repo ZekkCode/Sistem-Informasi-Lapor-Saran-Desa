@@ -52,5 +52,21 @@ return [
             'email' => env('INITIAL_ADMIN_DESA_EMAIL'),
             'password' => env('INITIAL_ADMIN_DESA_PASSWORD'),
         ],
+        [
+            'key' => 'INITIAL_ADMIN_PENGADUAN',
+            'role' => 'admin_pengaduan',
+            'name' => env('INITIAL_ADMIN_PENGADUAN_NAME', 'Admin Pengaduan'),
+            'username' => env('INITIAL_ADMIN_PENGADUAN_USERNAME', 'adminpengaduan'),
+            'email' => env('INITIAL_ADMIN_PENGADUAN_EMAIL'),
+            'password' => env('INITIAL_ADMIN_PENGADUAN_PASSWORD'),
+        ],
+        [
+            'key' => 'INITIAL_ADMIN_USULAN',
+            'role' => 'admin_usulan',
+            'name' => env('INITIAL_ADMIN_USULAN_NAME', 'Admin Usulan'),
+            'username' => env('INITIAL_ADMIN_USULAN_USERNAME', 'adminusulan'),
+            'email' => env('INITIAL_ADMIN_USULAN_EMAIL'),
+            'password' => env('INITIAL_ADMIN_USULAN_PASSWORD'),
+        ],
     ],
 ];

@@ -33,19 +33,23 @@ Route::middleware(['auth', 'active.admin'])->group(function () {
     Route::post('/logout', [AuthController::class, 'destroy'])->name('logout');
     Route::get('/', DashboardController::class)->name('dashboard');
 
-    Route::get('/laporan', [ReportController::class, 'index'])->name('reports.index');
-    Route::get('/laporan/ekspor.csv', [ReportExportController::class, 'csv'])->name('reports.export.csv');
-    Route::get('/laporan/cetak', [ReportExportController::class, 'print'])->name('reports.print');
-    Route::get('/laporan/{report}', [ReportController::class, 'show'])->name('reports.show');
-    Route::patch('/laporan/{report}/alur', [ReportWorkflowController::class, 'update'])->name('reports.workflow.update');
-    Route::post('/laporan/{report}/uploads', ReportUploadController::class)
-        ->middleware('throttle:report-upload-authorizations')
-        ->name('reports.uploads.authorize');
-    Route::get('/media/{media}', ReportMediaController::class)->name('media.show');
+    Route::middleware('akses.laporan')->group(function () {
+        Route::get('/laporan', [ReportController::class, 'index'])->name('reports.index');
+        Route::get('/laporan/ekspor.csv', [ReportExportController::class, 'csv'])->name('reports.export.csv');
+        Route::get('/laporan/cetak', [ReportExportController::class, 'print'])->name('reports.print');
+        Route::get('/laporan/{report}', [ReportController::class, 'show'])->name('reports.show');
+        Route::patch('/laporan/{report}/alur', [ReportWorkflowController::class, 'update'])->name('reports.workflow.update');
+        Route::post('/laporan/{report}/uploads', ReportUploadController::class)
+            ->middleware('throttle:report-upload-authorizations')
+            ->name('reports.uploads.authorize');
+        Route::get('/media/{media}', ReportMediaController::class)->name('media.show');
+    });
 
-    Route::get('/usulan', [UsulanController::class, 'daftar'])->name('usulan.index');
-    Route::get('/usulan/{usulan}', [UsulanController::class, 'detail'])->name('usulan.show');
-    Route::patch('/usulan/{usulan}/alur', [AlurUsulanController::class, 'perbarui'])->name('usulan.alur.update');
+    Route::middleware('akses.usulan')->group(function () {
+        Route::get('/usulan', [UsulanController::class, 'daftar'])->name('usulan.index');
+        Route::get('/usulan/{usulan}', [UsulanController::class, 'detail'])->name('usulan.show');
+        Route::patch('/usulan/{usulan}/alur', [AlurUsulanController::class, 'perbarui'])->name('usulan.alur.update');
+    });
 
     // Hak ubah tiap kunci dijaga KunciFormulirPolicy, termasuk kunci pengembang.
     Route::get('/formulir', [KunciFormulirController::class, 'daftar'])->name('formulir.index');
