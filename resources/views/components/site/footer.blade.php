@@ -16,8 +16,15 @@
                 <a class="hover:text-white" href="{{ route('usulan.create') }}">Kirim usulan</a>
                 <a class="hover:text-white" href="{{ route('public-reports.index') }}">Laporan desa</a>
                 <a class="hover:text-white" href="{{ route('public-usulan.index') }}">Usulan warga</a>
+                <a class="hover:text-white" href="{{ route('about') }}">Tentang</a>
                 <a class="hover:text-white" href="{{ route('site-support') }}">Bantuan situs</a>
             </nav>
+        </div>
+        <div class="border-t border-white/10">
+            <div class="site-shell flex flex-col gap-2 py-4 text-xs text-white/55 sm:flex-row sm:items-center sm:justify-between">
+                <p>&copy; {{ now()->year }} Pemerintah Desa Padelegan &bull; <a href="{{ route('about') }}" class="hover:text-white underline decoration-white/30 underline-offset-4">Tim KKN</a> &bull; <span class="text-white/80 font-medium">zekkcode by web</span></p>
+                <a href="{{ route('admin.login') }}" class="hover:text-white">Akses petugas</a>
+            </div>
         </div>
     @else
     <div class="site-shell grid gap-10 py-12 md:grid-cols-[1.4fr_1fr_1fr]">
@@ -39,6 +46,7 @@
                 <li><a class="hover:text-white" href="{{ route('usulan.create') }}">Kirim usulan</a></li>
                 <li><a class="hover:text-white" href="{{ route('public-reports.index') }}">Laporan desa</a></li>
                 <li><a class="hover:text-white" href="{{ route('public-usulan.index') }}">Usulan warga</a></li>
+                <li><a class="hover:text-white" href="{{ route('about') }}">Tentang & Tim KKN</a></li>
                 <li><a class="hover:text-white" href="{{ route('site-support') }}">Bantuan situs</a></li>
             </ul>
         </div>
@@ -49,7 +57,7 @@
     </div>
     <div class="border-t border-white/10">
         <div class="site-shell flex flex-col gap-2 py-5 text-xs text-white/55 sm:flex-row sm:items-center sm:justify-between">
-            <p>&copy; {{ now()->year }} Pemerintah Desa Padelegan.</p>
+            <p>&copy; {{ now()->year }} Pemerintah Desa Padelegan &bull; <a href="{{ route('about') }}" class="hover:text-white underline decoration-white/30 underline-offset-4">Tim KKN</a> &bull; <span class="text-white/80 font-medium">zekkcode by web</span></p>
             <a href="{{ route('admin.login') }}" class="hover:text-white">Akses petugas</a>
         </div>
     </div>

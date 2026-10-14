@@ -14,11 +14,13 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Tests\Concerns\WithAntiBotFields;
 use Tests\TestCase;
 
 class KunciFormulirPublikTest extends TestCase
 {
     use RefreshDatabase;
+    use WithAntiBotFields;
 
     protected function setUp(): void
     {
@@ -46,7 +48,7 @@ class KunciFormulirPublikTest extends TestCase
     {
         $category = Category::query()->with('subcategories')->firstOrFail();
 
-        return [
+        return $this->withAntiBotFields([
             'submission_token' => Str::uuid()->toString(),
             'reporter_name' => 'Warga Padelegan',
             'reporter_phone' => '081234567890',
@@ -59,20 +61,20 @@ class KunciFormulirPublikTest extends TestCase
             'citizen_priority' => 'normal',
             'photos' => [UploadedFile::fake()->image('bukti.jpg', 800, 600)],
             'consent' => '1',
-        ];
+        ]);
     }
 
     /** @return array<string, mixed> */
     private function dataUsulan(): array
     {
-        return [
+        return $this->withAntiBotFields([
             'token_kirim' => Str::uuid()->toString(),
             'dusun_id' => Dusun::query()->value('id'),
             'jenis' => 'pembangunan',
             'judul' => 'Tambah lampu jalan dusun',
             'isi' => 'Usul menambah lampu penerangan di jalur dusun agar warga aman saat malam.',
             'consent' => '1',
-        ];
+        ]);
     }
 
     public function test_kedua_formulir_terbuka_tanpa_baris_settings(): void

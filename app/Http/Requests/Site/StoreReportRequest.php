@@ -4,6 +4,9 @@ namespace App\Http\Requests\Site;
 
 use App\Enums\CitizenPriority;
 use App\Models\Subcategory;
+use App\Rules\Honeypot;
+use App\Rules\MinimumSubmitTime;
+use App\Rules\Turnstile;
 use App\Services\Site\SiteDataService;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -25,6 +28,14 @@ class StoreReportRequest extends FormRequest
         $directUploadRequired = (bool) config('report-media.direct_upload.required');
 
         return [
+            '_website' => ['nullable', new Honeypot],
+            '_form_rendered_at' => ['required', new MinimumSubmitTime(5)],
+            'cf-turnstile-response' => [
+                Rule::when((bool) config('services.turnstile.secret_key'), [
+                    'required',
+                    new Turnstile,
+                ]),
+            ],
             'submission_token' => ['required', 'uuid'],
             'reporter_name' => ['required', 'string', 'max:120'],
             'reporter_phone' => ['required', 'string', 'max:30', 'regex:/^(?:\+62|62|0)8[1-9][0-9]{6,11}$/'],

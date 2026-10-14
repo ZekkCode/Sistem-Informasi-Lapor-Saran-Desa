@@ -12,11 +12,13 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Tests\Concerns\WithAntiBotFields;
 use Tests\TestCase;
 
 class QrLaporanTest extends TestCase
 {
     use RefreshDatabase;
+    use WithAntiBotFields;
 
     private function siapkanData(): QrSource
     {
@@ -44,7 +46,7 @@ class QrLaporanTest extends TestCase
         $qr = $this->siapkanData();
         $category = Category::query()->with('subcategories')->firstOrFail();
 
-        $this->post(route('reports.store'), [
+        $this->post(route('reports.store'), $this->withAntiBotFields([
             'submission_token' => Str::uuid()->toString(),
             'qr_code' => 'dsn01',
             'reporter_name' => 'Warga Padelegan',
@@ -58,7 +60,7 @@ class QrLaporanTest extends TestCase
             'citizen_priority' => 'normal',
             'photos' => [UploadedFile::fake()->image('bukti.jpg', 800, 600)],
             'consent' => '1',
-        ])->assertRedirect();
+        ]))->assertRedirect();
 
         $this->assertSame($qr->id, Report::query()->sole()->qr_source_id);
     }

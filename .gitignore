@@ -84,3 +84,4 @@ desktop.ini
 *-backup.webp
 /public/images/brand/lambang-pamekasan-backup.png
 /scripts/*.tmp.php
+/ChatSession/

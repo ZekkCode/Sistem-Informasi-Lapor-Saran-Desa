@@ -21,7 +21,7 @@ return [
     'google_sso' => [
         'allowed_emails' => array_values(array_filter(array_map(
             static fn (string $email): string => strtolower(trim($email)),
-            explode(',', (string) env('GOOGLE_SSO_ALLOWED_EMAILS', 'laporpadelegan@gmail.com')),
+            explode(',', (string) env('GOOGLE_SSO_ALLOWED_EMAILS', 'padelaganlapor@gmail.com,laporpadelegan@gmail.com')),
         ))),
         'role' => env('GOOGLE_SSO_ROLE', 'admin'),
     ],

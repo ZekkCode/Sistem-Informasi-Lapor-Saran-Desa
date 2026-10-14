@@ -21,6 +21,9 @@
         <form action="{{ route('usulan.store') }}" method="POST" class="report-form" data-validate data-aos="fade-up">
             @csrf
             <input type="hidden" name="token_kirim" value="{{ $tokenKirim }}">
+            <input type="hidden" name="_form_rendered_at" value="{{ time() }}">
+            {{-- Honeypot --}}
+            <div aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;height:0;width:0;overflow:hidden;"><label for="hp_website_u">Website</label><input type="text" name="_website" id="hp_website_u" tabindex="-1" autocomplete="off" value=""></div>
 
             @if ($usingDemoData)
                 <x-ui.alert variant="warning" title="Mode pratinjau" class="mb-6">
@@ -111,6 +114,8 @@
                         <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s7-3.5 7-9V5.5L12 3 5 5.5V12c0 5.5 7 9 7 9Z"/><path d="m9.5 12 1.7 1.7 3.7-4"/></svg>
                         Identitas tidak pernah tampil di halaman publik. Petugas saja yang melihatnya.
                     </p>
+
+                    <x-site.turnstile />
 
                     <div>
                         <label class="report-consent" for="consent">

@@ -3,6 +3,9 @@
 namespace App\Http\Requests\Site;
 
 use App\Enums\JenisUsulan;
+use App\Rules\Honeypot;
+use App\Rules\MinimumSubmitTime;
+use App\Rules\Turnstile;
 use App\Services\Site\SiteDataService;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -23,6 +26,14 @@ class KirimUsulanRequest extends FormRequest
         $databaseSiap = app(SiteDataService::class)->bisaMenerimaUsulan();
 
         return [
+            '_website' => ['nullable', new Honeypot],
+            '_form_rendered_at' => ['required', new MinimumSubmitTime(5)],
+            'cf-turnstile-response' => [
+                Rule::when((bool) config('services.turnstile.secret_key'), [
+                    'required',
+                    new Turnstile,
+                ]),
+            ],
             'token_kirim' => ['required', 'uuid'],
             'nama_pengusul' => ['nullable', 'string', 'max:120'],
             'telepon_pengusul' => ['nullable', 'string', 'max:30', 'regex:/^(?:\+62|62|0)8[1-9][0-9]{6,11}$/'],

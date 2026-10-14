@@ -15,11 +15,12 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Tests\Concerns\WithAntiBotFields;
 use Tests\TestCase;
 
 class SubmitReportTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, WithAntiBotFields;
 
     public function test_citizen_can_submit_a_report_and_receive_a_public_code(): void
     {
@@ -30,7 +31,7 @@ class SubmitReportTest extends TestCase
         $category = Category::query()->with('subcategories')->firstOrFail();
         $subcategory = $category->subcategories->firstOrFail();
 
-        $response = $this->post(route('reports.store'), [
+        $response = $this->post(route('reports.store'), $this->withAntiBotFields([
             'submission_token' => Str::uuid()->toString(),
             'reporter_name' => 'Warga Padelegan',
             'reporter_phone' => '081234567890',
@@ -43,7 +44,7 @@ class SubmitReportTest extends TestCase
             'citizen_priority' => 'important',
             'photos' => [UploadedFile::fake()->image('bukti.jpg', 800, 600)],
             'consent' => '1',
-        ]);
+        ]));
 
         $report = Report::query()->firstOrFail();
 
@@ -65,7 +66,7 @@ class SubmitReportTest extends TestCase
 
         $categories = Category::query()->with('subcategories')->take(2)->get();
 
-        $response = $this->from(route('reports.create'))->post(route('reports.store'), [
+        $response = $this->from(route('reports.create'))->post(route('reports.store'), $this->withAntiBotFields([
             'submission_token' => Str::uuid()->toString(),
             'reporter_name' => 'Warga Padelegan',
             'reporter_phone' => '081234567890',
@@ -78,7 +79,7 @@ class SubmitReportTest extends TestCase
             'citizen_priority' => 'normal',
             'photos' => [UploadedFile::fake()->image('bukti.jpg')],
             'consent' => '1',
-        ]);
+        ]));
 
         $response->assertRedirect(route('reports.create'));
         $response->assertSessionHasErrors('subcategory_id');
@@ -92,7 +93,7 @@ class SubmitReportTest extends TestCase
 
         $category = Category::query()->with('subcategories')->firstOrFail();
         $token = Str::uuid()->toString();
-        $payload = [
+        $payload = $this->withAntiBotFields([
             'submission_token' => $token,
             'reporter_name' => 'Warga Padelegan',
             'reporter_phone' => '081234567890',
@@ -104,7 +105,7 @@ class SubmitReportTest extends TestCase
             'description' => 'Lubang cukup dalam dan membahayakan pengendara ketika malam hari.',
             'citizen_priority' => 'important',
             'consent' => '1',
-        ];
+        ]);
 
         $first = $this->post(route('reports.store'), [
             ...$payload,
@@ -146,7 +147,7 @@ class SubmitReportTest extends TestCase
             'expires_at' => now()->addMinutes(15)->getTimestamp(),
         ], JSON_THROW_ON_ERROR));
 
-        $response = $this->post(route('reports.store'), [
+        $response = $this->post(route('reports.store'), $this->withAntiBotFields([
             'submission_token' => Str::uuid()->toString(),
             'reporter_name' => 'Warga Padelegan',
             'reporter_phone' => '081234567890',
@@ -159,7 +160,7 @@ class SubmitReportTest extends TestCase
             'citizen_priority' => 'important',
             'uploaded_media' => [$token],
             'consent' => '1',
-        ]);
+        ]));
 
         $report = Report::query()->with('media')->firstOrFail();
         $media = $report->media->sole();
@@ -198,7 +199,7 @@ class SubmitReportTest extends TestCase
 
         $category = Category::query()->with('subcategories')->firstOrFail();
 
-        $response = $this->from(route('reports.create'))->post(route('reports.store'), [
+        $response = $this->from(route('reports.create'))->post(route('reports.store'), $this->withAntiBotFields([
             'submission_token' => Str::uuid()->toString(),
             'reporter_name' => 'Warga Padelegan',
             'reporter_phone' => '081234567890',
@@ -211,7 +212,7 @@ class SubmitReportTest extends TestCase
             'citizen_priority' => 'important',
             'photos' => [UploadedFile::fake()->image('bukti.jpg')],
             'consent' => '1',
-        ]);
+        ]));
 
         $response
             ->assertRedirect(route('reports.create'))
@@ -229,7 +230,7 @@ class SubmitReportTest extends TestCase
 
         $category = Category::query()->with('subcategories')->firstOrFail();
 
-        $response = $this->post(route('reports.store'), [
+        $response = $this->post(route('reports.store'), $this->withAntiBotFields([
             'submission_token' => Str::uuid()->toString(),
             'reporter_name' => 'Warga Padelegan',
             'reporter_phone' => '081234567890',
@@ -242,7 +243,7 @@ class SubmitReportTest extends TestCase
             'citizen_priority' => 'important',
             'photos' => [UploadedFile::fake()->image('bukti.jpg', 800, 600)],
             'consent' => '1',
-        ]);
+        ]));
 
         $media = Report::query()->firstOrFail()->media()->firstOrFail();
 

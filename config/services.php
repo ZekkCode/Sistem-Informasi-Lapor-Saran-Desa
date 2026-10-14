@@ -46,4 +46,13 @@ return [
         'redirect' => env('GOOGLE_SSO_REDIRECT_URI'),
     ],
 
+    /*
+    | Cloudflare Turnstile untuk perlindungan bot formulir publik.
+    | Kosongkan di lokal jika tidak dipakai. Isi di produksi atau gunakan dummy test keys.
+    */
+    'turnstile' => [
+        'site_key' => env('CLOUDFLARE_TURNSTILE_SITE_KEY'),
+        'secret_key' => env('CLOUDFLARE_TURNSTILE_SECRET_KEY'),
+    ],
+
 ];
