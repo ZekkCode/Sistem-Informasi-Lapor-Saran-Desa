@@ -4,7 +4,14 @@
 @section('page-title', $usulan->kode)
 @section('eyebrow', 'Detail usulan warga')
 @section('page-actions')
-    <a href="{{ route('admin.usulan.index') }}" class="action action--quiet action--sm">Kembali ke daftar</a>
+    <div class="flex items-center gap-2">
+        <a href="{{ route('admin.usulan.index') }}" class="action action--quiet action--sm">Kembali ke daftar</a>
+        <form method="POST" action="{{ route('admin.usulan.destroy', $usulan) }}" onsubmit="return confirm('Hapus usulan {{ $usulan->kode }}? Data yang dihapus dapat dipulihkan melalui basis data jika diperlukan.')">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="action action--danger action--sm">Hapus usulan</button>
+        </form>
+    </div>
 @endsection
 
 @section('content')

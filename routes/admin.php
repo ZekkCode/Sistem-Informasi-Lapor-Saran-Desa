@@ -40,6 +40,7 @@ Route::middleware(['auth', 'active.admin'])->group(function () {
         Route::get('/laporan/cetak', [ReportExportController::class, 'print'])->name('reports.print');
         Route::get('/laporan/{report}', [ReportController::class, 'show'])->name('reports.show');
         Route::patch('/laporan/{report}/alur', [ReportWorkflowController::class, 'update'])->name('reports.workflow.update');
+        Route::delete('/laporan/{report}', [ReportController::class, 'destroy'])->name('reports.destroy');
         Route::post('/laporan/{report}/uploads', ReportUploadController::class)
             ->middleware('throttle:report-upload-authorizations')
             ->name('reports.uploads.authorize');
@@ -50,6 +51,7 @@ Route::middleware(['auth', 'active.admin'])->group(function () {
         Route::get('/usulan', [UsulanController::class, 'daftar'])->name('usulan.index');
         Route::get('/usulan/{usulan}', [UsulanController::class, 'detail'])->name('usulan.show');
         Route::patch('/usulan/{usulan}/alur', [AlurUsulanController::class, 'perbarui'])->name('usulan.alur.update');
+        Route::delete('/usulan/{usulan}', [UsulanController::class, 'hapus'])->name('usulan.destroy');
         Route::get('/usulan/media/{media}', UsulanMediaController::class)->name('usulan.media.show');
     });
 

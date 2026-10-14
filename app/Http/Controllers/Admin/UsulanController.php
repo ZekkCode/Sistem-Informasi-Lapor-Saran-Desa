@@ -9,7 +9,9 @@ use App\Http\Requests\Admin\SaringUsulanRequest;
 use App\Models\Dusun;
 use App\Models\Usulan;
 use App\Queries\PencarianUsulanAdmin;
+use App\Services\Admin\AuditService;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class UsulanController extends Controller
 {
@@ -36,5 +38,15 @@ class UsulanController extends Controller
             'usulan' => $usulan,
             'statuses' => StatusUsulan::cases(),
         ]);
+    }
+
+    public function hapus(Usulan $usulan, AuditService $audit): RedirectResponse
+    {
+        $kode = $usulan->kode;
+        $audit->record('usulan.deleted', $usulan, ['kode' => $kode]);
+        $usulan->delete();
+
+        return redirect()->route('admin.usulan.index')
+            ->with('status', "Usulan {$kode} berhasil dihapus.");
     }
 }

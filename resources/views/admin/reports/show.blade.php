@@ -4,7 +4,14 @@
 @section('page-title', $report->report_code)
 @section('eyebrow', 'Detail laporan warga')
 @section('page-actions')
-    <a href="{{ route('admin.reports.index') }}" class="action action--quiet action--sm">Kembali ke daftar</a>
+    <div class="flex items-center gap-2">
+        <a href="{{ route('admin.reports.index') }}" class="action action--quiet action--sm">Kembali ke daftar</a>
+        <form method="POST" action="{{ route('admin.reports.destroy', $report) }}" onsubmit="return confirm('Hapus laporan {{ $report->report_code }}? Data yang dihapus dapat dipulihkan melalui basis data jika diperlukan.')">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="action action--danger action--sm">Hapus laporan</button>
+        </form>
+    </div>
 @endsection
 
 @section('content')

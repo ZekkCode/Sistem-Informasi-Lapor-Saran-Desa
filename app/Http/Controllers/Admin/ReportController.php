@@ -11,7 +11,9 @@ use App\Models\Category;
 use App\Models\Dusun;
 use App\Models\Report;
 use App\Queries\AdminReportQuery;
+use App\Services\Admin\AuditService;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class ReportController extends Controller
 {
@@ -48,5 +50,15 @@ class ReportController extends Controller
                 'url' => route('admin.reports.uploads.authorize', $report),
             ],
         ]);
+    }
+
+    public function destroy(Report $report, AuditService $audit): RedirectResponse
+    {
+        $code = $report->report_code;
+        $audit->record('report.deleted', $report, ['report_code' => $code]);
+        $report->delete();
+
+        return redirect()->route('admin.reports.index')
+            ->with('status', "Laporan {$code} berhasil dihapus.");
     }
 }
