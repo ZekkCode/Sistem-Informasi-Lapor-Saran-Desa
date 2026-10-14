@@ -89,4 +89,30 @@ class AlurUsulanTest extends TestCase
         $this->actingAs($adminDesa)->get(route('admin.usulan.index'))->assertOk();
         $this->actingAs($superAdmin)->get(route('admin.usulan.index'))->assertOk();
     }
+
+    public function test_petugas_bisa_membuka_media_usulan(): void
+    {
+        \Illuminate\Support\Facades\Storage::fake('public');
+        \Illuminate\Support\Facades\Storage::disk('public')->put('usulan/test.jpg', 'fake-image-content');
+
+        $this->seed(DusunSeeder::class);
+        $adminDesa = User::factory()->create(['role' => UserRole::Admin]);
+        $usulan = Usulan::factory()->create();
+        $media = $usulan->media()->create([
+            'storage_disk' => 'public',
+            'file_path' => 'usulan/test.jpg',
+            'mime_type' => 'image/jpeg',
+            'file_size' => 18,
+        ]);
+
+        $this->actingAs($adminDesa)
+            ->get(route('admin.usulan.media.show', $media))
+            ->assertOk()
+            ->assertHeader('Content-Type', 'image/jpeg');
+
+        $this->actingAs($adminDesa)
+            ->get(route('admin.usulan.show', $usulan))
+            ->assertOk()
+            ->assertSee(route('admin.usulan.media.show', $media));
+    }
 }

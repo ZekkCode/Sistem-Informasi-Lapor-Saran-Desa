@@ -37,6 +37,21 @@
             </section>
 
             <section class="admin-panel">
+                <header class="admin-panel__head"><h2>Dokumentasi foto</h2><span class="text-xs text-muted">{{ $usulan->media->count() }} foto</span></header>
+                <div class="admin-panel__body">
+                    @if($usulan->media->isEmpty())
+                        <p class="admin-empty">Tidak ada foto pada usulan ini.</p>
+                    @else
+                        <div class="admin-media-grid">
+                            @foreach($usulan->media as $media)
+                                <a href="{{ route('admin.usulan.media.show', $media) }}" target="_blank" rel="noopener"><img src="{{ route('admin.usulan.media.show', $media) }}" alt="Foto usulan {{ $loop->iteration }}" loading="lazy"></a>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+            </section>
+
+            <section class="admin-panel">
                 <header class="admin-panel__head"><h2>Riwayat tindak lanjut</h2></header>
                 <div class="admin-panel__body">
                     <ol class="admin-timeline">

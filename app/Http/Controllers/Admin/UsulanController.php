@@ -27,6 +27,7 @@ class UsulanController extends Controller
     {
         $usulan->load([
             'dusun',
+            'media',
             'penindak:id,name',
             'riwayat' => fn ($query) => $query->with('pengubah:id,name')->reorder()->oldest(),
         ]);

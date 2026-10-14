@@ -23,4 +23,12 @@ class HalamanMulaiTest extends TestCase
             ->assertOk()
             ->assertSee(route('mulai'));
     }
+
+    public function test_rute_alternatif_mengalihkan_ke_halaman_formulir(): void
+    {
+        $this->get('/lapor/buat')->assertRedirect(route('reports.create'));
+        $this->get('/buat-laporan')->assertRedirect(route('reports.create'));
+        $this->get('/usulan/buat')->assertRedirect(route('usulan.create'));
+        $this->get('/buat-usulan')->assertRedirect(route('usulan.create'));
+    }
 }

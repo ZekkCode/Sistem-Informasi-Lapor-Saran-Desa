@@ -36,5 +36,10 @@ Route::get('/cek-usulan', LacakUsulanController::class)->name('usulan.lacak');
 Route::get('/usulan-warga', [UsulanPublikController::class, 'daftar'])->name('public-usulan.index');
 Route::get('/usulan-warga/{kode}', [UsulanPublikController::class, 'detail'])->name('public-usulan.show');
 
+Route::redirect('/lapor/buat', '/lapor');
+Route::redirect('/buat-laporan', '/lapor');
+Route::redirect('/usulan/buat', '/usulan');
+Route::redirect('/buat-usulan', '/usulan');
+
 Route::view('/tentang', 'site.about.index')->name('about');
 Route::view('/bantuan-situs', 'site.support')->name('site-support');

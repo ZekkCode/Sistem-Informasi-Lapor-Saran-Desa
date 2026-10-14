@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\ReportUploadController;
 use App\Http\Controllers\Admin\ReportWorkflowController;
 use App\Http\Controllers\Admin\SubcategoryController;
 use App\Http\Controllers\Admin\UsulanController;
+use App\Http\Controllers\Admin\UsulanMediaController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -49,6 +50,7 @@ Route::middleware(['auth', 'active.admin'])->group(function () {
         Route::get('/usulan', [UsulanController::class, 'daftar'])->name('usulan.index');
         Route::get('/usulan/{usulan}', [UsulanController::class, 'detail'])->name('usulan.show');
         Route::patch('/usulan/{usulan}/alur', [AlurUsulanController::class, 'perbarui'])->name('usulan.alur.update');
+        Route::get('/usulan/media/{media}', UsulanMediaController::class)->name('usulan.media.show');
     });
 
     // Hak ubah tiap kunci dijaga KunciFormulirPolicy, termasuk kunci pengembang.
