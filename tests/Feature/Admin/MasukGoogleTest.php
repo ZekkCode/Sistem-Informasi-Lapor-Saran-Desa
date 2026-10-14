@@ -37,11 +37,12 @@ class MasukGoogleTest extends TestCase
         Socialite::shouldReceive('driver->redirectUrl->user')->andReturn($akun);
     }
 
-    public function test_tombol_google_tersembunyi_saat_belum_dikonfigurasi(): void
+    public function test_tombol_google_selalu_tampil_pada_halaman_login(): void
     {
         $this->get(route('admin.login'))
             ->assertOk()
-            ->assertDontSee('Masuk dengan Google');
+            ->assertSee('Masuk dengan Google')
+            ->assertSee(route('admin.login.google'));
     }
 
     public function test_tombol_google_tampil_saat_dikonfigurasi(): void
