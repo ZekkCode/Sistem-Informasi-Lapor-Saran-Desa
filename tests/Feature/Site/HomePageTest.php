@@ -28,14 +28,13 @@ class HomePageTest extends TestCase
         $this->seed([DusunSeeder::class, CategorySeeder::class]);
     }
 
-    public function test_home_page_displays_recent_reports_and_usulan(): void
+    public function test_home_page_does_not_display_recent_reports_feed(): void
     {
         $dusun = Dusun::query()->firstOrFail();
         $category = Category::query()->with('subcategories')->firstOrFail();
         $subcategory = $category->subcategories->firstOrFail();
 
-        // Siapkan 1 laporan terverifikasi
-        $report = Report::query()->create([
+        Report::query()->create([
             'report_code' => 'PDL-2026-TEST01',
             'submission_token' => Str::uuid()->toString(),
             'reporter_name' => 'Warga Padelegan',
@@ -53,43 +52,21 @@ class HomePageTest extends TestCase
             'verified_at' => now(),
         ]);
 
-        // Siapkan 1 usulan terpublikasi
-        $usulan = Usulan::query()->create([
-            'kode' => 'USL-2026-TEST01',
-            'token_kirim' => Str::uuid()->toString(),
-            'dusun_id' => $dusun->id,
-            'jenis' => JenisUsulan::Pembangunan,
-            'judul' => 'Pengaspalan jalan gang dusun',
-            'isi' => 'Mohon bantuan perbaikan aspal jalan gang agar tidak becek saat hujan.',
-            'status' => StatusUsulan::Ditinjau,
-            'tampil_publik' => true,
-            'dipublikasikan_pada' => now()->subHours(5),
-            'dikirim_pada' => now()->subDay(),
-        ]);
-
         $response = $this->get(route('home'));
 
         $response->assertOk()
-            ->assertSee('Laporan dan usulan terkini.')
-            ->assertSee('Laporan warga terbaru')
-            ->assertSee('Usulan pembangunan terbaru')
-            // Cek laporan: judul, kode, dusun, status label
-            ->assertSee($report->title)
-            ->assertSee($report->report_code)
-            ->assertSee($dusun->name)
-            ->assertSee('Proses Pelaksanaan')
-            // Cek usulan: judul, kode, dusun, status label
-            ->assertSee($usulan->judul)
-            ->assertSee($usulan->kode)
-            ->assertSee('Sedang Ditinjau');
+            ->assertDontSee('Laporan dan usulan terkini.')
+            ->assertDontSee('Laporan warga terbaru')
+            ->assertSee('Laporkan masalah desa ke petugas.')
+            ->assertSee('Suasana Desa Padelegan.');
     }
 
-    public function test_home_page_status_component_renders_svg_icons(): void
+    public function test_public_reports_page_displays_reports_with_icons_and_hero_illustration(): void
     {
         $dusun = Dusun::query()->firstOrFail();
         $category = Category::query()->with('subcategories')->firstOrFail();
 
-        Report::query()->create([
+        $report = Report::query()->create([
             'report_code' => 'PDL-2026-STAT01',
             'submission_token' => Str::uuid()->toString(),
             'reporter_name' => 'Warga Padelegan',
@@ -107,9 +84,14 @@ class HomePageTest extends TestCase
             'verified_at' => now(),
         ]);
 
-        $response = $this->get(route('home'));
+        $response = $this->get(route('public-reports.index'));
 
         $response->assertOk()
+            ->assertSee('Laporan Terkini')
+            ->assertSee('ilustrasi-laporan.webp')
+            ->assertSee($report->title)
+            ->assertSee($report->report_code)
+            ->assertSee($dusun->name)
             ->assertSee('Sudah Terlaksana')
             ->assertSee('data-status="completed"', false)
             ->assertSee('<svg', false);
