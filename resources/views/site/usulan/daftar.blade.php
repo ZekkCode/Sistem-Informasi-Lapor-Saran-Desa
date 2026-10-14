@@ -4,11 +4,19 @@
 
 @section('content')
     <section class="border-b border-padelegan-800/10 bg-white">
-        <div class="site-shell py-9 sm:py-12">
-            <p class="public-kicker">Aspirasi terpilih</p>
-            <div class="mt-3 grid gap-5 lg:grid-cols-[1fr_auto] lg:items-end">
-                <div><h1 class="public-page-title text-padelegan-900">Usulan Warga</h1><p class="reading-measure mt-4 text-base leading-7 text-padelegan-900/65">Usulan yang sudah ditinjau petugas. Halaman ini tidak menampilkan nama dan WhatsApp pengusul.</p></div>
-                <p class="text-sm font-semibold text-padelegan-900/55">{{ $daftarUsulan->total() }} usulan ditampilkan</p>
+        <div class="site-shell py-8 sm:py-10">
+            <div class="grid items-center gap-6 lg:grid-cols-[1fr_200px]">
+                <div>
+                    <p class="public-kicker">Aspirasi terpilih</p>
+                    <h1 class="public-page-title text-padelegan-900 mt-1">Usulan Warga</h1>
+                    <p class="reading-measure mt-3 text-sm leading-6 text-padelegan-900/70 sm:text-base">
+                        Usulan yang sudah ditinjau petugas. Halaman ini tidak menampilkan nama dan WhatsApp pengusul.
+                    </p>
+                    <p class="mt-3 text-xs font-semibold text-padelegan-900/60">{{ $daftarUsulan->total() }} usulan ditampilkan</p>
+                </div>
+                <figure class="hidden lg:flex justify-end" aria-hidden="true">
+                    <img src="{{ asset('images/illustrations/ilustrasi-aspirasi.webp') }}" alt="" width="180" height="225" class="h-36 w-auto object-contain" fetchpriority="high">
+                </figure>
             </div>
         </div>
     </section>
