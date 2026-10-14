@@ -6,6 +6,7 @@ use App\Http\Controllers\Site\ReportController;
 use App\Http\Controllers\Site\ReportTrackingController;
 use App\Http\Controllers\Site\ReportUploadController;
 use App\Http\Controllers\Site\LacakUsulanController;
+use App\Http\Controllers\Site\SitemapController;
 use App\Http\Controllers\Site\UsulanController;
 use App\Http\Controllers\Site\UsulanPublikController;
 use Illuminate\Support\Facades\Route;
@@ -43,3 +44,7 @@ Route::redirect('/buat-usulan', '/usulan');
 
 Route::view('/tentang', 'site.about.index')->name('about');
 Route::view('/bantuan-situs', 'site.support')->name('site-support');
+Route::get('/sitemap.xml', [SitemapController::class, 'xml'])->name('sitemap.xml');
+Route::get('/peta-situs', [SitemapController::class, 'htmlSitemap'])->name('sitemap.html');
+Route::redirect('/sitemap', '/peta-situs');
+

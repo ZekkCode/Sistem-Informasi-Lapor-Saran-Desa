@@ -2,10 +2,12 @@
 
 namespace Tests\Feature\Site;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class AboutPageTest extends TestCase
 {
+    use RefreshDatabase;
     public function test_halaman_tentang_menampilkan_tim_kkn_dan_kredit_zekkcode(): void
     {
         $response = $this->get(route('about'));

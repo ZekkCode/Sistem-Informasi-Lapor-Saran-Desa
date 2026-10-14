@@ -1,2 +1,47 @@
+# robots.txt untuk Sistem Lapor Padelegan
+# https://sistem-lapor-padelegan.vercel.app
+
 User-agent: *
-Disallow:
+Allow: /
+Allow: /laporan
+Allow: /laporan/*
+Allow: /usulan-warga
+Allow: /usulan-warga/*
+Allow: /tentang
+Allow: /bantuan-situs
+Allow: /peta-situs
+Allow: /sitemap.xml
+Allow: /images/
+Allow: /build/
+
+# Blokir akses perayap ke panel internal dan halaman sesi sementara
+Disallow: /admin
+Disallow: /admin/*
+Disallow: /api/
+Disallow: /storage/backups/
+Disallow: /cek-laporan
+Disallow: /cek-usulan
+Disallow: /lapor/sukses/*
+Disallow: /usulan/sukses/*
+
+# Cegah bot merayap parameter token atau loop filter
+Disallow: /*?*token=
+Disallow: /*?*page=
+
+# Izinkan bot pratinjau media sosial (WhatsApp, Facebook, Twitter, Telegram)
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Facebot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: TelegramBot
+Allow: /
+
+Sitemap: https://sistem-lapor-padelegan.vercel.app/sitemap.xml
