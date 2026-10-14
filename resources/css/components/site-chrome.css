@@ -32,6 +32,27 @@
     object-fit: contain;
 }
 
+.site-brand__logo-wrap {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    text-align: center;
+}
+
+.site-brand__tag {
+    display: block;
+    margin-block-start: 0.2rem;
+    font-size: 0.5625rem;
+    font-weight: 700;
+    letter-spacing: 0.035em;
+    text-transform: uppercase;
+    color: rgb(23 54 45 / 0.72);
+    line-height: 1;
+    white-space: nowrap;
+}
+
 .site-brand__copy {
     display: block;
     min-inline-size: 0;

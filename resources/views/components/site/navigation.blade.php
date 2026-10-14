@@ -1,7 +1,10 @@
 <header class="site-header">
     <div class="site-shell site-header__inner">
         <a href="{{ route('home') }}" class="site-brand" aria-label="Sistem Lapor Padelegan, kembali ke beranda">
-            <img src="{{ asset('images/brand/lambang-pamekasan.png') }}" alt="Lambang Kabupaten Pamekasan" width="418" height="387" class="site-brand__crest">
+            <div class="site-brand__logo-wrap">
+                <img src="{{ asset('images/brand/lambang-pamekasan.png') }}" alt="Lambang Kabupaten Pamekasan" width="418" height="387" class="site-brand__crest">
+                <span class="site-brand__tag">Pemdes Padelegan</span>
+            </div>
             <span class="site-brand__copy">
                 <strong class="site-brand__name">Sistem Lapor Padelegan</strong>
                 <span class="site-brand__service">Layanan pengaduan desa</span>

@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="Sistem Lapor Padelegan, layanan pengaduan warga untuk mengirim dan memantau laporan desa.">
+    <meta name="author" content="ZekkCode">
+    <meta name="developer" content="ZekkCode (zekkcode by web)">
+    <meta name="creator" content="ZekkCode">
+    <meta name="publisher" content="Pemerintah Desa Padelegan">
+    <meta property="og:site_name" content="Sistem Lapor Padelegan">
+    <meta property="og:title" content="@yield('title', 'Sistem Lapor Padelegan') | Desa Padelegan">
+    <meta property="og:description" content="Layanan pengaduan dan aspirasi warga Pemerintah Desa Padelegan, Kecamatan Pademawu, Kabupaten Pamekasan.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="id_ID">
+    <meta property="og:image" content="{{ asset('images/brand/lambang-pamekasan.png') }}">
     <title>@yield('title', 'Sistem Lapor Padelegan') | Desa Padelegan</title>
     <link rel="icon" href="{{ asset('images/brand/lambang-pamekasan.png') }}" type="image/png">
     @vite(['resources/css/app.css', 'resources/js/app.js'])

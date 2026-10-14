@@ -159,6 +159,32 @@ class SiteDataService
     }
 
     /**
+     * Mengambil laporan publik terbaru untuk ditampilkan di beranda.
+     *
+     * @return Collection<int, Report>
+     */
+    public function latestPublicReports(int $limit = 3): Collection
+    {
+        if ($this->publicReportsUseDemoData()) {
+            return $this->demoReports()->take($limit);
+        }
+
+        try {
+            return Report::query()
+                ->visibleToPublic()
+                ->with(['dusun:id,name', 'subcategory:id,category_id,name', 'subcategory.category:id,name'])
+                ->latest('submitted_at')
+                ->take($limit)
+                ->get();
+        } catch (QueryException $exception) {
+            $this->publicReportsUseDemoData = true;
+            $this->logFallback('latest-public-reports', $exception);
+
+            return $this->demoReports()->take($limit);
+        }
+    }
+
+    /**
      * @return array{report: Report|null, usingDemoData: bool}
      */
     public function findPublicReport(string $reportCode): array

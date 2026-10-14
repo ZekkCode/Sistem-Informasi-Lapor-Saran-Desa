@@ -46,6 +46,64 @@
             </div>
         </nav>
 
+        <section class="border-b border-padelegan-800/10 bg-white py-10 sm:py-14" aria-labelledby="aktivitas-title">
+            <div class="site-shell">
+                <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between" data-aos="fade-up">
+                    <div>
+                        <p class="home-kicker">Aktivitas desa</p>
+                        <h2 id="aktivitas-title" class="home-section__title">Laporan dan usulan terkini.</h2>
+                        <p class="mt-2 text-sm leading-6 text-padelegan-900/65 sm:text-base">
+                            Pantau penanganan masalah dan usulan warga di tiap dusun Desa Padelegan.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <x-ui.action :href="route('public-reports.index')" variant="secondary">Semua laporan</x-ui.action>
+                        <x-ui.action :href="route('public-usulan.index')" variant="secondary">Semua usulan</x-ui.action>
+                    </div>
+                </div>
+
+                <div class="mt-8 grid gap-8 lg:grid-cols-2" data-aos="fade-up" data-aos-delay="80">
+                    {{-- Kolom Laporan --}}
+                    <div class="flex flex-col">
+                        <div class="mb-4 flex items-center justify-between border-b border-padelegan-800/10 pb-3">
+                            <h3 class="text-base font-semibold text-padelegan-900">Laporan warga terbaru</h3>
+                            <a href="{{ route('public-reports.index') }}" class="text-xs font-semibold text-padelegan-700 hover:underline">Lihat semua &rarr;</a>
+                        </div>
+                        @if ($recentReports->isNotEmpty())
+                            <div class="grid gap-3.5">
+                                @foreach ($recentReports as $report)
+                                    <x-reports.card :report="$report" />
+                                @endforeach
+                            </div>
+                        @else
+                            <div class="rounded-xl border border-dashed border-padelegan-800/20 p-6 text-center text-xs text-padelegan-900/60">
+                                Belum ada laporan terverifikasi untuk ditampilkan.
+                            </div>
+                        @endif
+                    </div>
+
+                    {{-- Kolom Usulan --}}
+                    <div class="flex flex-col">
+                        <div class="mb-4 flex items-center justify-between border-b border-padelegan-800/10 pb-3">
+                            <h3 class="text-base font-semibold text-padelegan-900">Usulan pembangunan terbaru</h3>
+                            <a href="{{ route('public-usulan.index') }}" class="text-xs font-semibold text-padelegan-700 hover:underline">Lihat semua &rarr;</a>
+                        </div>
+                        @if ($recentUsulan->isNotEmpty())
+                            <div class="grid gap-3.5">
+                                @foreach ($recentUsulan as $usulan)
+                                    <x-usulan.card :usulan="$usulan" />
+                                @endforeach
+                            </div>
+                        @else
+                            <div class="rounded-xl border border-dashed border-padelegan-800/20 p-6 text-center text-xs text-padelegan-900/60">
+                                Belum ada usulan warga untuk ditampilkan.
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="alur" class="home-process">
             <div class="site-shell home-process__grid">
                 <div class="home-process__copy" data-aos="fade-up">

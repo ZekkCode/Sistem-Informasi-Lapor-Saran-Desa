@@ -18,6 +18,14 @@
     content: "";
 }
 
+.status:has(svg)::before {
+    display: none;
+}
+
+.status svg {
+    flex-shrink: 0;
+}
+
 .status[data-status="not_started"] {
     background: var(--status-waiting-bg);
     color: var(--status-waiting-fg);

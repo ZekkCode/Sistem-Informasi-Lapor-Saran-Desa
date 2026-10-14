@@ -38,4 +38,14 @@ class AboutPageTest extends TestCase
             ->assertSee('Tentang & Tim KKN', false)
             ->assertSee('zekkcode by web');
     }
+
+    public function test_layout_menampilkan_metadata_pengembang_zekkcode(): void
+    {
+        $response = $this->get(route('home'));
+
+        $response->assertOk()
+            ->assertSee('<meta name="author" content="ZekkCode">', false)
+            ->assertSee('<meta name="developer" content="ZekkCode (zekkcode by web)">', false)
+            ->assertSee('zekkcode by web');
+    }
 }

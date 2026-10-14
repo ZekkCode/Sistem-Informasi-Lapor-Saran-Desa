@@ -87,6 +87,32 @@ class DataUsulanService
     }
 
     /**
+     * Mengambil usulan terpublikasi terbaru untuk ditampilkan di beranda.
+     *
+     * @return Collection<int, Usulan>
+     */
+    public function usulanTerbaruBeranda(int $limit = 3): Collection
+    {
+        if ($this->memakaiDemo()) {
+            return $this->usulanDemo()->take($limit);
+        }
+
+        try {
+            return Usulan::query()
+                ->tampilPublik()
+                ->with(['dusun:id,name'])
+                ->latest('dipublikasikan_pada')
+                ->take($limit)
+                ->get();
+        } catch (QueryException $exception) {
+            $this->memakaiDemo = true;
+            $this->catatFallback('usulan-terbaru-beranda', $exception);
+
+            return $this->usulanDemo()->take($limit);
+        }
+    }
+
+    /**
      * @return array{usulan: Usulan|null, memakaiDemo: bool}
      */
     public function cariUsulanPublik(string $kode): array

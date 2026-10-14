@@ -65,12 +65,24 @@
                 </div>
 
                 <div class="mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 rounded-xl border border-padelegan-100 bg-padelegan-50/40 text-sm">
-                    <div>
-                        <p class="font-medium text-padelegan-900">Pengembangan Website</p>
-                        <p class="text-xs text-padelegan-700 mt-0.5">Dirancang dan dibangun oleh <strong>ZekkCode</strong> untuk Desa Padelegan.</p>
+                    <div class="flex items-center gap-3">
+                        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-padelegan-900 text-white shadow-sm">
+                            <svg class="h-5 w-5" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="16 18 22 12 16 6"></polyline>
+                                <polyline points="8 6 2 12 8 18"></polyline>
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="font-medium text-padelegan-900">Pengembangan Website</p>
+                            <p class="text-xs text-padelegan-700 mt-0.5">Dirancang dan dibangun oleh <strong>ZekkCode</strong> untuk Desa Padelegan.</p>
+                        </div>
                     </div>
-                    <span class="inline-flex items-center self-start sm:self-auto px-3 py-1 rounded-md text-xs font-semibold bg-padelegan-900 text-white tracking-wide">
-                        zekkcode by web
+                    <span class="inline-flex items-center gap-1.5 self-start sm:self-auto px-3 py-1.5 rounded-lg text-xs font-semibold bg-padelegan-900 text-white tracking-wide shadow-sm">
+                        <svg class="h-3.5 w-3.5 text-padelegan-300" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="16 18 22 12 16 6"></polyline>
+                            <polyline points="8 6 2 12 8 18"></polyline>
+                        </svg>
+                        <span>zekkcode by web</span>
                     </span>
                 </div>
             </div>
