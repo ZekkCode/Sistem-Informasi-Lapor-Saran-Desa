@@ -37,6 +37,7 @@ Route::middleware(['auth', 'active.admin'])->group(function () {
     Route::middleware('akses.laporan')->group(function () {
         Route::get('/laporan', [ReportController::class, 'index'])->name('reports.index');
         Route::get('/laporan/ekspor.csv', [ReportExportController::class, 'csv'])->name('reports.export.csv');
+        Route::post('/laporan/ekspor-drive', [ReportExportController::class, 'exportDrive'])->name('reports.export.drive');
         Route::get('/laporan/cetak', [ReportExportController::class, 'print'])->name('reports.print');
         Route::get('/laporan/{report}', [ReportController::class, 'show'])->name('reports.show');
         Route::patch('/laporan/{report}/alur', [ReportWorkflowController::class, 'update'])->name('reports.workflow.update');

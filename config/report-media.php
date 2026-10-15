@@ -31,9 +31,9 @@ return [
     ],
 
     'google_drive' => [
-        'enabled' => (bool) env('GOOGLE_DRIVE_BACKUP_ENABLED', false),
-        'client_id' => env('GOOGLE_DRIVE_CLIENT_ID'),
-        'client_secret' => env('GOOGLE_DRIVE_CLIENT_SECRET'),
+        'enabled' => (bool) (env('GOOGLE_DRIVE_BACKUP_ENABLED', false) || env('GOOGLE_DRIVE_ENABLED', false)),
+        'client_id' => env('GOOGLE_DRIVE_CLIENT_ID', env('GOOGLE_SSO_CLIENT_ID')),
+        'client_secret' => env('GOOGLE_DRIVE_CLIENT_SECRET', env('GOOGLE_SSO_CLIENT_SECRET')),
         'refresh_token' => env('GOOGLE_DRIVE_REFRESH_TOKEN'),
         'folder_id' => env('GOOGLE_DRIVE_FOLDER_ID'),
         'queue' => env('GOOGLE_DRIVE_BACKUP_QUEUE', 'backups'),

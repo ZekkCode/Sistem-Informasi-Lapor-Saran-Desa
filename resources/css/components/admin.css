@@ -245,6 +245,54 @@
 .admin-table a { color: var(--brand); font-weight: 680; text-decoration: none; }
 .admin-table__title { display: block; max-inline-size: 26rem; margin-block-start: 0.18rem; color: var(--ink); font-weight: 540; }
 .admin-table__muted { color: var(--ink-muted); font-size: 0.69rem; }
+.admin-table__photo-thumb {
+    position: relative;
+    display: block;
+    inline-size: 3.25rem;
+    block-size: 3.25rem;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #edf1ec;
+    border: 1px solid var(--line);
+    flex-shrink: 0;
+}
+.admin-table__photo-thumb img {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 150ms ease;
+}
+.admin-table__photo-thumb:hover img {
+    transform: scale(1.06);
+}
+.admin-table__photo-thumb--empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f4f6f3;
+}
+.admin-table__photo-badge {
+    position: absolute;
+    inset-block-end: 2px;
+    inset-inline-end: 2px;
+    background: rgba(18, 51, 38, 0.88);
+    color: white;
+    font-size: 0.58rem;
+    font-weight: 700;
+    line-height: 1;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+.admin-export-dropdown summary::-webkit-details-marker {
+    display: none;
+}
+.admin-export-dropdown[open] .admin-export-menu {
+    display: block;
+}
+.admin-export-menu {
+    display: none;
+}
 
 .admin-section-title { margin: 0 0 0.75rem; font-size: 0.78rem; font-weight: 750; letter-spacing: 0.06em; text-transform: uppercase; }
 .admin-data-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem 1.25rem; }

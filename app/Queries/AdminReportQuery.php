@@ -11,7 +11,12 @@ class AdminReportQuery
     public function build(array $filters): Builder
     {
         return Report::query()
-            ->with(['dusun:id,name', 'subcategory:id,category_id,name', 'subcategory.category:id,name'])
+            ->with([
+                'dusun:id,name',
+                'subcategory:id,category_id,name',
+                'subcategory.category:id,name',
+                'media:id,report_id,media_type,file_path,storage_disk,mime_type',
+            ])
             ->when($filters['q'] ?? null, function (Builder $query, string $keyword) {
                 $query->where(function (Builder $query) use ($keyword) {
                     $query->where('report_code', 'like', "%{$keyword}%")
@@ -28,6 +33,14 @@ class AdminReportQuery
             ->when($filters['verification_status'] ?? null, fn (Builder $query, $value) => $query->where('verification_status', $value))
             ->when($filters['status'] ?? null, fn (Builder $query, $value) => $query->where('status', $value))
             ->when($filters['admin_priority'] ?? null, fn (Builder $query, $value) => $query->where('admin_priority', $value))
+            ->when($filters['periode'] ?? null, function (Builder $query, string $periode) {
+                match ($periode) {
+                    'minggu' => $query->where('submitted_at', '>=', now()->subDays(7)),
+                    'bulan' => $query->where('submitted_at', '>=', now()->subDays(30)),
+                    'tahun' => $query->where('submitted_at', '>=', now()->startOfYear()),
+                    default => null,
+                };
+            })
             ->when($filters['date_from'] ?? null, fn (Builder $query, $value) => $query->whereDate('submitted_at', '>=', $value))
             ->when($filters['date_to'] ?? null, fn (Builder $query, $value) => $query->whereDate('submitted_at', '<=', $value))
             ->latest('submitted_at');

@@ -25,6 +25,7 @@ class FilterReportsRequest extends FormRequest
             'verification_status' => ['nullable', Rule::enum(VerificationStatus::class)],
             'status' => ['nullable', Rule::enum(ReportStatus::class)],
             'admin_priority' => ['nullable', Rule::enum(AdminPriority::class)],
+            'periode' => ['nullable', 'string', 'in:semua,minggu,bulan,tahun,kustom'],
             'date_from' => ['nullable', 'date'],
             'date_to' => ['nullable', 'date', 'after_or_equal:date_from'],
         ];

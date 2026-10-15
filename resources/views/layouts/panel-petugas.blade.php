@@ -84,7 +84,11 @@
             </header>
 
             @if(session('status'))
-                <div class="admin-notice admin-notice--success" role="status">{{ session('status') }}</div>
+                <div class="admin-notice admin-notice--success" role="status">{!! session('status') !!}</div>
+            @endif
+
+            @if(session('error'))
+                <div class="admin-notice admin-notice--danger" role="alert">{{ session('error') }}</div>
             @endif
 
             @if($errors->any())

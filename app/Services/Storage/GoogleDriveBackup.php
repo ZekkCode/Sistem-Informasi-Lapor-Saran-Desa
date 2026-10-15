@@ -67,9 +67,61 @@ class GoogleDriveBackup
         return $this->normaliseFile($response->json());
     }
 
+    /**
+     * @return array{id: string, name: string|null, webViewLink: string|null}
+     */
+    public function uploadFile(string $fileName, string $contents, string $mimeType = 'text/csv'): array
+    {
+        $this->ensureConfigured();
+
+        $boundary = 'padelegan-'.Str::lower((string) Str::ulid());
+        $metadata = json_encode([
+            'name' => $fileName,
+            'parents' => [(string) config('report-media.google_drive.folder_id')],
+            'appProperties' => [
+                'system' => 'padelegan_lapor',
+                'type' => 'rekap_laporan',
+                'exported_at' => now()->toIso8601String(),
+            ],
+        ], JSON_THROW_ON_ERROR);
+
+        $body = "--{$boundary}\r\n"
+            ."Content-Type: application/json; charset=UTF-8\r\n\r\n"
+            .$metadata."\r\n"
+            ."--{$boundary}\r\n"
+            ."Content-Type: {$mimeType}; charset=UTF-8\r\n\r\n"
+            .$contents."\r\n"
+            ."--{$boundary}--";
+
+        $response = $this->sendWithFreshToken(fn (PendingRequest $request) => $request
+            ->withQueryParameters([
+                'uploadType' => 'multipart',
+                'supportsAllDrives' => 'true',
+                'fields' => 'id,name,webViewLink',
+            ])
+            ->withBody($body, "multipart/related; boundary={$boundary}")
+            ->post($this->uploadUrl('/files')));
+
+        $response->throw();
+
+        return $this->normaliseFile($response->json());
+    }
+
     public function enabled(): bool
     {
         return (bool) config('report-media.google_drive.enabled', false);
+    }
+
+    public function isConfigured(): bool
+    {
+        if (! $this->enabled()) {
+            return false;
+        }
+
+        $required = ['client_id', 'refresh_token', 'folder_id'];
+        $missing = array_filter($required, fn (string $key) => blank(config("report-media.google_drive.{$key}")));
+
+        return $missing === [];
     }
 
     /**
