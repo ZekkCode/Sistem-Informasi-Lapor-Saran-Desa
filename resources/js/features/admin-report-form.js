@@ -91,9 +91,13 @@ export function adminReportForm(config) {
                 this.uploadStatus = 'Menyimpan perubahan…';
                 HTMLFormElement.prototype.submit.call(this.$root);
             } catch (error) {
-                this.submitting = false;
-                this.uploadStatus = '';
-                this.error = error instanceof Error ? error.message : 'Unggah foto gagal. Coba kembali.';
+                console.warn('Unggah langsung gagal, beralih ke formulir standar:', error);
+                if (photoInput) {
+                    photoInput.disabled = false;
+                }
+                this.$root.querySelectorAll('input[name="uploaded_media[]"]').forEach((input) => input.remove());
+                this.uploadStatus = 'Menyimpan perubahan…';
+                HTMLFormElement.prototype.submit.call(this.$root);
             }
         },
 

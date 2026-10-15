@@ -268,11 +268,13 @@ export function reportForm(config) {
                 this.uploadStatus = 'Menyimpan laporan…';
                 HTMLFormElement.prototype.submit.call(this.$root);
             } catch (error) {
-                this.submitting = false;
-                this.uploadStatus = '';
-                this.submitError = error instanceof Error
-                    ? error.message
-                    : 'Foto gagal diunggah. Periksa koneksi lalu coba lagi.';
+                console.warn('Unggah langsung gagal, beralih ke formulir standar:', error);
+                if (photoInput) {
+                    photoInput.disabled = false;
+                }
+                this.$root.querySelectorAll('input[data-direct-upload-token]').forEach((input) => input.remove());
+                this.uploadStatus = 'Menyimpan laporan…';
+                HTMLFormElement.prototype.submit.call(this.$root);
             }
         },
 
