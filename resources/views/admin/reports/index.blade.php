@@ -5,29 +5,30 @@
 @section('eyebrow', 'Antrean dan penanganan')
 @section('page-actions')
     <div class="flex flex-wrap items-center gap-2">
-        <details class="admin-export-dropdown relative">
+        <details class="admin-export-dropdown" @click.outside="$el.removeAttribute('open')">
             <summary class="action action--secondary action--sm cursor-pointer list-none select-none">
-                <svg class="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                <svg class="w-4 h-4 inline-block mr-1 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
                 <span>Unduh CSV</span>
                 <svg class="w-3.5 h-3.5 ml-1 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
             </summary>
-            <div class="admin-export-menu absolute right-0 mt-1 w-56 bg-white border border-border shadow-md rounded-lg z-30 py-1.5 text-xs">
-                <div class="px-3 py-1 font-semibold text-muted text-[11px] uppercase tracking-wider">Pilih rentang CSV</div>
-                <a href="{{ route('admin.reports.export.csv', request()->query()) }}" class="block px-3 py-2 text-ink hover:bg-surface-subtle font-semibold text-primary">
-                    Unduh Sesuai Filter Saat Ini
+            <div class="admin-export-menu" @click="$el.closest('details').removeAttribute('open')">
+                <div class="admin-export-menu__header">Pilih rentang waktu CSV</div>
+                <a href="{{ route('admin.reports.export.csv', request()->query()) }}" class="admin-export-menu__item admin-export-menu__item--active">
+                    <span>Sesuai Filter Saat Ini</span>
+                    <span class="text-[11px] opacity-75">Aktif</span>
                 </a>
-                <div class="border-t border-border my-1"></div>
-                <a href="{{ route('admin.reports.export.csv', array_merge(request()->query(), ['periode' => 'minggu'])) }}" class="block px-3 py-2 text-ink hover:bg-surface-subtle">
-                    Mingguan (7 Hari Terakhir)
+                <div class="admin-export-menu__divider"></div>
+                <a href="{{ route('admin.reports.export.csv', array_merge(request()->query(), ['periode' => 'minggu'])) }}" class="admin-export-menu__item">
+                    <span>Mingguan (7 Hari Terakhir)</span>
                 </a>
-                <a href="{{ route('admin.reports.export.csv', array_merge(request()->query(), ['periode' => 'bulan'])) }}" class="block px-3 py-2 text-ink hover:bg-surface-subtle">
-                    Bulanan (30 Hari Terakhir)
+                <a href="{{ route('admin.reports.export.csv', array_merge(request()->query(), ['periode' => 'bulan'])) }}" class="admin-export-menu__item">
+                    <span>Bulanan (30 Hari Terakhir)</span>
                 </a>
-                <a href="{{ route('admin.reports.export.csv', array_merge(request()->query(), ['periode' => 'tahun'])) }}" class="block px-3 py-2 text-ink hover:bg-surface-subtle">
-                    Tahunan (Tahun {{ now()->year }})
+                <a href="{{ route('admin.reports.export.csv', array_merge(request()->query(), ['periode' => 'tahun'])) }}" class="admin-export-menu__item">
+                    <span>Tahunan (Tahun {{ now()->year }})</span>
                 </a>
-                <a href="{{ route('admin.reports.export.csv', array_merge(request()->query(), ['periode' => 'semua'])) }}" class="block px-3 py-2 text-ink hover:bg-surface-subtle">
-                    Semua Laporan (Tanpa Batasan)
+                <a href="{{ route('admin.reports.export.csv', array_merge(request()->query(), ['periode' => 'semua'])) }}" class="admin-export-menu__item">
+                    <span>Semua Waktu (Tanpa Batas)</span>
                 </a>
             </div>
         </details>
@@ -51,7 +52,7 @@
 
 @section('content')
     <form action="{{ route('admin.reports.index') }}" method="GET" class="admin-filter" aria-label="Filter laporan">
-        <label class="field">
+        <label class="field field--search">
             <span class="field__label">Cari</span>
             <input name="q" class="control" value="{{ request('q') }}" placeholder="Nomor, judul, nama, atau WhatsApp">
         </label>
@@ -91,10 +92,14 @@
                 @endforeach
             </select>
         </label>
-        <button type="submit" class="action action--primary action--sm">Terapkan</button>
-        @if(request()->hasAny(['q', 'periode', 'verification_status', 'status', 'dusun_id', 'category_id', 'date_from', 'date_to']))
-            <a href="{{ route('admin.reports.index') }}" class="action action--quiet action--sm">Reset</a>
-        @endif
+        <div class="admin-filter__actions">
+            <button type="submit" class="action action--primary action--sm">
+                <span class="text-white font-semibold">Terapkan</span>
+            </button>
+            @if(request()->hasAny(['q', 'periode', 'verification_status', 'status', 'dusun_id', 'category_id', 'date_from', 'date_to']))
+                <a href="{{ route('admin.reports.index') }}" class="action action--quiet action--sm">Reset</a>
+            @endif
+        </div>
     </form>
 
     <div class="admin-table-wrap">
@@ -134,7 +139,7 @@
                             @endif
                         </td>
                         <td>
-                            <a href="{{ route('admin.reports.show', $report) }}" class="font-bold">{{ $report->report_code }}</a>
+                            <a href="{{ route('admin.reports.show', $report) }}" class="font-bold text-primary">{{ $report->report_code }}</a>
                             <span class="admin-table__title">{{ $report->title }}</span>
                             <span class="admin-table__muted">{{ $report->reporter_name }} · {{ $report->reporter_phone }}</span>
                         </td>
@@ -144,8 +149,8 @@
                         <td><x-reports.priority-badge :priority="$report->admin_priority ?? $report->citizen_priority" /></td>
                         <td><time datetime="{{ $report->submitted_at->toIso8601String() }}">{{ $report->submitted_at->translatedFormat('d M Y') }}</time><span class="admin-table__muted block">{{ $report->submitted_at->format('H:i') }} WIB</span></td>
                         <td>
-                            <a href="{{ route('admin.reports.show', $report) }}" class="action action--primary action--sm whitespace-nowrap" title="Tinjau dan tindaklanjuti laporan {{ $report->report_code }}">
-                                <span>Tinjau</span>
+                            <a href="{{ route('admin.reports.show', $report) }}" class="action action--primary action--sm whitespace-nowrap" style="color: #ffffff !important;" title="Tinjau dan tindaklanjuti laporan {{ $report->report_code }}">
+                                <span class="text-white font-bold" style="color: #ffffff !important;">Tinjau</span>
                             </a>
                         </td>
                     </tr>

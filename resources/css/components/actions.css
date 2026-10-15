@@ -15,11 +15,12 @@
 
 .action--primary {
     background: var(--brand);
-    color: white;
+    color: #ffffff !important;
 }
 
 .action--primary:hover {
     background: var(--brand-strong);
+    color: #ffffff !important;
 }
 
 .action--secondary {

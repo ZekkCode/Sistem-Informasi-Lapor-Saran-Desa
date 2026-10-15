@@ -225,26 +225,48 @@
 .admin-category-fill { display: block; block-size: 100%; background: var(--brand); }
 
 .admin-filter {
-    display: grid;
-    grid-template-columns: minmax(12rem, 1.5fr) repeat(3, minmax(9rem, 0.8fr)) auto;
-    gap: 0.65rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 0.75rem;
     margin-block-end: 1rem;
     border: 1px solid var(--line);
     background: white;
-    padding: 0.85rem;
+    padding: 1rem;
+}
+
+.admin-filter .field {
+    flex: 1 1 10rem;
+    min-inline-size: 0;
+}
+
+.admin-filter .field--search {
+    flex: 2 1 16rem;
+}
+
+.admin-filter__actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-inline-start: auto;
 }
 
 .admin-filter .control { min-height: 2.65rem; padding-block: 0.55rem; font-size: 0.84rem; }
 
 .admin-table-wrap { overflow-x: auto; overscroll-behavior-inline: contain; scrollbar-gutter: stable; border: 1px solid var(--line); background: white; }
 .admin-table { inline-size: 100%; min-inline-size: 50rem; border-collapse: collapse; font-size: 0.78rem; }
-.admin-table th { background: #f3f5f1; color: #5a6962; font-size: 0.66rem; letter-spacing: 0.05em; text-align: start; text-transform: uppercase; }
+.admin-table th { background: #f3f5f1; color: #23332c; font-size: 0.68rem; font-weight: 750; letter-spacing: 0.05em; text-align: start; text-transform: uppercase; }
 .admin-table th,
-.admin-table td { border-block-end: 1px solid #e7ebe7; padding: 0.78rem 0.85rem; vertical-align: top; }
+.admin-table td { border-block-end: 1px solid #e7ebe7; padding: 0.78rem 0.85rem; vertical-align: middle; }
 .admin-table tbody tr:hover { background: #fafbf9; }
-.admin-table a { color: var(--brand); font-weight: 680; text-decoration: none; }
-.admin-table__title { display: block; max-inline-size: 26rem; margin-block-start: 0.18rem; color: var(--ink); font-weight: 540; }
-.admin-table__muted { color: var(--ink-muted); font-size: 0.69rem; }
+.admin-table a:not(.action) { color: var(--brand); font-weight: 680; text-decoration: none; }
+.admin-table a:not(.action):hover { text-decoration: underline; }
+.admin-table .action--primary,
+.admin-table a.action--primary { color: #ffffff !important; }
+.admin-table .action--secondary,
+.admin-table a.action--secondary { color: var(--brand) !important; }
+.admin-table__title { display: block; max-inline-size: 26rem; margin-block-start: 0.18rem; color: #15342b; font-weight: 560; }
+.admin-table__muted { color: #43544c; font-size: 0.72rem; }
 .admin-table__photo-thumb {
     position: relative;
     display: block;
@@ -284,6 +306,9 @@
     padding: 2px 4px;
     border-radius: 4px;
 }
+.admin-export-dropdown {
+    position: relative;
+}
 .admin-export-dropdown summary::-webkit-details-marker {
     display: none;
 }
@@ -292,6 +317,49 @@
 }
 .admin-export-menu {
     display: none;
+    position: absolute;
+    inset-inline-end: 0;
+    inset-block-start: calc(100% + 0.35rem);
+    min-inline-size: 15.5rem;
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    box-shadow: 0 10px 25px -5px rgba(16, 38, 31, 0.12), 0 8px 10px -6px rgba(16, 38, 31, 0.08);
+    padding: 0.5rem 0;
+    z-index: 50;
+}
+.admin-export-menu__header {
+    padding: 0.35rem 0.85rem;
+    font-size: 0.68rem;
+    font-weight: 750;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #475a52;
+}
+.admin-export-menu__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.55rem 0.85rem;
+    color: #15342b !important;
+    font-size: 0.78rem;
+    font-weight: 560;
+    text-decoration: none;
+    transition: background-color 120ms ease;
+}
+.admin-export-menu__item:hover {
+    background: #f2f7f4;
+    color: var(--brand) !important;
+}
+.admin-export-menu__item--active {
+    background: #eef6f1;
+    color: var(--brand) !important;
+    font-weight: 700;
+}
+.admin-export-menu__divider {
+    height: 1px;
+    background: var(--line);
+    margin: 0.35rem 0;
 }
 
 .admin-section-title { margin: 0 0 0.75rem; font-size: 0.78rem; font-weight: 750; letter-spacing: 0.06em; text-transform: uppercase; }
