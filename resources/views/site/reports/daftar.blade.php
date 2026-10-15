@@ -10,7 +10,7 @@
                     <p class="public-kicker">Laporan terverifikasi</p>
                     <h1 class="public-page-title text-padelegan-900 mt-1">Laporan Terkini</h1>
                     <p class="reading-measure mt-3 text-sm leading-6 text-padelegan-900/70 sm:text-base">
-                        Daftar laporan warga yang sudah diperiksa dan ditangani petugas. Identitas pelapor tetap privat.
+                        Pantau status penanganan laporan warga Desa Padelegan. Identitas pelapor tetap aman dan privat.
                     </p>
                     <p class="mt-3 text-xs font-semibold text-padelegan-900/60">{{ $reports->total() }} laporan terverifikasi</p>
                 </div>

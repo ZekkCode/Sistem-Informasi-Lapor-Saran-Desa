@@ -16,6 +16,7 @@
         <div class="mt-8 grid gap-12 lg:grid-cols-[1.2fr_0.8fr]">
             <div>
                 <div class="flex flex-wrap items-center gap-3">
+                    <x-reports.verification-badge :status="$report->verification_status" />
                     <x-reports.status :status="$report->status" />
                     <span class="font-mono text-xs tracking-wide text-padelegan-900/45">{{ $report->report_code }}</span>
                 </div>

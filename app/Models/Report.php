@@ -88,6 +88,6 @@ class Report extends Model
 
     public function scopeVisibleToPublic(Builder $query): Builder
     {
-        return $query->where('verification_status', VerificationStatus::Verified->value);
+        return $query->where('verification_status', '!=', VerificationStatus::Invalid->value);
     }
 }

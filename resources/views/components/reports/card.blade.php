@@ -3,7 +3,10 @@
 <article class="public-report-card">
     <div class="public-report-card__meta text-padelegan-900/50">
         <span class="public-report-card__code">{{ $report->report_code }}</span>
-        <x-reports.status :status="$report->status" />
+        <div class="flex items-center gap-1.5 flex-wrap">
+            <x-reports.verification-badge :status="$report->verification_status" />
+            <x-reports.status :status="$report->status" />
+        </div>
     </div>
 
     <h3 class="public-report-card__title">

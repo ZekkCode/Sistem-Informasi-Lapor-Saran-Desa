@@ -61,7 +61,8 @@
         <article class="site-shell py-9 sm:py-12 lg:py-14" aria-labelledby="report-title">
             <div class="tracking-result">
                 <div class="tracking-summary" data-aos="fade-up">
-                    <div class="flex flex-wrap items-center gap-3">
+                    <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+                        <x-reports.verification-badge :status="$report->verification_status" />
                         <x-reports.status :status="$report->status" />
                         <span class="tracking-code text-padelegan-900/50">{{ $report->report_code }}</span>
                     </div>
