@@ -16,6 +16,10 @@ use Throwable;
 
 class DirectUploadService
 {
+    public function __construct(
+        private readonly ReportMediaService $mediaService,
+    ) {}
+
     /**
      * @param  array<int, array{name: string, type: string, size: int}>  $files
      * @return array<int, array{name: string, url: string, headers: array<string, string>, token: string}>
@@ -84,21 +88,35 @@ class DirectUploadService
                 $this->verifyManifest($disk, $diskName, $manifest);
 
                 $folder = $mediaType === ReportMediaType::AfterPhoto ? 'after' : 'before';
-                $finalPath = "reports/{$report->report_code}/{$folder}/"
-                    .Str::ulid().'.'.$this->extensionFor($manifest['mime_type']);
+                $finalPath = "reports/{$report->report_code}/{$folder}/".Str::ulid().'.webp';
+                $mimeType = 'image/webp';
+                $rawContents = $disk->get($manifest['path']);
 
-                if (! $disk->move($manifest['path'], $finalPath)) {
+                try {
+                    $webpContents = $this->mediaService->convertToWebp($rawContents, $manifest['mime_type']);
+                    $fileSize = strlen($webpContents);
+                    $saved = $disk->put($finalPath, $webpContents);
+                } catch (Throwable) {
+                    $finalPath = "reports/{$report->report_code}/{$folder}/"
+                        .Str::ulid().'.'.$this->extensionFor($manifest['mime_type']);
+                    $mimeType = $manifest['mime_type'];
+                    $fileSize = $manifest['file_size'];
+                    $saved = $disk->put($finalPath, $rawContents);
+                }
+
+                if (! $saved) {
                     throw new RuntimeException('Foto bukti tidak dapat dipindahkan ke penyimpanan laporan.');
                 }
 
+                $disk->delete($manifest['path']);
                 $storedPaths[] = $finalPath;
 
                 $report->media()->create([
                     'media_type' => $mediaType,
                     'storage_disk' => $diskName,
                     'file_path' => $finalPath,
-                    'mime_type' => $manifest['mime_type'],
-                    'file_size' => $manifest['file_size'],
+                    'mime_type' => $mimeType,
+                    'file_size' => $fileSize,
                     'uploaded_by' => $uploadedBy,
                 ]);
             }
@@ -132,20 +150,34 @@ class DirectUploadService
                 $this->verifyManifest($disk, $diskName, $manifest);
 
                 $folder = 'photos';
-                $finalPath = "usulan/{$usulan->kode}/{$folder}/"
-                    .Str::ulid().'.'.$this->extensionFor($manifest['mime_type']);
+                $finalPath = "usulan/{$usulan->kode}/{$folder}/".Str::ulid().'.webp';
+                $mimeType = 'image/webp';
+                $rawContents = $disk->get($manifest['path']);
 
-                if (! $disk->move($manifest['path'], $finalPath)) {
+                try {
+                    $webpContents = $this->mediaService->convertToWebp($rawContents, $manifest['mime_type']);
+                    $fileSize = strlen($webpContents);
+                    $saved = $disk->put($finalPath, $webpContents);
+                } catch (Throwable) {
+                    $finalPath = "usulan/{$usulan->kode}/{$folder}/"
+                        .Str::ulid().'.'.$this->extensionFor($manifest['mime_type']);
+                    $mimeType = $manifest['mime_type'];
+                    $fileSize = $manifest['file_size'];
+                    $saved = $disk->put($finalPath, $rawContents);
+                }
+
+                if (! $saved) {
                     throw new RuntimeException('Foto bukti usulan tidak dapat dipindahkan ke penyimpanan.');
                 }
 
+                $disk->delete($manifest['path']);
                 $storedPaths[] = $finalPath;
 
                 $usulan->media()->create([
                     'storage_disk' => $diskName,
                     'file_path' => $finalPath,
-                    'mime_type' => $manifest['mime_type'],
-                    'file_size' => $manifest['file_size'],
+                    'mime_type' => $mimeType,
+                    'file_size' => $fileSize,
                     'uploaded_by' => $uploadedBy,
                 ]);
             }

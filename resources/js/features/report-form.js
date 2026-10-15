@@ -210,7 +210,14 @@ export function reportForm(config) {
             }
 
             this.submitting = true;
-            this.uploadStatus = 'Menyiapkan foto…';
+            this.uploadStatus = 'Mengoptimalkan foto…';
+
+            let uploadFiles = files;
+            try {
+                uploadFiles = await Promise.all(files.map((file) => convertToWebpFile(file)));
+            } catch {
+                uploadFiles = files;
+            }
 
             try {
                 const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
@@ -224,7 +231,7 @@ export function reportForm(config) {
                         'X-Requested-With': 'XMLHttpRequest',
                     },
                     body: JSON.stringify({
-                        files: files.map((file) => ({
+                        files: uploadFiles.map((file) => ({
                             name: file.name,
                             type: file.type,
                             size: file.size,
@@ -240,8 +247,8 @@ export function reportForm(config) {
 
                 for (let index = 0; index < payload.uploads.length; index += 1) {
                     const upload = payload.uploads[index];
-                    const file = files[index];
-                    this.uploadStatus = `Mengunggah foto ${index + 1}/${files.length}…`;
+                    const file = uploadFiles[index];
+                    this.uploadStatus = `Mengunggah foto ${index + 1}/${uploadFiles.length}…`;
 
                     const uploaded = await fetch(upload.url, {
                         method: 'PUT',
@@ -298,4 +305,58 @@ export function reportForm(config) {
             this.previews.forEach((item) => URL.revokeObjectURL(item.url));
         },
     };
+}
+
+function convertToWebpFile(file) {
+    if (file.type === 'image/webp') {
+        return Promise.resolve(file);
+    }
+
+    return new Promise((resolve) => {
+        const img = new Image();
+        const url = URL.createObjectURL(file);
+
+        img.onload = () => {
+            URL.revokeObjectURL(url);
+            let { width, height } = img;
+            const maxDim = 1920;
+
+            if (width > maxDim || height > maxDim) {
+                if (width > height) {
+                    height = Math.round((height * maxDim) / width);
+                    width = maxDim;
+                } else {
+                    width = Math.round((width * maxDim) / height);
+                    height = maxDim;
+                }
+            }
+
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+
+            if (!ctx) {
+                resolve(file);
+                return;
+            }
+
+            ctx.drawImage(img, 0, 0, width, height);
+            canvas.toBlob((blob) => {
+                if (blob) {
+                    const newName = file.name.replace(/\.[^/.]+$/, '') + '.webp';
+                    resolve(new File([blob], newName, { type: 'image/webp', lastModified: Date.now() }));
+                } else {
+                    resolve(file);
+                }
+            }, 'image/webp', 0.82);
+        };
+
+        img.onerror = () => {
+            URL.revokeObjectURL(url);
+            resolve(file);
+        };
+
+        img.src = url;
+    });
 }

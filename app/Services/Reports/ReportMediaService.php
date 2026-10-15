@@ -41,18 +41,12 @@ class ReportMediaService
 
         try {
             foreach ($photos as $photo) {
-                $image = $this->createImage($photo);
-                $image = $this->orientImage($image, $photo);
-                $image = $this->resizeImage($image);
-
-                ob_start();
-                $encoded = imagewebp($image, null, 82);
-                $contents = ob_get_clean();
-                imagedestroy($image);
-
-                if (! $encoded || ! is_string($contents)) {
-                    throw new RuntimeException('Foto bukti tidak dapat dioptimalkan.');
+                $rawContents = file_get_contents($photo->getRealPath());
+                if (! is_string($rawContents)) {
+                    throw new RuntimeException('Foto bukti tidak dapat dibaca.');
                 }
+
+                $contents = $this->convertToWebp($rawContents, $photo->getMimeType() ?: $photo->getClientMimeType());
 
                 $path = "reports/{$report->report_code}/{$folder}/".Str::ulid().'.webp';
                 $stored = Storage::disk($disk)->put($path, $contents);
@@ -96,25 +90,45 @@ class ReportMediaService
         }
     }
 
-    private function createImage(UploadedFile $photo): \GdImage
+    public function convertToWebp(string $binaryContents, ?string $mimeType = null): string
     {
-        $contents = file_get_contents($photo->getRealPath());
-        $image = is_string($contents) ? imagecreatefromstring($contents) : false;
+        $image = @imagecreatefromstring($binaryContents);
 
         if (! $image instanceof \GdImage) {
             throw new RuntimeException('Foto bukti tidak dapat dibaca.');
         }
 
-        return $image;
+        $image = $this->orientBinaryImage($image, $binaryContents, $mimeType);
+        $image = $this->resizeImage($image);
+
+        ob_start();
+        $encoded = imagewebp($image, null, 82);
+        $contents = ob_get_clean();
+        imagedestroy($image);
+
+        if (! $encoded || ! is_string($contents)) {
+            throw new RuntimeException('Foto bukti tidak dapat dioptimalkan ke format WebP.');
+        }
+
+        return $contents;
     }
 
-    private function orientImage(\GdImage $image, UploadedFile $photo): \GdImage
+    private function orientBinaryImage(\GdImage $image, string $binaryContents, ?string $mimeType = null): \GdImage
     {
-        if ($photo->getMimeType() !== 'image/jpeg' || ! function_exists('exif_read_data')) {
+        if (($mimeType !== null && ! in_array($mimeType, ['image/jpeg', 'image/jpg'], true)) || ! function_exists('exif_read_data')) {
             return $image;
         }
 
-        $exif = @exif_read_data($photo->getRealPath());
+        $stream = fopen('php://memory', 'r+');
+        if (! is_resource($stream)) {
+            return $image;
+        }
+
+        fwrite($stream, $binaryContents);
+        rewind($stream);
+        $exif = @exif_read_data($stream);
+        fclose($stream);
+
         $angle = match ($exif['Orientation'] ?? null) {
             3 => 180,
             6 => -90,

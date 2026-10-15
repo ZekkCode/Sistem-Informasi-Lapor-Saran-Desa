@@ -18,7 +18,7 @@ return [
 
     'direct_upload' => [
         'enabled' => (bool) env('REPORT_DIRECT_UPLOAD', $objectStorageReady),
-        'required' => (bool) env('REPORT_DIRECT_UPLOAD_REQUIRED', $objectStorageReady && $onVercel),
+        'required' => (bool) env('REPORT_DIRECT_UPLOAD_REQUIRED', false),
         'disk' => env('REPORT_DIRECT_UPLOAD_DISK', 's3'),
         'expires_after_minutes' => (int) env('REPORT_DIRECT_UPLOAD_EXPIRES', 15),
         'max_files' => 3,
