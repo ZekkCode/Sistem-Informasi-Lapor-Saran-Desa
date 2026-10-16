@@ -3,7 +3,7 @@
     width: fit-content;
     align-items: center;
     gap: 0.4375rem;
-    border-radius: 999px;
+    border-radius: var(--radius-control);
     padding: 0.35rem 0.625rem;
     font-size: 0.75rem;
     font-weight: 650;

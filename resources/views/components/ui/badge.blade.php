@@ -10,6 +10,6 @@
     };
 @endphp
 
-<span {{ $attributes->class(['inline-flex w-fit items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold', $classes]) }}>
+<span {{ $attributes->class(['inline-flex w-fit items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-semibold', $classes]) }}>
     {{ $slot }}
 </span>

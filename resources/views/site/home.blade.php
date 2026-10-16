@@ -157,7 +157,7 @@
                     </div>
 
                     {{-- Counter info --}}
-                    <div class="hidden sm:inline-flex items-center gap-2 rounded-full border border-padelegan-800/15 bg-padelegan-50 px-3 py-1 text-xs font-medium text-padelegan-800">
+                    <div class="hidden sm:inline-flex items-center gap-2 rounded-md border border-padelegan-800/15 bg-padelegan-50 px-3 py-1 text-xs font-medium text-padelegan-800">
                         <svg class="h-3.5 w-3.5 text-emerald-700" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/>
                             <circle cx="9" cy="9" r="2"/>
@@ -169,7 +169,7 @@
 
                 {{-- Showcase Box dengan Navigasi Kiri & Kanan --}}
                 <div
-                    class="relative overflow-hidden rounded-2xl border border-padelegan-800/15 bg-black shadow-xl focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    class="relative overflow-hidden rounded-xl border border-padelegan-800/15 bg-black shadow-xl focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     tabindex="0"
                     data-village-showcase
                     data-aos="fade-up"
@@ -201,7 +201,7 @@
                             type="button"
                             data-showcase-prev
                             aria-label="Foto sebelumnya"
-                            class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center rounded-full border border-white/25 bg-black/60 text-white/90 shadow-lg backdrop-blur-md transition hover:bg-black/90 hover:border-emerald-400 hover:text-white hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                            class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-lg border border-white/25 bg-black/75 text-white/90 shadow-md transition hover:bg-black hover:border-emerald-400 hover:text-white hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-emerald-400"
                         >
                             <svg class="h-6 w-6" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="15 18 9 12 15 6"></polyline>
@@ -213,7 +213,7 @@
                             type="button"
                             data-showcase-next
                             aria-label="Foto berikutnya"
-                            class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center rounded-full border border-white/25 bg-black/60 text-white/90 shadow-lg backdrop-blur-md transition hover:bg-black/90 hover:border-emerald-400 hover:text-white hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                            class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-lg border border-white/25 bg-black/75 text-white/90 shadow-md transition hover:bg-black hover:border-emerald-400 hover:text-white hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-emerald-400"
                         >
                             <svg class="h-6 w-6" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="9 18 15 12 9 6"></polyline>
@@ -223,7 +223,7 @@
                         {{-- Floating Caption & Deskripsi di Bawah Gambar --}}
                         <div class="absolute inset-x-0 bottom-0 z-20 p-5 sm:p-7 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
                             <div class="max-w-xl">
-                                <div class="inline-flex items-center gap-2 rounded-md border border-white/20 bg-emerald-950/80 px-2.5 py-1 text-xs font-medium text-emerald-300 backdrop-blur-md mb-2">
+                                <div class="inline-flex items-center gap-2 rounded-md border border-white/20 bg-emerald-950/90 px-2.5 py-1 text-xs font-medium text-emerald-300 mb-2">
                                     <svg class="h-3 w-3 text-emerald-400 shrink-0" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
                                         <circle cx="12" cy="10" r="3"/>
@@ -245,7 +245,7 @@
                                         type="button"
                                         data-showcase-dot="{{ $idx }}"
                                         aria-label="Pilih foto {{ $idx + 1 }}: {{ $photo['caption'] }}"
-                                        class="h-2.5 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-emerald-400 {{ $idx === 0 ? 'w-7 bg-emerald-400' : 'w-2 bg-white/40 hover:bg-white/70' }}"
+                                        class="h-1.5 rounded-xs transition-all focus:outline-none focus:ring-2 focus:ring-emerald-400 {{ $idx === 0 ? 'w-6 bg-emerald-400' : 'w-2 bg-white/40 hover:bg-white/70' }}"
                                     ></button>
                                 @endforeach
                             </div>

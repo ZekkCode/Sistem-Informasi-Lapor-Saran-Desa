@@ -518,7 +518,7 @@
     flex: 0 0 auto;
     place-items: center;
     border: 1px solid rgb(23 54 45 / 0.16);
-    border-radius: 999px;
+    border-radius: 0.5rem;
     color: var(--brand);
 }
 

@@ -36,7 +36,7 @@
         <div class="grid gap-10 lg:grid-cols-2">
 
             {{-- 1. Modul Layanan Pengaduan --}}
-            <div class="rounded-2xl border border-padelegan-800/15 bg-white p-6 sm:p-8 shadow-xs">
+            <div class="rounded-xl border border-padelegan-800/15 bg-white p-6 sm:p-8 shadow-xs">
                 <div class="flex items-center gap-3 border-b border-padelegan-800/10 pb-4">
                     <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-700 text-white">
                         <svg class="h-5 w-5" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -103,7 +103,7 @@
             </div>
 
             {{-- 2. Modul Layanan Usulan & Aspirasi --}}
-            <div class="rounded-2xl border border-padelegan-800/15 bg-white p-6 sm:p-8 shadow-xs">
+            <div class="rounded-xl border border-padelegan-800/15 bg-white p-6 sm:p-8 shadow-xs">
                 <div class="flex items-center gap-3 border-b border-padelegan-800/10 pb-4">
                     <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-700 text-white">
                         <svg class="h-5 w-5" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -179,7 +179,7 @@
             </div>
 
             {{-- 3. Halaman Utama & Profil --}}
-            <div class="rounded-2xl border border-padelegan-800/15 bg-white p-6 sm:p-8 shadow-xs">
+            <div class="rounded-xl border border-padelegan-800/15 bg-white p-6 sm:p-8 shadow-xs">
                 <div class="flex items-center gap-3 border-b border-padelegan-800/10 pb-4">
                     <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-700 text-white">
                         <svg class="h-5 w-5" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -212,7 +212,7 @@
             </div>
 
             {{-- 4. Bantuan & Dokumen Teknis --}}
-            <div class="rounded-2xl border border-padelegan-800/15 bg-white p-6 sm:p-8 shadow-xs">
+            <div class="rounded-xl border border-padelegan-800/15 bg-white p-6 sm:p-8 shadow-xs">
                 <div class="flex items-center gap-3 border-b border-padelegan-800/10 pb-4">
                     <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-700 text-white">
                         <svg class="h-5 w-5" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

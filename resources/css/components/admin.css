@@ -150,8 +150,8 @@
 .admin-account__avatar {
     inline-size: 2.2rem;
     block-size: 2.2rem;
-    border-radius: 9999px;
-    background: linear-gradient(135deg, #176248 0%, #0d4231 100%);
+    border-radius: 8px;
+    background: #176248;
     border: 1.5px solid #34d399;
     color: #ffffff;
     font-size: 0.8rem;
@@ -159,7 +159,7 @@
     display: grid;
     place-items: center;
     flex-shrink: 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .admin-account__copy {
@@ -191,9 +191,8 @@
 .admin-account__dot {
     inline-size: 0.38rem;
     block-size: 0.38rem;
-    border-radius: 9999px;
+    border-radius: 50%;
     background: #34d399;
-    box-shadow: 0 0 6px rgba(52, 211, 153, 0.7);
     flex-shrink: 0;
 }
 

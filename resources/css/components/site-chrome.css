@@ -227,7 +227,7 @@
     block-size: 2.75rem;
     margin-block-start: -1.25rem;
     place-items: center;
-    border-radius: 999px;
+    border-radius: 0.625rem;
     background: var(--brand);
     color: white;
     box-shadow: 0 4px 10px rgb(23 54 45 / 0.2);

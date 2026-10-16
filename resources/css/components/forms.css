@@ -177,7 +177,7 @@
     inline-size: 2.75rem;
     block-size: 2.75rem;
     place-items: center;
-    border-radius: 999px;
+    border-radius: 0.5rem;
     background: var(--danger-soft);
     color: var(--danger);
 }

@@ -1,7 +1,7 @@
 @props(['title', 'description' => null])
 
 <div {{ $attributes->class('flex flex-col items-center justify-center border border-dashed border-border bg-surface px-6 py-14 text-center') }}>
-    <div class="mb-4 grid size-12 place-items-center rounded-full bg-primary-soft text-primary">
+    <div class="mb-4 grid size-12 place-items-center rounded-lg bg-primary-soft text-primary">
         @isset($icon)
             {{ $icon }}
         @else
