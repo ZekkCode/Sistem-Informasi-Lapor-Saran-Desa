@@ -31,7 +31,9 @@
                         >
                         @error('code')<p class="field__error" id="code-error">{{ $message }}</p>@enderror
                     </div>
-                    <button class="action action--primary mt-3 w-full" type="submit">Tampilkan perkembangan</button>
+                    <button class="action action--primary mt-3 w-full" type="submit">
+                        <span class="text-white font-semibold">Cek status laporan</span>
+                    </button>
                 </form>
             </div>
 
@@ -50,9 +52,9 @@
             <div class="tracking-empty" role="status" data-aos="fade-up">
                 <div>
                     <h2 class="text-lg font-semibold tracking-[-0.02em] text-padelegan-900">Nomor laporan tidak ditemukan.</h2>
-                    <p class="mt-1 text-sm leading-6 text-padelegan-900/60">Periksa tiap karakter lalu coba lagi. Nomor tidak pakai huruf I atau O.</p>
+                    <p class="mt-1 text-sm leading-6 text-padelegan-900/60">Periksa tiap karakter lalu coba lagi. Nomor tidak memakai huruf I atau O.</p>
                 </div>
-                <a href="{{ route('reports.create') }}" class="action action--secondary">Buat laporan baru</a>
+                <a href="{{ route('reports.create') }}" class="action action--secondary">Kirim laporan baru</a>
             </div>
         </section>
     @endif

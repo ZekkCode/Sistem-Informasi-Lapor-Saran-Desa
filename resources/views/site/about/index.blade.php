@@ -24,7 +24,7 @@
                     </div>
                 </dl>
 
-                <x-ui.action :href="route('reports.create')">Buat laporan</x-ui.action>
+                <x-ui.action :href="route('reports.create')">Kirim laporan</x-ui.action>
             </div>
         </div>
 

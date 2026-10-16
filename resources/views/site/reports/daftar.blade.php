@@ -48,7 +48,7 @@
                     </x-ui.empty-state>
                 @else
                     <x-ui.empty-state title="Belum ada laporan terverifikasi" description="Laporan muncul di sini setelah petugas memverifikasinya." class="my-10">
-                        <x-slot:action><x-ui.action :href="route('reports.create')" variant="primary">Buat laporan</x-ui.action></x-slot:action>
+                        <x-slot:action><x-ui.action :href="route('reports.create')" variant="primary">Kirim laporan</x-ui.action></x-slot:action>
                     </x-ui.empty-state>
                 @endif
             @endforelse

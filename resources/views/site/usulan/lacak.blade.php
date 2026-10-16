@@ -31,7 +31,9 @@
                         >
                         @error('kode')<p class="field__error" id="kode-error">{{ $message }}</p>@enderror
                     </div>
-                    <button class="action action--primary mt-3 w-full" type="submit">Tampilkan tindak lanjut</button>
+                    <button class="action action--primary mt-3 w-full" type="submit">
+                        <span class="text-white font-semibold">Cek status usulan</span>
+                    </button>
                 </form>
             </div>
         </div>

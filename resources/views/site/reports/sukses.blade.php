@@ -52,9 +52,11 @@
                 </div>
 
                 <div class="mt-7 flex flex-col gap-3 sm:flex-row">
-                    <a href="{{ route('reports.track', ['code' => $report->report_code]) }}" class="action action--primary">Lihat perkembangan</a>
-                    <a href="{{ route('public-reports.index') }}" class="action action--secondary">Pantau di Laporan Desa</a>
-                    <a href="{{ route('reports.create') }}" class="action action--quiet">Buat laporan lain</a>
+                    <a href="{{ route('reports.track', ['code' => $report->report_code]) }}" class="action action--primary">
+                        <span class="text-white font-semibold">Cek status laporan</span>
+                    </a>
+                    <a href="{{ route('public-reports.index') }}" class="action action--secondary">Daftar laporan warga</a>
+                    <a href="{{ route('reports.create') }}" class="action action--quiet">Kirim laporan lain</a>
                 </div>
             </div>
 

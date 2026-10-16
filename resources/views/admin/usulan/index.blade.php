@@ -54,7 +54,7 @@
     <form action="{{ route('admin.usulan.index') }}" method="GET" class="admin-filter" aria-label="Filter usulan">
         <label class="field field--search">
             <span class="field__label">Cari</span>
-            <input name="q" class="control" value="{{ request('q') }}" placeholder="Nomor, judul, nama, atau WhatsApp">
+            <input name="q" class="control" value="{{ request('q') }}" placeholder="Cari kode usulan, judul, nama pengusul, atau WhatsApp">
         </label>
         <label class="field">
             <span class="field__label">Rentang waktu</span>
@@ -105,7 +105,7 @@
                 <span class="text-white font-semibold">Terapkan</span>
             </button>
             @if(request()->hasAny(['q', 'periode', 'status', 'jenis', 'dusun_id', 'tampil_publik', 'date_from', 'date_to']))
-                <a href="{{ route('admin.usulan.index') }}" class="action action--quiet action--sm">Reset</a>
+                <a href="{{ route('admin.usulan.index') }}" class="action action--quiet action--sm">Atur ulang</a>
             @endif
         </div>
     </form>
@@ -177,7 +177,18 @@
                         </td>
                     </tr>
                 @empty
-                    <tr><td colspan="8" class="admin-empty">Tidak ada usulan yang cocok dengan filter ini.</td></tr>
+                    <tr>
+                        <td colspan="8" class="admin-empty">
+                            <div class="py-6 flex flex-col items-center justify-center text-center">
+                                <svg class="w-10 h-10 text-muted opacity-40 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+                                <p class="font-medium text-ink">Tidak ada usulan yang cocok dengan filter yang dipilih.</p>
+                                <p class="text-xs text-muted mt-0.5">Coba ubah kata kunci pencarian atau atur ulang filter untuk melihat seluruh usulan warga.</p>
+                                @if(request()->hasAny(['q', 'periode', 'status', 'jenis', 'dusun_id', 'tampil_publik', 'date_from', 'date_to']))
+                                    <a href="{{ route('admin.usulan.index') }}" class="mt-3 action action--quiet action--sm">Atur ulang filter</a>
+                                @endif
+                            </div>
+                        </td>
+                    </tr>
                 @endforelse
             </tbody>
         </table>

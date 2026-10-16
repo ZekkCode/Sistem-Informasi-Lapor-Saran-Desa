@@ -54,7 +54,7 @@
     <form action="{{ route('admin.reports.index') }}" method="GET" class="admin-filter" aria-label="Filter laporan">
         <label class="field field--search">
             <span class="field__label">Cari</span>
-            <input name="q" class="control" value="{{ request('q') }}" placeholder="Nomor, judul, nama, atau WhatsApp">
+            <input name="q" class="control" value="{{ request('q') }}" placeholder="Cari kode laporan, judul, nama pelapor, atau WhatsApp">
         </label>
         <label class="field">
             <span class="field__label">Rentang waktu</span>
@@ -97,7 +97,7 @@
                 <span class="text-white font-semibold">Terapkan</span>
             </button>
             @if(request()->hasAny(['q', 'periode', 'verification_status', 'status', 'dusun_id', 'category_id', 'date_from', 'date_to']))
-                <a href="{{ route('admin.reports.index') }}" class="action action--quiet action--sm">Reset</a>
+                <a href="{{ route('admin.reports.index') }}" class="action action--quiet action--sm">Atur ulang</a>
             @endif
         </div>
     </form>
@@ -155,7 +155,18 @@
                         </td>
                     </tr>
                 @empty
-                    <tr><td colspan="8" class="admin-empty">Tidak ada laporan yang cocok dengan filter ini.</td></tr>
+                    <tr>
+                        <td colspan="8" class="admin-empty">
+                            <div class="py-6 flex flex-col items-center justify-center text-center">
+                                <svg class="w-10 h-10 text-muted opacity-40 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                <p class="font-medium text-ink">Tidak ada laporan yang cocok dengan filter yang dipilih.</p>
+                                <p class="text-xs text-muted mt-0.5">Coba ubah kata kunci pencarian atau atur ulang filter untuk melihat seluruh laporan.</p>
+                                @if(request()->hasAny(['q', 'periode', 'verification_status', 'status', 'dusun_id', 'category_id', 'date_from', 'date_to']))
+                                    <a href="{{ route('admin.reports.index') }}" class="mt-3 action action--quiet action--sm">Atur ulang filter</a>
+                                @endif
+                            </div>
+                        </td>
+                    </tr>
                 @endforelse
             </tbody>
         </table>

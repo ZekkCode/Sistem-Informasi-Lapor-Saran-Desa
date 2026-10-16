@@ -88,7 +88,7 @@
         @yield('content')
     </main>
 
-    <x-site.footer :compact="request()->routeIs('home', 'reports.*')" />
+    <x-site.footer :compact="request()->routeIs('reports.create', 'usulan.create')" />
     @stack('scripts')
 </body>
 </html>

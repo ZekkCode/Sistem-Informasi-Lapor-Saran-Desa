@@ -26,7 +26,7 @@
                 </span>
                 <h2 class="choice-card__title">Laporan masalah</h2>
                 <p class="choice-card__desc">Kerusakan fasilitas, lingkungan, atau pelayanan. Sertakan foto dan patokan lokasi.</p>
-                <span class="choice-card__cta">{{ $laporanTerbuka ? 'Buat laporan' : 'Ditutup sementara' }}</span>
+                <span class="choice-card__cta">{{ $laporanTerbuka ? 'Kirim laporan' : 'Ditutup sementara' }}</span>
             </a>
 
             <a href="{{ route('usulan.create') }}" class="choice-card">
@@ -43,7 +43,7 @@
             Sudah pernah mengirim?
             <a href="{{ route('reports.track') }}" class="font-semibold text-padelegan-700 underline underline-offset-4">Cek status laporan</a>
             atau
-            <a href="{{ route('usulan.lacak') }}" class="font-semibold text-padelegan-700 underline underline-offset-4">cek tindak lanjut usulan</a>.
+            <a href="{{ route('usulan.lacak') }}" class="font-semibold text-padelegan-700 underline underline-offset-4">cek status usulan</a>.
         </p>
     </section>
 @endsection

@@ -47,7 +47,7 @@
                     </x-ui.empty-state>
                 @else
                     <x-ui.empty-state title="Belum ada usulan yang dipublikasikan" description="Usulan muncul di sini setelah petugas meninjau dan mempublikasikannya." class="my-10">
-                        <x-slot:action><x-ui.action :href="route('usulan.create')" variant="primary">Sampaikan usulan</x-ui.action></x-slot:action>
+                        <x-slot:action><x-ui.action :href="route('usulan.create')" variant="primary">Kirim usulan</x-ui.action></x-slot:action>
                     </x-ui.empty-state>
                 @endif
             @endforelse

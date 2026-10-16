@@ -75,10 +75,10 @@
 
                     <div class="mt-6 flex flex-wrap items-center gap-3">
                         <a href="{{ route('reports.create') }}" class="inline-flex items-center justify-center rounded-lg bg-emerald-700 hover:bg-emerald-800 active:bg-emerald-900 text-white font-semibold text-sm px-6 py-2.5 transition shadow-sm">
-                            Buat laporan
+                            Kirim laporan
                         </a>
                         <a href="{{ route('reports.track') }}" class="inline-flex items-center justify-center rounded-lg border border-padelegan-800/20 bg-white/90 hover:bg-white text-padelegan-900 font-semibold text-sm px-5 py-2.5 transition backdrop-blur-sm shadow-xs">
-                            Cek status
+                            Cek status laporan
                         </a>
                     </div>
 
@@ -99,12 +99,12 @@
         <nav class="home-service" aria-label="Layanan utama Desa Padelegan">
             <div class="site-shell home-service__grid">
                 @foreach ([
-                    ['Buat laporan', 'Kirim laporan kondisi fasilitas atau lingkungan desa.', route('reports.create')],
-                    ['Kirim usulan', 'Ajukan saran pembangunan atau fasilitas desa.', route('usulan.create')],
-                    ['Cek status', 'Lacak penanganan dengan nomor laporan Anda.', route('reports.track')],
-                    ['Laporan desa', 'Daftar laporan warga yang sudah diverifikasi.', route('public-reports.index')],
-                    ['Usulan warga', 'Daftar usulan yang sudah ditinjau perangkat desa.', route('public-usulan.index')],
-                    ['Bantuan situs', 'Panduan dan kontak bantuan teknis sistem.', route('site-support')],
+                    ['Kirim laporan', 'Laporkan masalah fasilitas atau lingkungan desa.', route('reports.create')],
+                    ['Kirim usulan', 'Sampaikan usulan pembangunan atau perbaikan dusun.', route('usulan.create')],
+                    ['Cek status laporan', 'Pantau tindak lanjut dengan nomor laporan Anda.', route('reports.track')],
+                    ['Daftar laporan warga', 'Lihat laporan warga yang telah diverifikasi petugas.', route('public-reports.index')],
+                    ['Daftar usulan desa', 'Lihat usulan warga yang telah ditinjau perangkat desa.', route('public-usulan.index')],
+                    ['Bantuan & kontak', 'Panduan layanan dan kontak perangkat desa.', route('site-support')],
                 ] as [$title, $description, $href])
                     <a href="{{ $href }}" class="home-service__link">
                         <h3>{{ $title }}</h3>

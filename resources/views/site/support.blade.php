@@ -18,16 +18,16 @@
             <header>
                 <p class="public-kicker">Bantuan teknis</p>
                 <h1 class="public-page-title mt-3 text-padelegan-900">Ada kendala memakai Sistem Lapor Padelegan?</h1>
-                <p class="reading-measure mt-4 text-sm leading-7 text-padelegan-900/65">Gunakan bantuan ini untuk masalah pada situs. Laporan jalan, lingkungan, fasilitas, atau pelayanan desa tetap dikirim melalui halaman Buat Laporan.</p>
+                <p class="reading-measure mt-4 text-sm leading-7 text-padelegan-900/68">Gunakan bantuan ini untuk masalah pada situs. Laporan jalan, lingkungan, fasilitas, atau pelayanan desa tetap dikirim melalui halaman <a href="{{ route('reports.create') }}" class="font-semibold text-emerald-800 underline underline-offset-2">Kirim Laporan</a> (Buat Laporan).</p>
                 <img src="{{ asset('images/illustrations/ilustrasi-aspirasi.webp') }}" alt="" width="820" height="1025" class="mt-8 hidden w-40 lg:block" loading="lazy">
             </header>
 
             <div class="border-t border-padelegan-800/20 pt-6 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
                 <h2 class="text-xl font-semibold tracking-[-0.02em] text-padelegan-900">Sebelum melapor</h2>
                 <ol class="mt-5 grid gap-4 text-sm leading-6 text-padelegan-900/68">
-                    <li><strong class="font-semibold text-padelegan-900">1. Coba sekali lagi.</strong> Muat ulang halaman dan pastikan jaringan tetap tersambung.</li>
-                    <li><strong class="font-semibold text-padelegan-900">2. Catat kejadiannya.</strong> Simpan alamat halaman, waktu, dan pesan error yang terlihat.</li>
-                    <li><strong class="font-semibold text-padelegan-900">3. Jangan sertakan data rahasia.</strong> Hapus nomor WhatsApp, kata sandi, atau identitas warga dari tangkapan layar.</li>
+                    <li><strong class="font-semibold text-padelegan-900">1. Coba sekali lagi.</strong> Muat ulang halaman dan pastikan koneksi internet aktif.</li>
+                    <li><strong class="font-semibold text-padelegan-900">2. Catat kejadiannya.</strong> Simpan tautan halaman, waktu kejadian, dan pesan yang terlihat.</li>
+                    <li><strong class="font-semibold text-padelegan-900">3. Lindungi data privat.</strong> Jangan sertakan kata sandi atau data rahasia dalam tangkapan layar.</li>
                 </ol>
 
                 <div class="support-contact">
@@ -42,7 +42,9 @@
                         </div>
                     </div>
                     <div class="support-contact__actions">
-                        <a class="action action--primary action--sm" href="https://wa.me/{{ $contactWa }}?text={{ $waText }}" target="_blank" rel="noopener">Chat WhatsApp</a>
+                        <a class="action action--primary action--sm" href="https://wa.me/{{ $contactWa }}?text={{ $waText }}" target="_blank" rel="noopener">
+                            <span class="text-white font-semibold">Hubungi via WhatsApp</span>
+                        </a>
                         <a class="action action--secondary action--sm" href="tel:+{{ $contactWa }}">{{ $contactWaLabel }}</a>
                     </div>
                     <p class="support-contact__note">Untuk kendala teknis pada situs. Jangan kirim data pribadi lewat pesan ini.</p>

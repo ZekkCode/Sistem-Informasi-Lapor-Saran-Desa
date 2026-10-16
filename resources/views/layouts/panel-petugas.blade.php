@@ -16,9 +16,9 @@
     </a>
 
     <header class="admin-mobile-bar">
-        <a href="{{ auth()->user()->canAccessReports() ? route('admin.dashboard') : route('admin.usulan.index') }}" class="admin-mobile-brand" aria-label="Sistem Lapor Padelegan, Dasbor">
+        <a href="{{ auth()->user()->canAccessReports() ? route('admin.dashboard') : route('admin.usulan.index') }}" class="admin-mobile-brand" aria-label="SISTEM LAPOR PADELEGAN, Dasbor">
             <img src="{{ asset('images/brand/lambang-pamekasan.png') }}" alt="" width="418" height="387" class="admin-brand__crest">
-            <strong>Sistem Lapor Padelegan</strong>
+            <strong>SISTEM LAPOR PADELEGAN</strong>
         </a>
         <button type="button" class="admin-menu-button" @click="navigationOpen = !navigationOpen" :aria-expanded="navigationOpen.toString()" aria-controls="admin-navigation">
             <span class="sr-only">Buka navigasi</span>
@@ -28,48 +28,65 @@
 
     <div class="admin-shell">
         <aside id="admin-navigation" class="admin-sidebar" :class="navigationOpen ? 'is-open' : ''" @click.outside="navigationOpen = false">
-            <div class="admin-brand">
+            <a href="{{ auth()->user()->canAccessReports() ? route('admin.dashboard') : route('admin.usulan.index') }}" class="admin-brand" aria-label="SISTEM LAPOR PADELEGAN, Dasbor">
                 <img src="{{ asset('images/brand/lambang-pamekasan.png') }}" alt="" width="418" height="387" class="admin-brand__crest">
-                <span><strong>Sistem Lapor Padelegan</strong><small>Panel petugas desa</small></span>
-            </div>
+                <div class="admin-brand__text">
+                    <strong>SISTEM LAPOR PADELEGAN</strong>
+                    <small>PANEL PETUGAS DESA</small>
+                </div>
+            </a>
 
             <nav class="admin-nav" aria-label="Navigasi petugas">
                 @if(auth()->user()->canAccessReports())
                     <a href="{{ route('admin.dashboard') }}" @class(['is-active' => request()->routeIs('admin.dashboard')])>
+                        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
                         <span>Ikhtisar</span>
                     </a>
                     <a href="{{ route('admin.reports.index') }}" @class(['is-active' => request()->routeIs('admin.reports.*')])>
+                        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
                         <span>Kelola laporan</span>
                     </a>
                 @endif
                 @if(auth()->user()->canAccessUsulan())
                     <a href="{{ route('admin.usulan.index') }}" @class(['is-active' => request()->routeIs('admin.usulan.*')])>
+                        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
                         <span>Usulan &amp; saran</span>
                     </a>
                 @endif
                 <a href="{{ route('admin.formulir.index') }}" @class(['is-active' => request()->routeIs('admin.formulir.*')])>
+                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                     <span>Kunci formulir</span>
                 </a>
                 @if(auth()->user()->role === \App\Enums\UserRole::SuperAdmin)
                     <p class="admin-nav__label">Pengaturan sistem</p>
                     <a href="{{ route('admin.master.index') }}" @class(['is-active' => request()->routeIs('admin.master.*')])>
+                        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
                         <span>Data master</span>
                     </a>
                     <a href="{{ route('admin.users.index') }}" @class(['is-active' => request()->routeIs('admin.users.*')])>
+                        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
                         <span>Akun petugas</span>
                     </a>
                 @endif
             </nav>
 
             <div class="admin-account">
-                <span class="admin-account__avatar">{{ mb_strtoupper(mb_substr(auth()->user()->name, 0, 1)) }}</span>
-                <span class="admin-account__copy">
-                    <strong>{{ auth()->user()->name }}</strong>
-                    <small>{{ auth()->user()->role->label() }}</small>
-                </span>
+                <div class="admin-account__info">
+                    <span class="admin-account__avatar" aria-hidden="true">{{ mb_strtoupper(mb_substr(auth()->user()->name, 0, 1)) }}</span>
+                    <div class="admin-account__copy">
+                        <strong title="{{ auth()->user()->name }}">{{ auth()->user()->name }}</strong>
+                        <small class="admin-account__role">
+                            <span class="admin-account__dot"></span>
+                            {{ auth()->user()->role->label() }}
+                        </small>
+                    </div>
+                </div>
                 <form action="{{ route('admin.logout') }}" method="POST">
                     @csrf
-                    <button type="submit" class="admin-logout" title="Keluar">Keluar</button>
+                    <button type="submit" class="admin-logout" title="Keluar dari sesi petugas">
+                        <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                        <span>Keluar</span>
+                    </button>
                 </form>
             </div>
         </aside>
@@ -77,26 +94,35 @@
         <main id="admin-content" class="admin-main" tabindex="-1">
             <header class="admin-page-head">
                 <div>
-                    <p class="admin-eyebrow">@yield('eyebrow', 'Operasional desa')</p>
+                    <p class="admin-eyebrow">@yield('eyebrow', 'Panel Operasional Desa')</p>
                     <h1>@yield('page-title', 'Ikhtisar')</h1>
                 </div>
                 <div class="admin-page-actions">@yield('page-actions')</div>
             </header>
 
             @if(session('status'))
-                <div class="admin-notice admin-notice--success" role="status">{!! session('status') !!}</div>
+                <div class="admin-notice admin-notice--success flex items-start gap-2.5" role="status">
+                    <svg class="w-5 h-5 text-emerald-700 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <div>{!! session('status') !!}</div>
+                </div>
             @endif
 
             @if(session('error'))
-                <div class="admin-notice admin-notice--danger" role="alert">{{ session('error') }}</div>
+                <div class="admin-notice admin-notice--danger flex items-start gap-2.5" role="alert">
+                    <svg class="w-5 h-5 text-danger shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                    <div>{{ session('error') }}</div>
+                </div>
             @endif
 
             @if($errors->any())
-                <div class="admin-notice admin-notice--danger" role="alert" aria-live="assertive">
-                    <strong>Periksa kembali data berikut:</strong>
-                    <ul>
-                        @foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach
-                    </ul>
+                <div class="admin-notice admin-notice--danger flex items-start gap-2.5" role="alert" aria-live="assertive">
+                    <svg class="w-5 h-5 text-danger shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke-width="2"/><line x1="12" y1="8" x2="12" y2="12" stroke-width="2"/><line x1="12" y1="16" x2="12.01" y2="16" stroke-width="2"/></svg>
+                    <div>
+                        <strong>Periksa kembali data pada formulir berikut:</strong>
+                        <ul class="mt-1 list-disc list-inside space-y-0.5 text-xs">
+                            @foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach
+                        </ul>
+                    </div>
                 </div>
             @endif
 

@@ -52,7 +52,10 @@
                 </div>
 
                 <div class="mt-7 flex flex-col gap-3 sm:flex-row">
-                    <a href="{{ route('usulan.lacak', ['kode' => $usulan->kode]) }}" class="action action--primary">Lihat tindak lanjut</a>
+                    <a href="{{ route('usulan.lacak', ['kode' => $usulan->kode]) }}" class="action action--primary">
+                        <span class="text-white font-semibold">Cek status usulan</span>
+                    </a>
+                    <a href="{{ route('public-usulan.index') }}" class="action action--secondary">Daftar usulan desa</a>
                     <a href="{{ route('usulan.create') }}" class="action action--quiet">Kirim usulan lain</a>
                 </div>
             </div>
