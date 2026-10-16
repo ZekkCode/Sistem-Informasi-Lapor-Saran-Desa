@@ -14,6 +14,10 @@
     line-height: 1.8;
 }
 
+.about-copy .action--primary {
+    color: #ffffff !important;
+}
+
 .about-details {
     margin-block: 2rem;
     border-block: 1px solid rgb(21 52 43 / 0.16);

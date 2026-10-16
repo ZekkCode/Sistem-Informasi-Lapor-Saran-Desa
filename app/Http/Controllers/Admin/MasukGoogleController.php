@@ -166,7 +166,7 @@ class MasukGoogleController extends Controller
      */
     private function buatAkunPetugas(string $email, ?string $nama, UserRole $peran, AuditService $audit): User
     {
-        $defaultName = $peran === UserRole::SuperAdmin ? 'Zakaria Mujur (Pengembang)' : 'Admin Desa';
+        $defaultName = $peran === UserRole::SuperAdmin ? 'Zekk Code (Pengembang)' : 'Admin Desa';
 
         $petugas = User::query()->createOrFirst(
             ['email' => $email],

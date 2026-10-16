@@ -10,7 +10,7 @@
                 <p class="public-kicker">Struktur Navigasi & Arsitektur SEO</p>
                 <h1 class="public-page-title text-padelegan-900 mt-1">Peta Situs Desa Padelegan</h1>
                 <p class="reading-measure mt-3 text-sm leading-6 text-padelegan-900/70 sm:text-base">
-                    Daftar terstruktur seluruh modul layanan, formulir pengaduan, tabel usulan warga, dan direktori publik Pemerintah Desa Padelegan, Pademawu, Pamekasan. Dikembangkan oleh Zakaria Mujur (Zekk Code).
+                    Daftar terstruktur seluruh modul layanan, formulir pengaduan, tabel usulan warga, dan direktori publik Pemerintah Desa Padelegan, Pademawu, Pamekasan. Dikembangkan oleh Zekk Code.
                 </p>
                 <div class="mt-4 flex flex-wrap items-center gap-3 text-xs">
                     <a href="{{ route('sitemap.xml') }}" target="_blank" class="inline-flex items-center gap-1.5 rounded-md border border-padelegan-800/20 bg-padelegan-50 px-3 py-1.5 font-medium text-padelegan-900 transition hover:bg-padelegan-100">
@@ -215,10 +215,9 @@
             <div class="rounded-2xl border border-padelegan-800/15 bg-white p-6 sm:p-8 shadow-xs">
                 <div class="flex items-center gap-3 border-b border-padelegan-800/10 pb-4">
                     <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-700 text-white">
-                        <svg class="h-5 w-5" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
-                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                        <svg class="h-5 w-5" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+                            <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
                         </svg>
                     </div>
                     <div>
@@ -251,10 +250,10 @@
                     </li>
                     <li class="rounded-lg bg-padelegan-50/60 p-3.5 border border-padelegan-800/10">
                         <a href="https://github.com/zekkcode" target="_blank" rel="noopener noreferrer" class="font-semibold text-emerald-800 hover:underline flex items-center justify-between">
-                            <span>4.4 Pengembang Sistem: Zakaria Mujur (Zekk Code)</span>
+                            <span>4.4 Pengembang Sistem: Zekk Code</span>
                             <span class="text-xs font-normal text-padelegan-700">github.com/zekkcode &rarr;</span>
                         </a>
-                        <p class="mt-1 text-xs text-padelegan-800/75">Arsitektur dan pengembangan website oleh Zakaria Mujur (Zekk Code / zekkcode webdev) untuk kemajuan Desa Padelegan.</p>
+                        <p class="mt-1 text-xs text-padelegan-800/75">Arsitektur dan pengembangan website oleh Zekk Code (zekkcode webdev) untuk kemajuan Desa Padelegan.</p>
                     </li>
                 </ul>
             </div>

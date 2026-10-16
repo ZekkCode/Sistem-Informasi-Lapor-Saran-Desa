@@ -13,7 +13,9 @@
     transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
 }
 
-.action--primary {
+.action--primary,
+.action--primary:visited,
+.action--primary:active {
     background: var(--brand);
     color: #ffffff !important;
 }

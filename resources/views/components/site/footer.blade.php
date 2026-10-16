@@ -42,7 +42,7 @@
                         <span>Tentang & Tim KKN</span>
                     </a>
                     <a class="inline-flex items-center gap-1.5 transition hover:text-white" href="{{ route('site-support') }}">
-                        <svg class="h-3.5 w-3.5 text-emerald-400" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                        <svg class="h-3.5 w-3.5 text-emerald-400" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
                         <span>Bantuan &amp; kontak</span>
                     </a>
                 </nav>
@@ -61,13 +61,13 @@
                 </div>
 
                 <div class="flex flex-wrap items-center gap-3 sm:gap-4">
-                    {{-- Zakaria Mujur / Zekk Code Developer Credit --}}
-                    <a href="https://github.com/zekkcode" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[11px] text-emerald-400/80 hover:text-emerald-300 transition" title="Pengembang Web: Zakaria Mujur (Zekk Code)">
+                    {{-- Zekk Code Developer Credit --}}
+                    <a href="https://github.com/zekkcode" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[11px] text-emerald-400/80 hover:text-emerald-300 transition" title="Pengembang Web: Zekk Code">
                         <svg class="h-3 w-3" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polyline points="16 18 22 12 16 6"></polyline>
                             <polyline points="8 6 2 12 8 18"></polyline>
                         </svg>
-                        <span>Dev: <strong class="font-semibold text-white/90">Zakaria Mujur (Zekk Code)</strong></span>
+                        <span>Dev: <strong class="font-semibold text-white/90">Zekk Code</strong></span>
                         <span class="sr-only">zekkcode webdev</span>
                     </a>
 
@@ -104,16 +104,6 @@
                         </svg>
                         <span>Kantor Balai Desa Padelegan, Kec. Pademawu, Pamekasan</span>
                     </p>
-                    @if(config('padelegan.support_whatsapp'))
-                        <p class="flex items-center gap-1.5">
-                            <svg class="h-3.5 w-3.5 text-emerald-400 shrink-0" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-                            </svg>
-                            <a href="https://wa.me/{{ config('padelegan.support_whatsapp') }}" target="_blank" rel="noopener noreferrer" class="hover:text-white underline decoration-white/30">
-                                WhatsApp: {{ config('padelegan.support_contact_name') }} ({{ config('padelegan.support_whatsapp_label') }})
-                            </a>
-                        </p>
-                    @endif
                 </div>
             </div>
 
@@ -143,7 +133,7 @@
                         </li>
                         <li>
                             <a class="inline-flex items-center gap-1.5 hover:text-white transition" href="{{ route('site-support') }}">
-                                <svg class="h-3.5 w-3.5 text-emerald-400 shrink-0" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                                <svg class="h-3.5 w-3.5 text-emerald-400 shrink-0" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
                                 <span>Bantuan &amp; kontak</span>
                             </a>
                         </li>
@@ -219,13 +209,13 @@
                 </div>
 
                 <div class="flex flex-wrap items-center gap-3 sm:gap-4">
-                    {{-- Zakaria Mujur / Zekk Code Developer Credit --}}
-                    <a href="https://github.com/zekkcode" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[11px] text-emerald-400/80 hover:text-emerald-300 transition" title="Pengembang Web: Zakaria Mujur (Zekk Code)">
+                    {{-- Zekk Code Developer Credit --}}
+                    <a href="https://github.com/zekkcode" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[11px] text-emerald-400/80 hover:text-emerald-300 transition" title="Pengembang Web: Zekk Code">
                         <svg class="h-3 w-3" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polyline points="16 18 22 12 16 6"></polyline>
                             <polyline points="8 6 2 12 8 18"></polyline>
                         </svg>
-                        <span>Dev: <strong class="font-semibold text-white/90">Zakaria Mujur (Zekk Code)</strong></span>
+                        <span>Dev: <strong class="font-semibold text-white/90">Zekk Code</strong></span>
                         <span class="sr-only">zekkcode webdev</span>
                     </a>
 

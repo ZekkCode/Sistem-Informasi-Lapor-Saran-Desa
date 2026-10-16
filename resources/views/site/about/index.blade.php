@@ -24,7 +24,7 @@
                     </div>
                 </dl>
 
-                <x-ui.action :href="route('reports.create')">Kirim laporan</x-ui.action>
+                <x-ui.action :href="route('reports.create')" class="!text-white" style="color: #ffffff !important;">Kirim laporan</x-ui.action>
             </div>
         </div>
 
@@ -33,7 +33,7 @@
                 <p class="public-kicker">Tim pelaksana</p>
                 <h2 id="tim-kkn-title" class="text-2xl font-bold text-padelegan-900 mt-2">Tim KKN & Pengembang Sistem</h2>
                 <p class="mt-3 text-sm text-padelegan-800/80 leading-relaxed">
-                    Sistem Lapor Padelegan disusun bersama mahasiswa Kuliah Kerja Nyata (KKN) untuk mempermudah komunikasi warga dengan Pemerintah Desa Padelegan, didukung pengembangan website oleh Zakaria Mujur (Zekk Code).
+                    Sistem Lapor Padelegan disusun bersama mahasiswa Kuliah Kerja Nyata (KKN) untuk mempermudah komunikasi warga dengan Pemerintah Desa Padelegan, didukung pengembangan website oleh Zekk Code.
                 </p>
 
                 <figure class="mt-6 overflow-hidden rounded-xl border border-padelegan-100 bg-white" data-aos="fade-up">
@@ -74,7 +74,7 @@
 
                 <div class="mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-4 rounded-xl border border-padelegan-100 bg-padelegan-50/40 text-sm">
                     <div class="flex items-center gap-3">
-                        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-padelegan-900 text-white shadow-sm">
+                        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-emerald-800 text-white shadow-sm">
                             <svg class="h-5 w-5" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <polyline points="16 18 22 12 16 6"></polyline>
                                 <polyline points="8 6 2 12 8 18"></polyline>
@@ -82,15 +82,15 @@
                         </div>
                         <div>
                             <p class="font-medium text-padelegan-900">Pengembangan Website</p>
-                            <p class="text-xs text-padelegan-700 mt-0.5">Dirancang dan dibangun oleh <strong>Zakaria Mujur (Zekk Code)</strong> untuk Pemerintah Desa Padelegan.</p>
+                            <p class="text-xs text-padelegan-700 mt-0.5">Dirancang dan dibangun oleh <strong>Zekk Code</strong> untuk Pemerintah Desa Padelegan.</p>
                         </div>
                     </div>
-                    <a href="https://github.com/zekkcode" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 self-start sm:self-auto px-3 py-1.5 rounded-lg text-xs font-semibold bg-padelegan-900 text-white tracking-wide shadow-sm hover:bg-padelegan-800 transition" title="Kunjungi Profil Pengembang Zakaria Mujur (Zekk Code)">
-                        <svg class="h-3.5 w-3.5 text-padelegan-300" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <a href="https://github.com/zekkcode" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 self-start sm:self-auto px-3.5 py-2 rounded-lg text-xs font-semibold bg-emerald-800 hover:bg-emerald-700 active:bg-emerald-900 !text-white tracking-wide shadow-xs transition" style="color: #ffffff !important;" title="Kunjungi Profil Pengembang Zekk Code">
+                        <svg class="h-3.5 w-3.5 text-emerald-300" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polyline points="16 18 22 12 16 6"></polyline>
                             <polyline points="8 6 2 12 8 18"></polyline>
                         </svg>
-                        <span>Zakaria Mujur (Zekk Code)</span>
+                        <span class="!text-white" style="color: #ffffff !important;">Zekk Code</span>
                         <span class="sr-only">zekkcode webdev</span>
                     </a>
                 </div>

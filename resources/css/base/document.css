@@ -36,10 +36,6 @@ p {
     text-wrap: pretty;
 }
 
-a {
-    color: inherit;
-}
-
 img {
     max-width: 100%;
 }

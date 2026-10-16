@@ -38,7 +38,7 @@ class ReportExportAndReviewTest extends TestCase
 
         $report = Report::query()->create([
             'report_code' => 'PDL-2026-FOT01',
-            'reporter_name' => 'Zakaria Mujur',
+            'reporter_name' => 'Warga Padelegan',
             'reporter_phone' => '0881081772005',
             'dusun_id' => $dusun->id,
             'subcategory_id' => $category->subcategories->firstOrFail()->id,

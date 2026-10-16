@@ -35,7 +35,7 @@ class UsulanExportAndReviewTest extends TestCase
         $usulan = Usulan::query()->create([
             'kode' => 'USL-2026-FOT01',
             'token_kirim' => 'fake-token-1',
-            'nama_pengusul' => 'Zakaria Mujur',
+            'nama_pengusul' => 'Warga Padelegan',
             'telepon_pengusul' => '0881081772005',
             'dusun_id' => $dusun->id,
             'jenis' => JenisUsulan::Pembangunan,
