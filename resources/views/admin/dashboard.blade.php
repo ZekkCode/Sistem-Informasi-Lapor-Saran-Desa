@@ -4,11 +4,13 @@
 @section('page-title', 'Ikhtisar laporan')
 @section('eyebrow', now()->translatedFormat('l, d F Y'))
 @section('page-actions')
-    <a href="{{ route('admin.reports.index', ['verification_status' => 'pending']) }}" class="action action--primary action--sm">Tinjau antrean</a>
+    <a href="{{ route('admin.reports.index', ['verification_status' => 'pending']) }}" class="action action--primary action--sm">
+        <span class="text-white font-semibold">Tinjau antrean</span>
+    </a>
 @endsection
 
 @section('content')
-    <p class="admin-intro">Pantau antrean verifikasi dan laporan prioritas desa.</p>
+    <p class="admin-intro">Pantau antrean verifikasi, tren data, dan laporan prioritas desa.</p>
 
     <dl class="admin-metrics">
         <div class="admin-metric"><dt>Semua laporan</dt><dd>{{ number_format($metrics['total']) }}</dd><small>Total data</small></div>
@@ -18,7 +20,52 @@
         <div class="admin-metric"><dt>Selesai</dt><dd>{{ number_format($metrics['completed']) }}</dd><small>{{ $metrics['completion_rate'] }}% tuntas</small></div>
     </dl>
 
-    <div class="admin-dashboard-grid">
+    {{-- Grafik Visual Interaktif --}}
+    <div class="admin-charts-grid">
+        <section class="admin-panel admin-chart-panel">
+            <header class="admin-panel__head">
+                <div>
+                    <h2>Tren Aktivitas Warga (7 Hari Terakhir)</h2>
+                    <span class="text-xs text-muted block mt-0.5">Statistik harian laporan dan usulan yang masuk</span>
+                </div>
+            </header>
+            <div class="admin-panel__body">
+                <div class="admin-chart-wrap" style="height: 250px; position: relative;">
+                    <canvas id="chart-trend" data-chart="{{ json_encode($trendChart) }}"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section class="admin-panel admin-chart-panel">
+            <header class="admin-panel__head">
+                <div>
+                    <h2>Status Penanganan</h2>
+                    <span class="text-xs text-muted block mt-0.5">Proporsi laporan berdasarkan tahapan</span>
+                </div>
+            </header>
+            <div class="admin-panel__body">
+                <div class="admin-chart-wrap" style="height: 250px; position: relative;">
+                    <canvas id="chart-status" data-chart="{{ json_encode($statusChart) }}"></canvas>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="admin-panel admin-chart-panel mt-4">
+        <header class="admin-panel__head">
+            <div>
+                <h2>Sebaran Laporan per Dusun</h2>
+                <span class="text-xs text-muted block mt-0.5">Jumlah laporan masuk di 6 dusun Desa Padelegan</span>
+            </div>
+        </header>
+        <div class="admin-panel__body">
+            <div class="admin-chart-wrap" style="height: 180px; position: relative;">
+                <canvas id="chart-dusun" data-chart="{{ json_encode($dusunChart) }}"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <div class="admin-dashboard-grid mt-4">
         <section class="admin-panel">
             <header class="admin-panel__head">
                 <h2>Laporan terbaru</h2>

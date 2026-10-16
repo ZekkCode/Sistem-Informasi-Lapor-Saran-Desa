@@ -23,6 +23,7 @@ class SaringUsulanRequest extends FormRequest
             'jenis' => ['nullable', Rule::enum(JenisUsulan::class)],
             'status' => ['nullable', Rule::enum(StatusUsulan::class)],
             'tampil_publik' => ['nullable', 'in:0,1'],
+            'periode' => ['nullable', 'string', 'in:minggu,bulan,tahun,semua'],
             'date_from' => ['nullable', 'date'],
             'date_to' => ['nullable', 'date', 'after_or_equal:date_from'],
         ];

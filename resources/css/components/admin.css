@@ -205,6 +205,24 @@
     margin-block-start: 1rem;
 }
 
+.admin-charts-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.45fr) minmax(18rem, 0.85fr);
+    gap: 1rem;
+    margin-block-start: 1rem;
+}
+
+@media (max-width: 960px) {
+    .admin-charts-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.admin-chart-wrap {
+    position: relative;
+    inline-size: 100%;
+}
+
 .admin-stack { display: grid; align-content: start; gap: 1rem; }
 .admin-panel { border: 1px solid var(--line); background: white; }
 .admin-panel__head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; border-block-end: 1px solid var(--line); padding: 0.9rem 1rem; }

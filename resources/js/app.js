@@ -9,6 +9,7 @@ import { heroSlider, initHeroBgSlider, initVillageShowcase } from './features/he
 import { initSiteMotion } from './features/site-motion';
 import { initFormValidation } from './features/form-validation';
 import { initDialogOtomatis } from './features/dialog-otomatis';
+import { initDashboardCharts } from './features/dashboard-charts';
 
 window.Alpine = Alpine;
 
@@ -25,3 +26,4 @@ initHeroBgSlider();
 initVillageShowcase();
 initFormValidation();
 initDialogOtomatis();
+initDashboardCharts();

@@ -11,7 +11,10 @@ class PencarianUsulanAdmin
     public function bangun(array $filters): Builder
     {
         return Usulan::query()
-            ->with(['dusun:id,name'])
+            ->with([
+                'dusun:id,name',
+                'media:id,usulan_id,file_path,storage_disk,mime_type',
+            ])
             ->when($filters['q'] ?? null, function (Builder $query, string $kata) {
                 $query->where(function (Builder $query) use ($kata) {
                     $query->where('kode', 'like', "%{$kata}%")
@@ -27,6 +30,14 @@ class PencarianUsulanAdmin
                 array_key_exists('tampil_publik', $filters) && $filters['tampil_publik'] !== null && $filters['tampil_publik'] !== '',
                 fn (Builder $query) => $query->where('tampil_publik', (bool) $filters['tampil_publik']),
             )
+            ->when($filters['periode'] ?? null, function (Builder $query, string $periode) {
+                match ($periode) {
+                    'minggu' => $query->where('dikirim_pada', '>=', now()->subDays(7)),
+                    'bulan' => $query->where('dikirim_pada', '>=', now()->subDays(30)),
+                    'tahun' => $query->where('dikirim_pada', '>=', now()->startOfYear()),
+                    default => null,
+                };
+            })
             ->when($filters['date_from'] ?? null, fn (Builder $query, $nilai) => $query->whereDate('dikirim_pada', '>=', $nilai))
             ->when($filters['date_to'] ?? null, fn (Builder $query, $nilai) => $query->whereDate('dikirim_pada', '<=', $nilai))
             ->latest('dikirim_pada');

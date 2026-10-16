@@ -6,7 +6,9 @@ use App\Enums\AdminPriority;
 use App\Enums\ReportStatus;
 use App\Enums\VerificationStatus;
 use App\Http\Controllers\Controller;
+use App\Models\Dusun;
 use App\Models\Report;
+use App\Models\Usulan;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -29,6 +31,43 @@ class DashboardController extends Controller
         ];
         $metrics['completion_rate'] = $total > 0 ? round(($metrics['completed'] / $total) * 100, 1) : 0;
 
+        $trendLabels = [];
+        $trendReports = [];
+        $trendUsulan = [];
+        for ($i = 6; $i >= 0; $i--) {
+            $day = now()->subDays($i);
+            $trendLabels[] = $day->translatedFormat('d M');
+            $trendReports[] = Report::query()->whereDate('submitted_at', $day->toDateString())->count();
+            $trendUsulan[] = Usulan::query()->whereDate('dikirim_pada', $day->toDateString())->count();
+        }
+
+        $trendChart = [
+            'labels' => $trendLabels,
+            'reports' => $trendReports,
+            'usulan' => $trendUsulan,
+        ];
+
+        $statusChart = [
+            'labels' => ['Menunggu Verifikasi', 'Belum Ditangani', 'Sedang Diproses', 'Selesai'],
+            'values' => [
+                $metrics['pending'],
+                $metrics['not_started'],
+                $metrics['in_progress'],
+                $metrics['completed'],
+            ],
+        ];
+
+        $dusunCounts = Dusun::query()
+            ->active()
+            ->withCount('reports')
+            ->orderBy('name')
+            ->get(['id', 'name']);
+
+        $dusunChart = [
+            'labels' => $dusunCounts->pluck('name')->all(),
+            'values' => $dusunCounts->pluck('reports_count')->all(),
+        ];
+
         $byCategory = Report::query()
             ->join('subcategories', 'reports.subcategory_id', '=', 'subcategories.id')
             ->join('categories', 'subcategories.category_id', '=', 'categories.id')
@@ -40,6 +79,9 @@ class DashboardController extends Controller
 
         return view('admin.dashboard', [
             'metrics' => $metrics,
+            'trendChart' => $trendChart,
+            'statusChart' => $statusChart,
+            'dusunChart' => $dusunChart,
             'byCategory' => $byCategory,
             'recentReports' => Report::query()
                 ->with(['dusun:id,name', 'subcategory.category:id,name'])
