@@ -95,16 +95,21 @@ class UsulanExportController extends Controller
         ], ';', '"', '');
 
         foreach ($query->cursor() as $usulan) {
+            $tanggal = ($usulan->dikirim_pada ?? $usulan->created_at)?->format('Y-m-d H:i:s') ?? '-';
+            $namaDusun = $usulan->dusun?->name ?? '-';
+            $labelJenis = $usulan->jenis instanceof \App\Enums\JenisUsulan ? $usulan->jenis->label() : ($usulan->jenis ?? '-');
+            $labelStatus = $usulan->status instanceof \App\Enums\StatusUsulan ? $usulan->status->label() : ($usulan->status ?? '-');
+
             fputcsv($stream, array_map($this->csvCell(...), [
                 $usulan->kode,
-                $usulan->dikirim_pada->format('Y-m-d H:i:s'),
+                $tanggal,
                 $usulan->nama_pengusul ?: 'Anonim',
                 $usulan->telepon_pengusul ?: '-',
-                $usulan->dusun->name,
-                $usulan->jenis->label(),
+                $namaDusun,
+                $labelJenis,
                 $usulan->judul,
                 $usulan->isi,
-                $usulan->status->label(),
+                $labelStatus,
                 $usulan->tampil_publik ? 'Ditampilkan' : 'Tersembunyi',
                 $usulan->catatan_publik,
             ]), ';', '"', '');

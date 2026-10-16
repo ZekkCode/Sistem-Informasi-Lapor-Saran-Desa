@@ -22,12 +22,21 @@ class LacakUsulanController extends Controller
                 ['kode.regex' => 'Format nomor usulan belum sesuai.'],
             )->validate();
 
+            $with = ['dusun:id,name'];
+            if (\Illuminate\Support\Facades\Schema::hasTable('riwayat_usulan')) {
+                $with['riwayat'] = fn ($query) => $query
+                    ->select(['id', 'usulan_id', 'status', 'catatan_publik', 'created_at'])
+                    ->reorder()->oldest();
+            }
+
             $usulan = Usulan::query()
                 ->where('kode', $kode)
-                ->with(['dusun:id,name', 'riwayat' => fn ($query) => $query
-                    ->select(['id', 'usulan_id', 'status', 'catatan_publik', 'created_at'])
-                    ->reorder()->oldest()])
+                ->with($with)
                 ->first();
+
+            if ($usulan && ! $usulan->relationLoaded('riwayat')) {
+                $usulan->setRelation('riwayat', collect());
+            }
         }
 
         return view('site.usulan.lacak', compact('usulan', 'kode'));

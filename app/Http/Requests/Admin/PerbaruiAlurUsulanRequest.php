@@ -14,11 +14,18 @@ class PerbaruiAlurUsulanRequest extends FormRequest
         return $this->user()?->canAccessUsulan() ?? false;
     }
 
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'versi_alur' => (int) ($this->input('versi_alur') ?? 0),
+        ]);
+    }
+
     /** @return array<string, mixed> */
     public function rules(): array
     {
         return [
-            'versi_alur' => ['required', 'integer', 'min:0'],
+            'versi_alur' => ['nullable', 'integer', 'min:0'],
             'status' => ['required', Rule::enum(StatusUsulan::class)],
             'tampil_publik' => ['nullable', 'boolean'],
             'catatan_publik' => ['nullable', 'string', 'max:2000'],

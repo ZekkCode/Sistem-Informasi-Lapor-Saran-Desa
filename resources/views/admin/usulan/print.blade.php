@@ -16,7 +16,13 @@
         <thead><tr><th scope="col">Nomor</th><th scope="col">Tanggal</th><th scope="col">Judul</th><th scope="col">Pengusul</th><th scope="col">Dusun</th><th scope="col">Jenis</th><th scope="col">Status</th><th scope="col">Publik</th></tr></thead>
         <tbody>
             @forelse($daftarUsulan as $usulan)
-                <tr><td>{{ $usulan->kode }}</td><td>{{ $usulan->dikirim_pada->format('d/m/Y H:i') }}</td><td>{{ $usulan->judul }}</td><td>{{ $usulan->nama_pengusul ?: 'Anonim' }}<br>{{ $usulan->telepon_pengusul ?: '-' }}</td><td>{{ $usulan->dusun->name }}</td><td>{{ $usulan->jenis->label() }}</td><td>{{ $usulan->status->label() }}</td><td>{{ $usulan->tampil_publik ? 'Ditampilkan' : 'Tersembunyi' }}</td></tr>
+                @php
+                    $tanggal = ($usulan->dikirim_pada ?? $usulan->created_at)?->format('d/m/Y H:i') ?? '-';
+                    $dusun = $usulan->dusun?->name ?? '-';
+                    $jenis = $usulan->jenis instanceof \App\Enums\JenisUsulan ? $usulan->jenis->label() : ($usulan->jenis ?? '-');
+                    $status = $usulan->status instanceof \App\Enums\StatusUsulan ? $usulan->status->label() : ($usulan->status ?? '-');
+                @endphp
+                <tr><td>{{ $usulan->kode }}</td><td>{{ $tanggal }}</td><td>{{ $usulan->judul }}</td><td>{{ $usulan->nama_pengusul ?: 'Anonim' }}<br>{{ $usulan->telepon_pengusul ?: '-' }}</td><td>{{ $dusun }}</td><td>{{ $jenis }}</td><td>{{ $status }}</td><td>{{ $usulan->tampil_publik ? 'Ditampilkan' : 'Tersembunyi' }}</td></tr>
             @empty<tr><td colspan="8">Tidak ada usulan untuk filter ini.</td></tr>@endforelse
         </tbody>
     </table>

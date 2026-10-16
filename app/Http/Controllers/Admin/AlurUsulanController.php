@@ -17,6 +17,6 @@ class AlurUsulanController extends Controller
     ): RedirectResponse {
         $layanan->perbarui($usulan, $request->validated(), $request->user());
 
-        return back()->with('status', 'Perubahan usulan tersimpan dan riwayat telah diperbarui.');
+        return back()->with('status', 'Tindak lanjut usulan berhasil disimpan.');
     }
 }

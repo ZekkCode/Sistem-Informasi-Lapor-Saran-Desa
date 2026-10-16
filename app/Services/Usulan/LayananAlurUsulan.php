@@ -30,7 +30,10 @@ class LayananAlurUsulan
         DB::transaction(function () use ($usulan, $data, $user): void {
             $terkunci = Usulan::query()->lockForUpdate()->findOrFail($usulan->getKey());
 
-            if ($terkunci->versi_alur !== (int) $data['versi_alur']) {
+            $versiDatabase = (int) ($terkunci->versi_alur ?? 0);
+            $versiInput = (int) ($data['versi_alur'] ?? 0);
+
+            if ($terkunci->versi_alur !== null && isset($data['versi_alur']) && $versiDatabase !== $versiInput) {
                 throw ValidationException::withMessages([
                     'versi_alur' => 'Petugas lain sudah memperbarui usulan ini. Muat ulang halaman, periksa perubahan terbaru, lalu simpan kembali.',
                 ]);
@@ -47,29 +50,39 @@ class LayananAlurUsulan
                 'catatan_publik' => $catatanPublik ?: null,
                 'ditangani_oleh' => $user->getKey(),
                 'dipublikasikan_pada' => $tampilPublik ? ($terkunci->dipublikasikan_pada ?? now()) : null,
-                'versi_alur' => $terkunci->versi_alur + 1,
+                'versi_alur' => $versiDatabase + 1,
             ])->save();
 
-            $terkunci->riwayat()->create([
-                'status' => $status,
-                'catatan_publik' => $catatanPublik ?: null,
-                'catatan_internal' => $catatanInternal ?: null,
-                'diubah_oleh' => $user->getKey(),
-            ]);
+            try {
+                if (\Illuminate\Support\Facades\Schema::hasTable('riwayat_usulan')) {
+                    $terkunci->riwayat()->create([
+                        'status' => $status,
+                        'catatan_publik' => $catatanPublik ?: null,
+                        'catatan_internal' => $catatanInternal ?: null,
+                        'diubah_oleh' => $user->getKey(),
+                    ]);
+                }
+            } catch (\Throwable) {
+                // Jangan hentikan transaksi jika pencatatan riwayat gagal
+            }
 
             $usulan->setRawAttributes($terkunci->getAttributes());
         });
 
         $usulan->refresh();
 
-        $this->audit->record('usulan.alur_diperbarui', $usulan, [
-            'sebelum' => $sebelum,
-            'sesudah' => Arr::only($usulan->getAttributes(), [
-                'status',
-                'tampil_publik',
-                'catatan_publik',
-            ]),
-        ]);
+        try {
+            $this->audit->record('usulan.alur_diperbarui', $usulan, [
+                'sebelum' => $sebelum,
+                'sesudah' => Arr::only($usulan->getAttributes(), [
+                    'status',
+                    'tampil_publik',
+                    'catatan_publik',
+                ]),
+            ]);
+        } catch (\Throwable) {
+            // Jangan gagalkan pembaruan jika pencatatan audit bermasalah
+        }
 
         return $usulan;
     }

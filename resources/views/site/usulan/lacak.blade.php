@@ -61,11 +61,17 @@
                     </div>
                     <h2 id="usulan-title" class="mt-4 text-3xl font-semibold leading-tight tracking-[-0.04em] text-padelegan-900 sm:text-4xl">{{ $usulan->judul }}</h2>
 
+                    @php
+                        $metaDusun = $usulan->dusun?->name ?? '—';
+                        $metaJenis = $usulan->jenis instanceof \App\Enums\JenisUsulan ? $usulan->jenis->label() : ($usulan->jenis ?? '—');
+                        $metaDikirim = ($usulan->dikirim_pada ?? $usulan->created_at)?->translatedFormat('d F Y, H:i') ?? '—';
+                        $daftarRiwayat = $usulan->relationLoaded('riwayat') ? $usulan->riwayat : collect();
+                    @endphp
                     <dl class="tracking-meta">
                         @foreach ([
-                            'Dusun' => $usulan->dusun->name,
-                            'Jenis usulan' => $usulan->jenis->label(),
-                            'Dikirim' => $usulan->dikirim_pada->translatedFormat('d F Y, H:i'),
+                            'Dusun' => $metaDusun,
+                            'Jenis usulan' => $metaJenis,
+                            'Dikirim' => $metaDikirim,
                         ] as $term => $description)
                             <div><dt>{{ $term }}</dt><dd>{{ $description }}</dd></div>
                         @endforeach
@@ -83,14 +89,22 @@
                     <p class="public-kicker">Perkembangan</p>
                     <h2 id="riwayat-title" class="mt-2 text-xl font-semibold tracking-[-0.025em] text-padelegan-900">Riwayat tindak lanjut</h2>
                     <ol class="tracking-timeline__list">
-                        @foreach ($usulan->riwayat as $riwayat)
+                        @forelse ($daftarRiwayat as $riwayat)
+                            @php
+                                $waktuRiwayat = $riwayat->created_at ?? now();
+                                $labelStatus = $riwayat->status instanceof \App\Enums\StatusUsulan ? $riwayat->status->label() : ($riwayat->status ?? '—');
+                            @endphp
                             <li class="tracking-timeline__item">
                                 <span class="tracking-timeline__dot" aria-hidden="true"></span>
-                                <time class="text-xs font-medium text-padelegan-900/45" datetime="{{ $riwayat->created_at->toIso8601String() }}">{{ $riwayat->created_at->translatedFormat('d M Y, H:i') }}</time>
-                                <p class="mt-1 font-semibold text-padelegan-900">{{ $riwayat->status->label() }}</p>
+                                <time class="text-xs font-medium text-padelegan-900/45" datetime="{{ $waktuRiwayat->toIso8601String() }}">{{ $waktuRiwayat->translatedFormat('d M Y, H:i') }}</time>
+                                <p class="mt-1 font-semibold text-padelegan-900">{{ $labelStatus }}</p>
                                 @if ($riwayat->catatan_publik)<p class="mt-1 text-sm leading-6 text-padelegan-900/60">{{ $riwayat->catatan_publik }}</p>@endif
                             </li>
-                        @endforeach
+                        @empty
+                            <li class="tracking-timeline__item text-sm text-padelegan-900/50">
+                                Belum ada riwayat tindak lanjut.
+                            </li>
+                        @endforelse
                     </ol>
                 </section>
             </div>

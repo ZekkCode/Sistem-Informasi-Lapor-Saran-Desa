@@ -19,7 +19,7 @@
                     </a>
                     <a class="inline-flex items-center gap-1.5 transition hover:text-white" href="{{ route('reports.track') }}">
                         <svg class="h-3.5 w-3.5 text-emerald-400" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                        <span>Cek status laporan</span>
+                        <span>Cek laporan</span>
                     </a>
                     <a class="inline-flex items-center gap-1.5 transition hover:text-white" href="{{ route('usulan.create') }}">
                         <svg class="h-3.5 w-3.5 text-emerald-400" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>
@@ -27,15 +27,15 @@
                     </a>
                     <a class="inline-flex items-center gap-1.5 transition hover:text-white" href="{{ route('usulan.lacak') }}">
                         <svg class="h-3.5 w-3.5 text-emerald-400" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                        <span>Cek status usulan</span>
+                        <span>Cek usulan</span>
                     </a>
                     <a class="inline-flex items-center gap-1.5 transition hover:text-white" href="{{ route('public-reports.index') }}">
                         <svg class="h-3.5 w-3.5 text-emerald-400" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-                        <span>Daftar laporan warga</span>
+                        <span>Laporan warga</span>
                     </a>
                     <a class="inline-flex items-center gap-1.5 transition hover:text-white" href="{{ route('public-usulan.index') }}">
                         <svg class="h-3.5 w-3.5 text-emerald-400" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                        <span>Daftar usulan desa</span>
+                        <span>Usulan warga</span>
                     </a>
                     <a class="inline-flex items-center gap-1.5 transition hover:text-white" href="{{ route('about') }}">
                         <svg class="h-3.5 w-3.5 text-emerald-400" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
@@ -76,7 +76,7 @@
                             <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
                             <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                         </svg>
-                        <span>Akses petugas desa</span>
+                        <span>Akses petugas</span>
                     </a>
                 </div>
             </div>
@@ -93,7 +93,7 @@
                     </div>
                 </div>
                 <p class="mt-2.5 max-w-sm text-xs leading-5 text-white/70">
-                    Layanan resmi Pemerintah Desa Padelegan untuk penanganan laporan masalah lingkungan dan penyaluran usulan aspirasi warga.
+                    Sampaikan laporan masalah dan usulan pembangunan Desa Padelegan.
                 </p>
 
                 <div class="mt-3.5 space-y-1.5 text-[11px] text-white/70">
@@ -132,13 +132,13 @@
                         <li>
                             <a class="inline-flex items-center gap-1.5 hover:text-white transition" href="{{ route('reports.track') }}">
                                 <svg class="h-3.5 w-3.5 text-emerald-400 shrink-0" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                                <span>Cek status laporan</span>
+                                <span>Cek laporan</span>
                             </a>
                         </li>
                         <li>
                             <a class="inline-flex items-center gap-1.5 hover:text-white transition" href="{{ route('public-reports.index') }}">
                                 <svg class="h-3.5 w-3.5 text-emerald-400 shrink-0" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-                                <span>Daftar laporan warga</span>
+                                <span>Laporan warga</span>
                             </a>
                         </li>
                         <li>
@@ -160,13 +160,13 @@
                         <li>
                             <a class="inline-flex items-center gap-1.5 hover:text-white transition" href="{{ route('usulan.lacak') }}">
                                 <svg class="h-3.5 w-3.5 text-emerald-400 shrink-0" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                                <span>Cek status usulan</span>
+                                <span>Cek usulan</span>
                             </a>
                         </li>
                         <li>
                             <a class="inline-flex items-center gap-1.5 hover:text-white transition" href="{{ route('public-usulan.index') }}">
                                 <svg class="h-3.5 w-3.5 text-emerald-400 shrink-0" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                                <span>Daftar usulan desa</span>
+                                <span>Usulan warga</span>
                             </a>
                         </li>
                         <li>
@@ -188,9 +188,9 @@
                             <svg class="h-3.5 w-3.5 text-emerald-400 shrink-0" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                             </svg>
-                            <span>Privasi Terjaga</span>
+                            <span>Privasi pelapor</span>
                         </div>
-                        <p>Identitas pelapor bersifat privat dan dilindungi. Hanya dapat dilihat oleh petugas berwenang untuk verifikasi lapangan.</p>
+                        <p>Identitas pelapor dirahasiakan. Hanya petugas desa yang membuka data untuk verifikasi.</p>
                     </div>
 
                     <div class="rounded-lg border border-white/10 bg-white/5 p-2.5 text-[11px] text-white/70 leading-normal">
@@ -199,9 +199,9 @@
                                 <circle cx="12" cy="12" r="10"/>
                                 <path d="m9 12 2 2 4-4"/>
                             </svg>
-                            <span>Keamanan Sistem</span>
+                            <span>Keamanan data</span>
                         </div>
-                        <p>Kiriman formulir dilindungi enkripsi data dan proteksi anti-spam otomatis untuk memastikan keabsahan data.</p>
+                        <p>Setiap formulir dilindungi enkripsi data dan pencegah spam otomatis.</p>
                     </div>
                 </div>
             </div>
@@ -234,7 +234,7 @@
                             <rect width="18" height="11" x="3" y="11" rx="2" ry="2"/>
                             <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
                         </svg>
-                        <span>Akses petugas desa</span>
+                        <span>Akses petugas</span>
                     </a>
                 </div>
             </div>

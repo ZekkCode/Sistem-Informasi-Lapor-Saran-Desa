@@ -29,8 +29,14 @@
                 @endif
             </div>
             <aside>
+                @php
+                    $metaDusun = $usulan->dusun?->name ?? '—';
+                    $metaJenis = $usulan->jenis instanceof \App\Enums\JenisUsulan ? $usulan->jenis->label() : ($usulan->jenis ?? '—');
+                    $metaTanggal = ($usulan->dikirim_pada ?? $usulan->created_at)?->translatedFormat('d F Y') ?? '—';
+                    $daftarRiwayat = $usulan->relationLoaded('riwayat') ? $usulan->riwayat : collect();
+                @endphp
                 <dl class="border-t border-padelegan-800/15 text-sm">
-                    @foreach (['Dusun' => $usulan->dusun->name, 'Jenis usulan' => $usulan->jenis->label(), 'Tanggal' => $usulan->dikirim_pada->translatedFormat('d F Y')] as $term => $description)
+                    @foreach (['Dusun' => $metaDusun, 'Jenis usulan' => $metaJenis, 'Tanggal' => $metaTanggal] as $term => $description)
                         <div class="grid grid-cols-[7rem_1fr] gap-4 border-b border-padelegan-800/15 py-4">
                             <dt class="text-padelegan-900/50">{{ $term }}</dt>
                             <dd class="font-semibold">{{ $description }}</dd>
@@ -40,14 +46,20 @@
                 <section class="mt-9" aria-labelledby="public-riwayat">
                     <h2 id="public-riwayat" class="text-lg font-semibold">Riwayat tindak lanjut</h2>
                     <ol class="mt-5 border-l border-padelegan-800/20 pl-6">
-                        @foreach ($usulan->riwayat as $riwayat)
+                        @forelse ($daftarRiwayat as $riwayat)
+                            @php
+                                $waktuRiwayat = $riwayat->created_at ?? now();
+                                $labelRiwayat = $riwayat->status instanceof \App\Enums\StatusUsulan ? $riwayat->status->label() : ($riwayat->status ?? '—');
+                            @endphp
                             <li class="relative pb-7 last:pb-0">
                                 <span class="absolute -left-[1.74rem] top-1 size-3 rounded-full bg-padelegan-600" aria-hidden="true"></span>
-                                <time class="text-xs text-padelegan-900/45" datetime="{{ $riwayat->created_at->toIso8601String() }}">{{ $riwayat->created_at->translatedFormat('d M Y, H:i') }}</time>
-                                <p class="mt-1 font-semibold">{{ $riwayat->status->label() }}</p>
+                                <time class="text-xs text-padelegan-900/45" datetime="{{ $waktuRiwayat->toIso8601String() }}">{{ $waktuRiwayat->translatedFormat('d M Y, H:i') }}</time>
+                                <p class="mt-1 font-semibold">{{ $labelRiwayat }}</p>
                                 @if ($riwayat->catatan_publik)<p class="mt-1 text-sm leading-6 text-padelegan-900/60">{{ $riwayat->catatan_publik }}</p>@endif
                             </li>
-                        @endforeach
+                        @empty
+                            <li class="text-sm text-padelegan-900/50">Belum ada riwayat tindak lanjut.</li>
+                        @endforelse
                     </ol>
                 </section>
             </aside>

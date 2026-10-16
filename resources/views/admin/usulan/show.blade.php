@@ -1,12 +1,19 @@
 @extends('layouts.panel-petugas')
 
+@php
+    $daftarMedia = $usulan->relationLoaded('media') ? $usulan->media : collect();
+    $daftarRiwayat = $usulan->relationLoaded('riwayat') ? $usulan->riwayat : collect();
+    $tanggalKirim = ($usulan->dikirim_pada ?? $usulan->created_at)?->translatedFormat('d F Y, H:i');
+    $jenisLabel = $usulan->jenis instanceof \App\Enums\JenisUsulan ? $usulan->jenis->label() : ($usulan->jenis ?? '—');
+@endphp
+
 @section('title', $usulan->kode)
 @section('page-title', $usulan->kode)
 @section('eyebrow', 'Detail usulan warga')
 @section('page-actions')
     <div class="flex items-center gap-2">
         <a href="{{ route('admin.usulan.index') }}" class="action action--quiet action--sm">Kembali ke daftar</a>
-        <form method="POST" action="{{ route('admin.usulan.destroy', $usulan) }}" onsubmit="return confirm('Hapus usulan {{ $usulan->kode }}? Data yang dihapus dapat dipulihkan melalui basis data jika diperlukan.')">
+        <form method="POST" action="{{ route('admin.usulan.destroy', $usulan) }}" onsubmit="return confirm('Hapus usulan {{ $usulan->kode }}? Tindakan ini tidak dapat dibatalkan dari panel.')">
             @csrf
             @method('DELETE')
             <button type="submit" class="action action--danger action--sm">Hapus usulan</button>
@@ -15,10 +22,29 @@
 @endsection
 
 @section('content')
+    @if(session('status'))
+        <div class="alert alert--success mb-4" role="status">
+            {{ session('status') }}
+        </div>
+    @endif
+
+    @if($errors->any())
+        <div class="alert alert--danger mb-4" role="alert">
+            <p class="font-semibold">Pembaruan belum tersimpan:</p>
+            <ul class="mt-1 list-disc list-inside text-sm">
+                @foreach($errors->all() as $pesan)
+                    <li>{{ $pesan }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="mb-4 flex flex-wrap items-center gap-2">
         <x-usulan.status :status="$usulan->status" />
         <span class="status" data-status-usulan="{{ $usulan->tampil_publik ? 'selesai' : 'baru' }}">{{ $usulan->tampil_publik ? 'Tampil publik' : 'Belum tampil' }}</span>
-        <span class="text-xs text-muted">Masuk {{ $usulan->dikirim_pada->translatedFormat('d F Y, H:i') }} WIB</span>
+        @if($tanggalKirim)
+            <span class="text-xs text-muted">Masuk {{ $tanggalKirim }} WIB</span>
+        @endif
     </div>
 
     <div class="admin-detail-grid">
@@ -38,19 +64,19 @@
                             @endif
                         </dd></div>
                         <div><dt>Dusun</dt><dd>{{ $usulan->dusun?->name ?? '—' }}</dd></div>
-                        <div><dt>Jenis usulan</dt><dd>{{ $usulan->jenis->label() }}</dd></div>
+                        <div><dt>Jenis usulan</dt><dd>{{ $jenisLabel }}</dd></div>
                     </dl>
                 </div>
             </section>
 
             <section class="admin-panel">
-                <header class="admin-panel__head"><h2>Dokumentasi foto</h2><span class="text-xs text-muted">{{ $usulan->media->count() }} foto</span></header>
+                <header class="admin-panel__head"><h2>Dokumentasi foto</h2><span class="text-xs text-muted">{{ $daftarMedia->count() }} foto</span></header>
                 <div class="admin-panel__body">
-                    @if($usulan->media->isEmpty())
+                    @if($daftarMedia->isEmpty())
                         <p class="admin-empty">Tidak ada foto pada usulan ini.</p>
                     @else
                         <div class="admin-media-grid">
-                            @foreach($usulan->media as $media)
+                            @foreach($daftarMedia as $media)
                                 <a href="{{ route('admin.usulan.media.show', $media) }}" target="_blank" rel="noopener"><img src="{{ route('admin.usulan.media.show', $media) }}" alt="Foto usulan {{ $loop->iteration }}" loading="lazy"></a>
                             @endforeach
                         </div>
@@ -61,16 +87,24 @@
             <section class="admin-panel">
                 <header class="admin-panel__head"><h2>Riwayat tindak lanjut</h2></header>
                 <div class="admin-panel__body">
-                    <ol class="admin-timeline">
-                        @foreach($usulan->riwayat as $riwayat)
-                            <li>
-                                <time datetime="{{ $riwayat->created_at->toIso8601String() }}">{{ $riwayat->created_at->translatedFormat('d M Y, H:i') }} · {{ $riwayat->pengubah?->name ?? 'Sistem' }}</time>
-                                <p><strong>{{ $riwayat->status->label() }}</strong></p>
-                                @if($riwayat->catatan_publik)<p>Untuk warga: {{ $riwayat->catatan_publik }}</p>@endif
-                                @if($riwayat->catatan_internal)<p class="text-muted">Catatan internal: {{ $riwayat->catatan_internal }}</p>@endif
-                            </li>
-                        @endforeach
-                    </ol>
+                    @if($daftarRiwayat->isEmpty())
+                        <p class="admin-empty">Belum ada riwayat tercatat.</p>
+                    @else
+                        <ol class="admin-timeline">
+                            @foreach($daftarRiwayat as $riwayat)
+                                @php
+                                    $waktuRiwayat = ($riwayat->created_at ?? now());
+                                    $statusRiwayat = $riwayat->status instanceof \App\Enums\StatusUsulan ? $riwayat->status->label() : ($riwayat->status ?? '—');
+                                @endphp
+                                <li>
+                                    <time datetime="{{ $waktuRiwayat->toIso8601String() }}">{{ $waktuRiwayat->translatedFormat('d M Y, H:i') }} · {{ $riwayat->pengubah?->name ?? 'Sistem' }}</time>
+                                    <p><strong>{{ $statusRiwayat }}</strong></p>
+                                    @if($riwayat->catatan_publik)<p>Untuk warga: {{ $riwayat->catatan_publik }}</p>@endif
+                                    @if($riwayat->catatan_internal)<p class="text-muted">Catatan internal: {{ $riwayat->catatan_internal }}</p>@endif
+                                </li>
+                            @endforeach
+                        </ol>
+                    @endif
                 </div>
             </section>
         </div>
@@ -81,29 +115,34 @@
                 <form action="{{ route('admin.usulan.alur.update', $usulan) }}" method="POST" class="admin-panel__body admin-form-grid" data-submit-once>
                     @csrf
                     @method('PATCH')
-                    <input type="hidden" name="versi_alur" value="{{ $usulan->versi_alur }}">
+                    <input type="hidden" name="versi_alur" value="{{ (int) ($usulan->versi_alur ?? 0) }}">
 
                     <div class="field field--full">
                         <label for="status" class="field__label">Status tindak lanjut</label>
                         <select id="status" name="status" class="control" required>
-                            @foreach($statuses as $item)<option value="{{ $item->value }}" @selected(old('status', $usulan->status->value) === $item->value)>{{ $item->label() }}</option>@endforeach
+                            @foreach($statuses as $item)
+                                <option value="{{ $item->value }}" @selected(old('status', $usulan->status?->value ?? $usulan->status) === $item->value)>{{ $item->label() }}</option>
+                            @endforeach
                         </select>
+                        @error('status')<p class="field__error">{{ $message }}</p>@enderror
                     </div>
                     <div class="field field--full">
                         <label for="catatan_publik" class="field__label">Kabar untuk warga</label>
                         <textarea id="catatan_publik" name="catatan_publik" class="control min-h-28" maxlength="2000" placeholder="Contoh: Usulan masuk pembahasan musyawarah dusun bulan depan.">{{ old('catatan_publik', $usulan->catatan_publik) }}</textarea>
                         <p class="field__hint">Warga membaca catatan ini pada halaman cek usulan.</p>
+                        @error('catatan_publik')<p class="field__error">{{ $message }}</p>@enderror
                     </div>
                     <div class="field field--full">
                         <label for="catatan_internal" class="field__label">Catatan internal</label>
-                        <textarea id="catatan_internal" name="catatan_internal" class="control min-h-24" maxlength="2000" placeholder="Hanya terlihat oleh petugas.">{{ old('catatan_internal') }}</textarea>
+                        <textarea id="catatan_internal" name="catatan_internal" class="control min-h-24" maxlength="2000" placeholder="Catatan khusus petugas, tidak tampil ke publik.">{{ old('catatan_internal') }}</textarea>
+                        @error('catatan_internal')<p class="field__error">{{ $message }}</p>@enderror
                     </div>
                     <label class="field--full flex min-h-12 items-center gap-3 text-sm">
                         <input type="hidden" name="tampil_publik" value="0">
                         <input type="checkbox" name="tampil_publik" value="1" class="size-4 accent-padelegan-600" @checked(old('tampil_publik', $usulan->tampil_publik))>
                         Tampilkan usulan ini di halaman publik
                     </label>
-                    <p class="field--full field__hint">Usulan tampil ke publik hanya setelah Anda mencentang dan mengisi kabar untuk warga. Identitas pengusul tidak pernah ditampilkan.</p>
+                    <p class="field--full field__hint">Centang dan isi kabar untuk menampilkan usulan ke publik. Identitas pengusul tetap dirahasiakan.</p>
                     <div class="admin-form-actions">
                         <button type="submit" class="action action--primary">Simpan perubahan</button>
                     </div>
@@ -122,3 +161,4 @@
         </aside>
     </div>
 @endsection
+

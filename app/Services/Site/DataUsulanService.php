@@ -125,16 +125,22 @@ class DataUsulanService
         }
 
         try {
+            $with = ['dusun:id,name'];
+            if (\Illuminate\Support\Facades\Schema::hasTable('riwayat_usulan')) {
+                $with['riwayat'] = fn ($query) => $query
+                    ->select(['id', 'usulan_id', 'status', 'catatan_publik', 'created_at'])
+                    ->reorder()->oldest();
+            }
+
             $usulan = Usulan::query()
                 ->tampilPublik()
                 ->where('kode', $kode)
-                ->with([
-                    'dusun:id,name',
-                    'riwayat' => fn ($query) => $query
-                        ->select(['id', 'usulan_id', 'status', 'catatan_publik', 'created_at'])
-                        ->reorder()->oldest(),
-                ])
+                ->with($with)
                 ->first();
+
+            if ($usulan && ! $usulan->relationLoaded('riwayat')) {
+                $usulan->setRelation('riwayat', collect());
+            }
 
             return ['usulan' => $usulan, 'memakaiDemo' => false];
         } catch (QueryException $exception) {
