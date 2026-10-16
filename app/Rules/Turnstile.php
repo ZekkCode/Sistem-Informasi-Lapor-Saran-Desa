@@ -40,6 +40,11 @@ class Turnstile implements ValidationRule
                 ]);
 
             if (! $response->successful() || ! (bool) $response->json('success')) {
+                Log::warning('Verifikasi Cloudflare Turnstile tidak lolos.', [
+                    'status' => $response->status(),
+                    'error_codes' => $response->json('error-codes'),
+                ]);
+
                 $fail('Pemeriksaan keamanan gagal diverifikasi. Centang kembali kotak pemeriksaan lalu coba lagi.');
             }
         } catch (Throwable $e) {

@@ -137,6 +137,30 @@ export function initFormValidation() {
                     }
                 }
             });
+
+            const turnstileEl = form.querySelector('.cf-turnstile');
+            if (turnstileEl && isElementVisible(turnstileEl)) {
+                const token = form.querySelector('[name="cf-turnstile-response"]')?.value?.trim();
+                const container = turnstileEl.closest('.field') || turnstileEl.parentElement;
+                let errorEl = container?.querySelector('#turnstile-client-error');
+                if (!token) {
+                    isValid = false;
+                    if (!errorEl && container) {
+                        errorEl = document.createElement('p');
+                        errorEl.className = 'field__error mt-2';
+                        errorEl.id = 'turnstile-client-error';
+                        container.appendChild(errorEl);
+                    }
+                    if (errorEl) {
+                        errorEl.textContent = 'Selesaikan pemeriksaan keamanan sebelum mengirim formulir.';
+                    }
+                    if (!firstInvalidField) {
+                        firstInvalidField = turnstileEl;
+                    }
+                } else if (errorEl) {
+                    errorEl.remove();
+                }
+            }
             
             if (!isValid) {
                 e.preventDefault();

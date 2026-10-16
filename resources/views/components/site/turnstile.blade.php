@@ -7,17 +7,23 @@
 @endphp
 
 @if($siteKey !== '')
-    <div class="field">
+    <div class="field" data-turnstile-field>
         <span class="field__label" id="turnstile-label">{{ $label }}<abbr class="required-mark" title="Wajib diisi" aria-label="wajib">*</abbr></span>
         <p class="field__hint" id="turnstile-hint">Pemeriksaan ini memastikan formulir dikirim oleh warga, bukan program bot pengirim spam.</p>
         <div class="mt-2" aria-labelledby="turnstile-label" aria-describedby="turnstile-hint">
-            <div class="cf-turnstile" data-sitekey="{{ $siteKey }}" data-theme="light"></div>
+            <div class="cf-turnstile" data-sitekey="{{ $siteKey }}" data-theme="light" data-callback="onTurnstileSuccess"></div>
         </div>
         <x-ui.field-error name="cf-turnstile-response" />
     </div>
 
     @once
         @push('scripts')
+            <script>
+                window.onTurnstileSuccess = function() {
+                    const err = document.getElementById('turnstile-client-error');
+                    if (err) err.remove();
+                };
+            </script>
             <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
         @endpush
     @endonce

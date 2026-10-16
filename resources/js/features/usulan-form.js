@@ -84,6 +84,20 @@ export function usulanForm(config = {}) {
                 return;
             }
 
+            const turnstileEl = this.$root.querySelector('.cf-turnstile');
+            if (turnstileEl) {
+                const token = this.$root.querySelector('[name="cf-turnstile-response"]')?.value?.trim();
+                if (!token) {
+                    event.preventDefault();
+                    this.submitError = 'Selesaikan pemeriksaan keamanan sebelum mengirim formulir.';
+                    const turnstileField = turnstileEl.closest('.field');
+                    if (turnstileField) {
+                        turnstileField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                    return;
+                }
+            }
+
             const photoInput = this.$root.querySelector('#photos');
             const files = Array.from(photoInput?.files || []);
 

@@ -17,6 +17,26 @@ export function reportForm(config) {
             this.$watch('selectedCategory', () => {
                 this.updateSubcategories();
             });
+            if (this.step === 3) {
+                this.ensureTurnstileRendered();
+            }
+        },
+
+        ensureTurnstileRendered() {
+            if (typeof window.turnstile === 'undefined') return;
+            this.$nextTick(() => {
+                const el = this.$root.querySelector('.cf-turnstile');
+                if (el && !el.querySelector('iframe')) {
+                    try {
+                        window.turnstile.render(el, {
+                            sitekey: el.getAttribute('data-sitekey'),
+                            theme: el.getAttribute('data-theme') || 'light',
+                        });
+                    } catch {
+                        // Already initialized
+                    }
+                }
+            });
         },
 
         updateSubcategories() {
@@ -78,6 +98,10 @@ export function reportForm(config) {
 
             this.step = nextStep;
             this.focusCurrentStep();
+
+            if (this.step === 3) {
+                this.ensureTurnstileRendered();
+            }
         },
 
         goBack(previousStep) {
@@ -187,6 +211,20 @@ export function reportForm(config) {
                 event.preventDefault();
                 this.submitError = 'Pengiriman belum aktif karena database belum siap.';
                 return;
+            }
+
+            const turnstileEl = this.$root.querySelector('.cf-turnstile');
+            if (turnstileEl) {
+                const token = this.$root.querySelector('[name="cf-turnstile-response"]')?.value?.trim();
+                if (!token) {
+                    event.preventDefault();
+                    this.submitError = 'Selesaikan pemeriksaan keamanan sebelum mengirim formulir.';
+                    const turnstileField = turnstileEl.closest('.field');
+                    if (turnstileField) {
+                        turnstileField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                    return;
+                }
             }
 
             if (!this.directUpload.enabled) {
