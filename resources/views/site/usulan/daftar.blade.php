@@ -1,6 +1,7 @@
 @extends('layouts.site')
 
 @section('title', 'Usulan Warga')
+@section('meta_description', 'Tabel usulan dan aspirasi pembangunan warga Desa Padelegan yang telah ditinjau petugas secara terbuka dan anonim.')
 
 @section('content')
     <section class="border-b border-padelegan-800/10 bg-white">

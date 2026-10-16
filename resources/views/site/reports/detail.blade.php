@@ -1,6 +1,8 @@
 @extends('layouts.site')
 
 @section('title', $report->title)
+@section('meta_description', \Illuminate\Support\Str::limit(strip_tags($report->description), 150))
+@section('og_type', 'article')
 
 @section('content')
     <article class="site-shell py-9 lg:py-14">

@@ -1,6 +1,7 @@
 @extends('layouts.site')
 
 @section('title', 'Beranda')
+@section('meta_description', 'Layanan resmi pengaduan masalah fasilitas umum dan aspirasi usulan pembangunan warga Desa Padelegan, Pademawu, Pamekasan. Cepat, transparan, dan tanpa akun.')
 
 @section('content')
     @php

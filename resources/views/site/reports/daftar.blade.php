@@ -1,6 +1,7 @@
 @extends('layouts.site')
 
 @section('title', 'Laporan Desa')
+@section('meta_description', 'Daftar laporan warga Desa Padelegan yang telah terverifikasi oleh petugas desa. Pantau perkembangan penanganan secara transparan.')
 
 @section('content')
     <section class="border-b border-padelegan-800/10 bg-white">

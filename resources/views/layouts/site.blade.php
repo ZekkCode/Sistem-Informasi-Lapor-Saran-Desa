@@ -15,6 +15,8 @@
     <meta name="publisher" content="Pemerintah Desa Padelegan">
     <meta name="geo.region" content="ID-JI">
     <meta name="geo.placename" content="Desa Padelegan, Pademawu, Pamekasan">
+    <meta name="geo.position" content="-7.2023;113.5284">
+    <meta name="ICBM" content="-7.2023, 113.5284">
     <meta name="theme-color" content="#176248">
     <meta name="color-scheme" content="light">
     <meta name="robots" content="index, follow">
