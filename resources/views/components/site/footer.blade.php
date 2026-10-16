@@ -45,6 +45,12 @@
                         <svg class="h-3.5 w-3.5 text-emerald-400" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
                         <span>Bantuan &amp; kontak</span>
                     </a>
+                    @if (config('padelegan.support_whatsapp'))
+                        <a class="inline-flex items-center gap-1.5 transition hover:text-white" href="https://wa.me/{{ config('padelegan.support_whatsapp') }}?text={{ rawurlencode('Halo Wakades Padelegan, saya warga Desa Padelegan:') }}" target="_blank" rel="noopener noreferrer">
+                            <svg class="h-3.5 w-3.5 text-emerald-400" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21"/><path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1"/></svg>
+                            <span>WhatsApp Wakades</span>
+                        </a>
+                    @endif
                 </nav>
             </div>
         </div>
@@ -96,7 +102,7 @@
                     Sampaikan laporan masalah dan usulan pembangunan Desa Padelegan.
                 </p>
 
-                <div class="mt-3.5 space-y-1.5 text-[11px] text-white/70">
+                <div class="mt-3.5 space-y-2 text-[11px] text-white/70">
                     <p class="flex items-center gap-1.5">
                         <svg class="h-3.5 w-3.5 text-emerald-400 shrink-0" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
@@ -104,6 +110,17 @@
                         </svg>
                         <span>Kantor Balai Desa Padelegan, Kec. Pademawu, Pamekasan</span>
                     </p>
+                    @if (config('padelegan.support_whatsapp'))
+                        <p class="pt-0.5">
+                            <a href="https://wa.me/{{ config('padelegan.support_whatsapp') }}?text={{ rawurlencode('Halo Wakades Padelegan, saya warga Desa Padelegan:') }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 font-medium transition" title="Hubungi Wakades via WhatsApp">
+                                <svg class="h-3.5 w-3.5 shrink-0" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21"/>
+                                    <path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1"/>
+                                </svg>
+                                <span>Hubungi Wakades via WhatsApp</span>
+                            </a>
+                        </p>
+                    @endif
                 </div>
             </div>
 

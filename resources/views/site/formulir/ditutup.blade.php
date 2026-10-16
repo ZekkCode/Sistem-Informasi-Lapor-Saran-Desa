@@ -11,7 +11,6 @@
         $laporan = $status->formulir === \App\Enums\JenisFormulir::Laporan;
         $contactName = config('padelegan.support_contact_name');
         $contactWa = config('padelegan.support_whatsapp');
-        $contactWaLabel = config('padelegan.support_whatsapp_label');
     @endphp
 
     {{-- Tanpa data-aos agar pemberitahuan tetap terbaca saat JavaScript gagal. --}}
@@ -57,7 +56,7 @@
 
             <div class="mt-8 border-t border-padelegan-800/15 pt-6">
                 <p class="text-sm leading-6 text-padelegan-900/65">Untuk keadaan mendesak, hubungi {{ $contactName }} lewat WhatsApp.</p>
-                <a class="action action--secondary mt-3" href="https://wa.me/{{ $contactWa }}" target="_blank" rel="noopener">Chat WhatsApp {{ $contactWaLabel }}</a>
+                <a class="action action--secondary mt-3" href="https://wa.me/{{ $contactWa }}?text={{ rawurlencode('Halo Wakades Padelegan, saya warga Desa Padelegan:') }}" target="_blank" rel="noopener">Chat WhatsApp Wakades</a>
             </div>
         </div>
     </section>

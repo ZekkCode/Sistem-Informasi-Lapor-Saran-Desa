@@ -7,7 +7,7 @@ return [
     | Kontak bantuan situs untuk warga. Nomor dipakai untuk tautan WhatsApp
     | (hanya angka) dan tautan telepon. Ubah lewat environment bila berganti.
     */
-    'support_contact_name' => env('SITE_SUPPORT_CONTACT_NAME', 'Pak Wakil Sekdes'),
+    'support_contact_name' => env('SITE_SUPPORT_CONTACT_NAME', 'Wakades Padelegan'),
     'support_whatsapp' => env('SITE_SUPPORT_WHATSAPP', '6282301842301'),
     'support_whatsapp_label' => env('SITE_SUPPORT_WHATSAPP_LABEL', '+62 823-0184-2301'),
 

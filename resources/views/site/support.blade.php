@@ -9,8 +9,7 @@
         $supportBody = rawurlencode("Halaman yang bermasalah:\nWaktu kejadian:\nPerangkat/browser:\nKendala yang terjadi:\n");
         $contactName = config('padelegan.support_contact_name');
         $contactWa = config('padelegan.support_whatsapp');
-        $contactWaLabel = config('padelegan.support_whatsapp_label');
-        $waText = rawurlencode('Halo, saya warga Desa Padelegan. Saya mengalami kendala pada situs Sistem Lapor Padelegan: ');
+        $waText = rawurlencode('Halo Wakades Padelegan, saya warga Desa Padelegan. Saya mengalami kendala pada situs Sistem Lapor Padelegan: ');
     @endphp
 
     <section class="site-shell py-10 sm:py-14">
@@ -38,16 +37,15 @@
                         </span>
                         <div>
                             <p class="support-contact__name">{{ $contactName }}</p>
-                            <p class="support-contact__role">Layanan warga Desa Padelegan</p>
+                            <p class="support-contact__role">Pemerintah Desa Padelegan</p>
                         </div>
                     </div>
                     <div class="support-contact__actions">
                         <a class="action action--primary action--sm" href="https://wa.me/{{ $contactWa }}?text={{ $waText }}" target="_blank" rel="noopener">
-                            <span class="text-white font-semibold">Hubungi via WhatsApp</span>
+                            <span class="text-white font-semibold">Hubungi Wakades via WhatsApp</span>
                         </a>
-                        <a class="action action--secondary action--sm" href="tel:+{{ $contactWa }}">{{ $contactWaLabel }}</a>
                     </div>
-                    <p class="support-contact__note">Untuk kendala teknis pada situs. Jangan kirim data pribadi lewat pesan ini.</p>
+                    <p class="support-contact__note">Untuk kendala teknis atau informasi layanan. Jangan kirim data privat lewat pesan ini.</p>
                 </div>
 
                 <div class="mt-6 flex flex-wrap gap-3">
