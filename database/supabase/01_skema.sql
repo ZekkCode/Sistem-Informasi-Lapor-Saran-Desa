@@ -118,6 +118,11 @@ create table "riwayat_usulan" ("id" bigserial not null primary key, "usulan_id" 
 alter table "riwayat_usulan" add constraint "riwayat_usulan_usulan_id_foreign" foreign key ("usulan_id") references "usulan" ("id") on delete cascade;
 alter table "riwayat_usulan" add constraint "riwayat_usulan_diubah_oleh_foreign" foreign key ("diubah_oleh") references "users" ("id") on delete set null;
 
+-- 2026_09_22_000120_create_usulan_media_table
+create table "usulan_media" ("id" bigserial not null primary key, "usulan_id" bigint not null, "storage_disk" varchar(32) not null default 'public', "file_path" varchar(255) not null, "mime_type" varchar(100) not null, "file_size" bigint not null, "caption" varchar(255) null, "uploaded_by" bigint null, "created_at" timestamp(0) without time zone null, "updated_at" timestamp(0) without time zone null);
+alter table "usulan_media" add constraint "usulan_media_usulan_id_foreign" foreign key ("usulan_id") references "usulan" ("id") on delete cascade;
+alter table "usulan_media" add constraint "usulan_media_uploaded_by_foreign" foreign key ("uploaded_by") references "users" ("id") on delete set null;
+
 -- Riwayat migrasi agar `php artisan migrate` berikutnya hanya menjalankan migrasi baru.
 create table "migrations" ("id" serial not null primary key, "migration" varchar(255) not null, "batch" integer not null);
 insert into "migrations" ("migration", "batch") values ('0001_01_01_000000_create_users_table', 1);
@@ -139,6 +144,7 @@ insert into "migrations" ("migration", "batch") values ('2026_09_21_000000_add_s
 insert into "migrations" ("migration", "batch") values ('2026_09_21_010000_add_workflow_version_to_reports_table', 1);
 insert into "migrations" ("migration", "batch") values ('2026_09_22_000100_create_usulan_table', 1);
 insert into "migrations" ("migration", "batch") values ('2026_09_22_000110_create_riwayat_usulan_table', 1);
+insert into "migrations" ("migration", "batch") values ('2026_09_22_000120_create_usulan_media_table', 1);
 
 -- Kunci akses REST API Supabase (/rest/v1).
 -- Laravel terhubung sebagai pemilik tabel lewat koneksi PostgreSQL, jadi tidak terpengaruh.
@@ -162,6 +168,7 @@ alter table public."audit_logs" enable row level security;
 alter table public."settings" enable row level security;
 alter table public."usulan" enable row level security;
 alter table public."riwayat_usulan" enable row level security;
+alter table public."usulan_media" enable row level security;
 alter table public."migrations" enable row level security;
 revoke all on all tables in schema public from anon, authenticated, service_role;
 revoke all on all sequences in schema public from anon, authenticated, service_role;

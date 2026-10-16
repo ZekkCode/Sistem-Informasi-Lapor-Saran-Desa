@@ -4,16 +4,22 @@ namespace App\Queries;
 
 use App\Models\Usulan;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class PencarianUsulanAdmin
 {
+    private static bool $hasEnsuredMediaTable = false;
+
     /** @param array<string, mixed> $filters */
     public function bangun(array $filters): Builder
     {
+        $hasMediaTable = $this->ensureMediaTable();
+
         return Usulan::query()
             ->with([
                 'dusun:id,name',
-                'media:id,usulan_id,file_path,storage_disk,mime_type',
+                ...($hasMediaTable ? ['media:id,usulan_id,file_path,storage_disk,mime_type'] : []),
             ])
             ->when($filters['q'] ?? null, function (Builder $query, string $kata) {
                 $query->where(function (Builder $query) use ($kata) {
@@ -41,5 +47,34 @@ class PencarianUsulanAdmin
             ->when($filters['date_from'] ?? null, fn (Builder $query, $nilai) => $query->whereDate('dikirim_pada', '>=', $nilai))
             ->when($filters['date_to'] ?? null, fn (Builder $query, $nilai) => $query->whereDate('dikirim_pada', '<=', $nilai))
             ->latest('dikirim_pada');
+    }
+
+    private function ensureMediaTable(): bool
+    {
+        if (self::$hasEnsuredMediaTable) {
+            return true;
+        }
+
+        try {
+            if (! Schema::hasTable('usulan_media')) {
+                Schema::create('usulan_media', function (Blueprint $table) {
+                    $table->id();
+                    $table->foreignId('usulan_id')->constrained('usulan')->cascadeOnDelete();
+                    $table->string('storage_disk', 32)->default('public');
+                    $table->string('file_path');
+                    $table->string('mime_type', 100);
+                    $table->unsignedBigInteger('file_size');
+                    $table->string('caption')->nullable();
+                    $table->foreignId('uploaded_by')->nullable()->constrained('users')->nullOnDelete();
+                    $table->timestamps();
+                });
+            }
+
+            self::$hasEnsuredMediaTable = true;
+
+            return true;
+        } catch (\Throwable) {
+            return false;
+        }
     }
 }

@@ -37,7 +37,7 @@
                                 Tidak dicantumkan
                             @endif
                         </dd></div>
-                        <div><dt>Dusun</dt><dd>{{ $usulan->dusun->name }}</dd></div>
+                        <div><dt>Dusun</dt><dd>{{ $usulan->dusun?->name ?? '—' }}</dd></div>
                         <div><dt>Jenis usulan</dt><dd>{{ $usulan->jenis->label() }}</dd></div>
                     </dl>
                 </div>

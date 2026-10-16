@@ -128,8 +128,9 @@
             <tbody>
                 @forelse($daftarUsulan as $usulan)
                     @php
-                        $photo = $usulan->media->first();
-                        $photoCount = $usulan->media->count();
+                        $hasMedia = $usulan->relationLoaded('media');
+                        $photo = $hasMedia ? $usulan->media->first() : null;
+                        $photoCount = $hasMedia ? $usulan->media->count() : 0;
                     @endphp
                     <tr>
                         <td>
@@ -151,7 +152,7 @@
                             <span class="admin-table__title">{{ $usulan->judul }}</span>
                             <span class="admin-table__muted">{{ $usulan->nama_pengusul ?: 'Anonim' }}@if($usulan->telepon_pengusul) · {{ $usulan->telepon_pengusul }}@endif</span>
                         </td>
-                        <td>{{ $usulan->dusun->name }}</td>
+                        <td>{{ $usulan->dusun?->name ?? '—' }}</td>
                         <td>{{ $usulan->jenis->label() }}</td>
                         <td><x-usulan.status :status="$usulan->status" /></td>
                         <td>
@@ -162,8 +163,12 @@
                             @endif
                         </td>
                         <td>
-                            <time datetime="{{ $usulan->dikirim_pada->toIso8601String() }}">{{ $usulan->dikirim_pada->translatedFormat('d M Y') }}</time>
-                            <span class="admin-table__muted block">{{ $usulan->dikirim_pada->format('H:i') }} WIB</span>
+                            @if($usulan->dikirim_pada)
+                                <time datetime="{{ $usulan->dikirim_pada->toIso8601String() }}">{{ $usulan->dikirim_pada->translatedFormat('d M Y') }}</time>
+                                <span class="admin-table__muted block">{{ $usulan->dikirim_pada->format('H:i') }} WIB</span>
+                            @else
+                                <span class="admin-table__muted block">—</span>
+                            @endif
                         </td>
                         <td>
                             <a href="{{ route('admin.usulan.show', $usulan) }}" class="action action--primary action--sm whitespace-nowrap" style="color: #ffffff !important;" title="Tinjau dan tindaklanjuti usulan {{ $usulan->kode }}">

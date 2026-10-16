@@ -29,7 +29,7 @@ class UsulanController extends Controller
     {
         $usulan->load([
             'dusun',
-            'media',
+            ...(\Illuminate\Support\Facades\Schema::hasTable('usulan_media') ? ['media'] : []),
             'penindak:id,name',
             'riwayat' => fn ($query) => $query->with('pengubah:id,name')->reorder()->oldest(),
         ]);

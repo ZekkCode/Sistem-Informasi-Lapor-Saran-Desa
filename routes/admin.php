@@ -54,10 +54,10 @@ Route::middleware(['auth', 'active.admin'])->group(function () {
         Route::get('/usulan/ekspor.csv', [UsulanExportController::class, 'csv'])->name('usulan.export.csv');
         Route::post('/usulan/ekspor-drive', [UsulanExportController::class, 'exportDrive'])->name('usulan.export.drive');
         Route::get('/usulan/cetak', [UsulanExportController::class, 'print'])->name('usulan.print');
+        Route::get('/usulan/media/{media}', UsulanMediaController::class)->name('usulan.media.show');
         Route::get('/usulan/{usulan}', [UsulanController::class, 'detail'])->name('usulan.show');
         Route::patch('/usulan/{usulan}/alur', [AlurUsulanController::class, 'perbarui'])->name('usulan.alur.update');
         Route::delete('/usulan/{usulan}', [UsulanController::class, 'hapus'])->name('usulan.destroy');
-        Route::get('/usulan/media/{media}', UsulanMediaController::class)->name('usulan.media.show');
     });
 
     // Hak ubah tiap kunci dijaga KunciFormulirPolicy, termasuk kunci pengembang.
