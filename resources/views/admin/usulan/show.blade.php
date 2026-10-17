@@ -22,23 +22,6 @@
 @endsection
 
 @section('content')
-    @if(session('status'))
-        <div class="alert alert--success mb-4" role="status">
-            {{ session('status') }}
-        </div>
-    @endif
-
-    @if($errors->any())
-        <div class="alert alert--danger mb-4" role="alert">
-            <p class="font-semibold">Pembaruan belum tersimpan:</p>
-            <ul class="mt-1 list-disc list-inside text-sm">
-                @foreach($errors->all() as $pesan)
-                    <li>{{ $pesan }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
     <div class="mb-4 flex flex-wrap items-center gap-2">
         <x-usulan.status :status="$usulan->status" />
         <span class="status" data-status-usulan="{{ $usulan->tampil_publik ? 'selesai' : 'baru' }}">{{ $usulan->tampil_publik ? 'Tampil publik' : 'Belum tampil' }}</span>

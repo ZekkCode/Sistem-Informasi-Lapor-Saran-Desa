@@ -247,4 +247,35 @@ class KunciFormulirPublikTest extends TestCase
         $response = $this->post(route('usulan.store'), $this->dataUsulan());
         $response->assertRedirect(route('usulan.sukses', Usulan::query()->sole()->kode));
     }
+
+    public function test_otorisasi_unggah_usulan_berhasil_meskipun_formulir_laporan_dikunci(): void
+    {
+        config()->set('report-media.direct_upload.enabled', true);
+        $this->kunci(['kunci_admin_laporan' => '1', 'kunci_pengembang_laporan' => '1']);
+        $this->app->forgetScopedInstances();
+
+        $response = $this->postJson(route('usulan.uploads.authorize'), [
+            'files' => [['name' => 'bukti-usulan.jpg', 'type' => 'image/jpeg', 'size' => 1024]],
+        ]);
+
+        $response->assertOk();
+        $this->assertCount(1, $response->json('uploads'));
+    }
+
+    public function test_otorisasi_unggah_usulan_ditolak_423_saat_usulan_dikunci(): void
+    {
+        config()->set('report-media.direct_upload.enabled', true);
+        foreach (['kunci_admin_usulan', 'kunci_pengembang_usulan'] as $key) {
+            Setting::query()->delete();
+            $this->kunci([$key => '1']);
+            $this->app->forgetScopedInstances();
+
+            $response = $this->postJson(route('usulan.uploads.authorize'), [
+                'files' => [['name' => 'bukti-usulan.jpg', 'type' => 'image/jpeg', 'size' => 1024]],
+            ]);
+
+            $response->assertStatus(423);
+            $this->assertStringContainsString('belum terkirim', $response->json('message'));
+        }
+    }
 }

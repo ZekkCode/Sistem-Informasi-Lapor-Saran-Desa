@@ -202,7 +202,7 @@
                         </div>
                     </div>
 
-                    <div>
+                    <div class="field">
                         <span class="field__label">Foto kondisi<abbr class="required-mark" title="Wajib diisi" aria-label="wajib">*</abbr></span>
                         <p class="field__hint mt-1" id="photos-hint">Pilih 1 sampai 3 foto yang jelas (JPG, PNG, atau WEBP). Maksimal 5 MB per foto.</p>
                         <div class="report-upload mt-3">

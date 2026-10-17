@@ -26,4 +26,22 @@ class StoreUserRequest extends FormRequest
             'is_active' => ['required', 'boolean'],
         ];
     }
+
+    /** @return array<string, string> */
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Nama lengkap petugas wajib diisi.',
+            'username.required' => 'Username petugas wajib diisi.',
+            'username.min' => 'Username minimal 3 karakter.',
+            'username.regex' => 'Username hanya boleh berisi huruf, angka, titik, strip, atau underscore.',
+            'username.unique' => 'Username ini sudah terdaftar. Gunakan username lain.',
+            'email.email' => 'Format email tidak valid.',
+            'email.unique' => 'Email ini sudah terdaftar untuk petugas lain.',
+            'password.required' => 'Password awal wajib diisi.',
+            'password.min' => 'Password minimal 8 karakter.',
+            'password.confirmed' => 'Konfirmasi password tidak cocok dengan password awal.',
+            'role.required' => 'Pilih peran petugas.',
+        ];
+    }
 }

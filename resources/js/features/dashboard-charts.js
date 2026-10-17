@@ -14,6 +14,7 @@ export function initDashboardCharts() {
 
     if (trendEl) {
         try {
+            Chart.getChart(trendEl)?.destroy();
             const data = JSON.parse(trendEl.dataset.chart || '{}');
             new Chart(trendEl, {
                 type: 'line',
@@ -94,6 +95,7 @@ export function initDashboardCharts() {
 
     if (statusEl) {
         try {
+            Chart.getChart(statusEl)?.destroy();
             const data = JSON.parse(statusEl.dataset.chart || '{}');
             new Chart(statusEl, {
                 type: 'doughnut',
@@ -138,6 +140,7 @@ export function initDashboardCharts() {
 
     if (dusunEl) {
         try {
+            Chart.getChart(dusunEl)?.destroy();
             const data = JSON.parse(dusunEl.dataset.chart || '{}');
             new Chart(dusunEl, {
                 type: 'bar',

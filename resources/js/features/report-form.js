@@ -205,6 +205,11 @@ export function reportForm(config) {
         },
 
         async handleSubmit(event) {
+            if (this.submitting) {
+                event.preventDefault();
+                return;
+            }
+
             this.submitError = '';
 
             if (this.demoMode) {

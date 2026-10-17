@@ -20,4 +20,13 @@ class LoginRequest extends FormRequest
             'remember' => ['nullable', 'boolean'],
         ];
     }
+
+    /** @return array<string, string> */
+    public function messages(): array
+    {
+        return [
+            'username.required' => 'Masukkan username atau email Anda.',
+            'password.required' => 'Masukkan password Anda.',
+        ];
+    }
 }

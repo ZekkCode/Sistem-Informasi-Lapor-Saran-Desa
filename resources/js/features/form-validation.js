@@ -7,7 +7,7 @@
 const validationMessages = {
     valueMissing: {
         default: 'Field ini wajib diisi.',
-        username: 'Username harus diisi.',
+        username: 'Username atau email harus diisi.',
         password: 'Password harus diisi.',
         email: 'Email harus diisi.',
         select: 'Pilih salah satu opsi.',
@@ -83,6 +83,9 @@ function isElementVisible(el) {
 }
 
 function getTargetContainer(input) {
+    if (input.closest('.report-upload')) {
+        return input.closest('.field') || input.closest('.report-upload').parentElement;
+    }
     return input.closest('.field') || input.parentElement;
 }
 

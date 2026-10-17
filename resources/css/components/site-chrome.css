@@ -243,8 +243,8 @@
 }
 
 @media (max-width: 63.999rem) {
-    body:has(.app-tabbar) {
-        padding-block-end: 4.25rem;
+    body:not(.admin-body) {
+        padding-block-end: calc(4.25rem + env(safe-area-inset-bottom, 0px));
     }
 }
 

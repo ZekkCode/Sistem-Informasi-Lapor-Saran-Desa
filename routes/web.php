@@ -9,6 +9,7 @@ use App\Http\Controllers\Site\LacakUsulanController;
 use App\Http\Controllers\Site\SitemapController;
 use App\Http\Controllers\Site\UsulanController;
 use App\Http\Controllers\Site\UsulanPublikController;
+use App\Http\Controllers\Site\UsulanUploadController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
@@ -32,6 +33,9 @@ Route::get('/usulan', [UsulanController::class, 'buat'])->name('usulan.create');
 Route::post('/usulan', [UsulanController::class, 'simpan'])
     ->middleware(['throttle:suggestion-submission', 'formulir.terbuka:usulan'])
     ->name('usulan.store');
+Route::post('/usulan/uploads', UsulanUploadController::class)
+    ->middleware(['throttle:report-upload-authorizations', 'formulir.terbuka:usulan'])
+    ->name('usulan.uploads.authorize');
 Route::get('/usulan/sukses/{kode}', [UsulanController::class, 'sukses'])->name('usulan.sukses');
 Route::get('/cek-usulan', LacakUsulanController::class)->name('usulan.lacak');
 Route::get('/usulan-warga', [UsulanPublikController::class, 'daftar'])->name('public-usulan.index');

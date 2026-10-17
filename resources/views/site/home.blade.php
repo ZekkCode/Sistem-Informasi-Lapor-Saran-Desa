@@ -75,10 +75,10 @@
                     </p>
 
                     <div class="mt-6 flex flex-wrap items-center gap-3">
-                        <a href="{{ route('reports.create') }}" class="inline-flex items-center justify-center rounded-lg bg-emerald-700 hover:bg-emerald-800 active:bg-emerald-900 !text-white font-semibold text-sm px-6 py-2.5 transition shadow-sm" style="color: #ffffff !important;">
+                        <a href="{{ route('reports.create') }}" class="inline-flex min-h-[44px] items-center justify-center rounded-lg bg-emerald-700 hover:bg-emerald-800 active:bg-emerald-900 !text-white font-semibold text-sm px-6 py-2.5 transition shadow-sm" style="color: #ffffff !important;">
                             Kirim laporan
                         </a>
-                        <a href="{{ route('reports.track') }}" class="inline-flex items-center justify-center rounded-lg border border-padelegan-800/20 bg-white/90 hover:bg-white text-padelegan-900 font-semibold text-sm px-5 py-2.5 transition backdrop-blur-sm shadow-xs">
+                        <a href="{{ route('reports.track') }}" class="inline-flex min-h-[44px] items-center justify-center rounded-lg border border-padelegan-800/20 bg-white/90 hover:bg-white text-padelegan-900 font-semibold text-sm px-5 py-2.5 transition backdrop-blur-sm shadow-xs">
                             Cek status laporan
                         </a>
                     </div>
@@ -202,7 +202,7 @@
                             type="button"
                             data-showcase-prev
                             aria-label="Foto sebelumnya"
-                            class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-lg border border-white/25 bg-black/75 text-white/90 shadow-md transition hover:bg-black hover:border-emerald-400 hover:text-white hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                            class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 flex h-11 w-11 items-center justify-center rounded-lg border border-white/25 bg-black/75 text-white/90 shadow-md transition hover:bg-black hover:border-emerald-400 hover:text-white hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-emerald-400"
                         >
                             <svg class="h-6 w-6" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="15 18 9 12 15 6"></polyline>
@@ -214,7 +214,7 @@
                             type="button"
                             data-showcase-next
                             aria-label="Foto berikutnya"
-                            class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-lg border border-white/25 bg-black/75 text-white/90 shadow-md transition hover:bg-black hover:border-emerald-400 hover:text-white hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                            class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 flex h-11 w-11 items-center justify-center rounded-lg border border-white/25 bg-black/75 text-white/90 shadow-md transition hover:bg-black hover:border-emerald-400 hover:text-white hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-emerald-400"
                         >
                             <svg class="h-6 w-6" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="9 18 15 12 9 6"></polyline>

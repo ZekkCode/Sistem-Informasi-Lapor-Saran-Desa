@@ -33,7 +33,7 @@ class UsulanController extends Controller
             'usingDemoData' => ! $bisaTerima,
             'directUpload' => [
                 'enabled' => $bisaTerima && (bool) config('report-media.direct_upload.enabled'),
-                'url' => route('reports.uploads.authorize'),
+                'url' => route('usulan.uploads.authorize'),
             ],
         ]);
     }

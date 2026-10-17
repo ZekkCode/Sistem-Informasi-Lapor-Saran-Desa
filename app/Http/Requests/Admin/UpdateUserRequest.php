@@ -28,4 +28,21 @@ class UpdateUserRequest extends FormRequest
             'is_active' => ['required', 'boolean'],
         ];
     }
+
+    /** @return array<string, string> */
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Nama lengkap petugas wajib diisi.',
+            'username.required' => 'Username petugas wajib diisi.',
+            'username.min' => 'Username minimal 3 karakter.',
+            'username.regex' => 'Username hanya boleh berisi huruf, angka, titik, strip, atau underscore.',
+            'username.unique' => 'Username ini sudah digunakan petugas lain.',
+            'email.email' => 'Format email tidak valid.',
+            'email.unique' => 'Email ini sudah terdaftar untuk petugas lain.',
+            'password.min' => 'Password baru minimal 8 karakter.',
+            'password.confirmed' => 'Konfirmasi password baru tidak cocok.',
+            'role.required' => 'Pilih peran petugas.',
+        ];
+    }
 }

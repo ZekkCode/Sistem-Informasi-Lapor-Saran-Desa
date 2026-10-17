@@ -11,7 +11,7 @@ class EnsureSuperAdmin
 {
     public function handle(Request $request, Closure $next): Response
     {
-        abort_unless($request->user()?->role === UserRole::SuperAdmin, 403);
+        abort_unless($request->user()?->role === UserRole::SuperAdmin, 403, 'Akses terbatas hanya untuk Super Admin.');
 
         return $next($request);
     }
