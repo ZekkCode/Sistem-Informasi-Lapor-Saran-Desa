@@ -39,8 +39,8 @@
                 <form action="{{ route('admin.login.store') }}" method="POST" class="mt-6 grid gap-5" data-validate data-submit-once>
                     @csrf
                     <div class="field">
-                        <x-ui.label for="username" required>Username</x-ui.label>
-                        <input id="username" name="username" class="control" value="{{ old('username') }}" autocomplete="username" autocapitalize="none" spellcheck="false" required autofocus placeholder="Masukkan username">
+                        <x-ui.label for="username" required>Username atau Email</x-ui.label>
+                        <input id="username" name="username" class="control" value="{{ old('username') }}" autocomplete="username" autocapitalize="none" spellcheck="false" required autofocus placeholder="Masukkan username atau email">
                     </div>
                     <div class="field">
                         <x-ui.label for="password" required>Password</x-ui.label>
