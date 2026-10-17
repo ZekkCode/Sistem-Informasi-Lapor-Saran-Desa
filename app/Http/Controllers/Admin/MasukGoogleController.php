@@ -95,18 +95,19 @@ class MasukGoogleController extends Controller
         }
 
         $isPengembang = in_array($email, self::emailPengembang(), true);
+        $isSuperAdmin = $isPengembang || in_array($email, self::emailSuperAdmin(), true);
 
         try {
             $petugas = User::query()->whereRaw('lower(email) = ?', [$email])->first();
 
             if (! $petugas) {
-                $targetRole = $isPengembang
+                $targetRole = $isSuperAdmin
                     ? UserRole::SuperAdmin
                     : (UserRole::tryFrom((string) config('padelegan.google_sso.role')) ?? UserRole::Admin);
 
-                $petugas = $this->buatAkunPetugas($email, $akunGoogle->getName(), $targetRole, $audit);
-            } elseif ($isPengembang && $petugas->role !== UserRole::SuperAdmin) {
-                // Pengembang selalu memiliki peran Super Admin
+                $petugas = $this->buatAkunPetugas($email, $akunGoogle->getName(), $targetRole, $audit, $isPengembang);
+            } elseif ($isSuperAdmin && $petugas->role !== UserRole::SuperAdmin) {
+                // Pengembang dan Super Admin selalu memiliki peran Super Admin
                 $petugas->forceFill(['role' => UserRole::SuperAdmin])->save();
             }
         } catch (QueryException) {
@@ -127,16 +128,30 @@ class MasukGoogleController extends Controller
     }
 
     /**
-     * Menggabungkan daftar email admin desa dan pengembang sistem.
+     * Menggabungkan daftar email admin desa, super admin, dan pengembang sistem.
      *
      * @return list<string>
      */
     public static function emailDiizinkan(): array
     {
         $admin = (array) config('padelegan.google_sso.allowed_emails', []);
+        $superAdmin = (array) config('padelegan.google_sso.super_admin_emails', []);
         $pengembang = (array) config('padelegan.google_sso.developer_emails', []);
 
-        return array_values(array_unique(array_merge($admin, $pengembang)));
+        return array_values(array_unique(array_merge($admin, $superAdmin, $pengembang)));
+    }
+
+    /**
+     * Daftar email yang otomatis memperoleh peran Super Admin (desa dan pengembang).
+     *
+     * @return list<string>
+     */
+    public static function emailSuperAdmin(): array
+    {
+        $superAdmin = (array) config('padelegan.google_sso.super_admin_emails', []);
+        $pengembang = (array) config('padelegan.google_sso.developer_emails', []);
+
+        return array_values(array_unique(array_merge($superAdmin, $pengembang)));
     }
 
     /**
@@ -164,9 +179,11 @@ class MasukGoogleController extends Controller
      * Buat akun petugas untuk email resmi yang pertama kali masuk lewat Google.
      * Peran mengikuti konfigurasi atau Super Admin untuk pengembang sistem.
      */
-    private function buatAkunPetugas(string $email, ?string $nama, UserRole $peran, AuditService $audit): User
+    private function buatAkunPetugas(string $email, ?string $nama, UserRole $peran, AuditService $audit, bool $isPengembang = false): User
     {
-        $defaultName = $peran === UserRole::SuperAdmin ? 'Zekk Code (Pengembang)' : 'Admin Desa';
+        $defaultName = $isPengembang
+            ? 'Zekk Code (Pengembang)'
+            : ($peran === UserRole::SuperAdmin ? 'Super Admin Desa' : 'Admin Desa');
 
         $petugas = User::query()->createOrFirst(
             ['email' => $email],

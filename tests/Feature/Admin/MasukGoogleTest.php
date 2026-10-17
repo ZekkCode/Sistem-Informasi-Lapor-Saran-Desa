@@ -17,7 +17,7 @@ class MasukGoogleTest extends TestCase
 
     private const EMAIL_ADMIN = 'laporpadelegan@gmail.com';
 
-    private function aktifkanSso(array $daftarEmail = [self::EMAIL_ADMIN], array $developerEmails = []): void
+    private function aktifkanSso(array $daftarEmail = [self::EMAIL_ADMIN], array $developerEmails = [], array $superAdminEmails = []): void
     {
         config([
             'services.google.client_id' => 'id-uji',
@@ -25,6 +25,7 @@ class MasukGoogleTest extends TestCase
             'services.google.redirect' => null,
             'padelegan.google_sso.allowed_emails' => $daftarEmail,
             'padelegan.google_sso.developer_emails' => $developerEmails,
+            'padelegan.google_sso.super_admin_emails' => $superAdminEmails,
         ]);
     }
 
@@ -237,6 +238,23 @@ class MasukGoogleTest extends TestCase
         $this->assertAuthenticatedAs($petugas);
     }
 
+    public function test_login_password_dapat_menggunakan_email(): void
+    {
+        $this->aktifkanSso();
+        $petugas = User::factory()->create([
+            'username' => 'superadmin',
+            'email' => 'padeleganpemdes@gmail.com',
+            'password' => 'padelegan123',
+        ]);
+
+        $this->post(route('admin.login.store'), [
+            'username' => 'padeleganpemdes@gmail.com',
+            'password' => 'padelegan123',
+        ])->assertRedirect(route('admin.dashboard'));
+
+        $this->assertAuthenticatedAs($petugas);
+    }
+
     public function test_email_pengembang_berhasil_masuk_otomatis_sebagai_super_admin(): void
     {
         $emailPengembang = 'zakariamujur6@gmail.com';
@@ -274,6 +292,24 @@ class MasukGoogleTest extends TestCase
 
         $this->assertAuthenticatedAs($user);
         $this->assertSame(UserRole::SuperAdmin, $user->fresh()->role);
+    }
+
+    public function test_email_super_admin_desa_berhasil_masuk_otomatis_sebagai_super_admin(): void
+    {
+        $emailSuperAdmin = 'padeleganpemdes@gmail.com';
+        $this->aktifkanSso([self::EMAIL_ADMIN]);
+        config(['padelegan.google_sso.super_admin_emails' => [$emailSuperAdmin]]);
+
+        $this->balasanGoogle($emailSuperAdmin);
+
+        $this->get(route('admin.login.google.callback', ['code' => 'kode-uji']))
+            ->assertRedirect(route('admin.dashboard'));
+
+        $superAdmin = User::query()->where('email', $emailSuperAdmin)->sole();
+        $this->assertAuthenticatedAs($superAdmin);
+        $this->assertSame(UserRole::SuperAdmin, $superAdmin->role);
+        $this->assertTrue($superAdmin->is_active);
+        $this->assertSame('Akun Uji', $superAdmin->name);
     }
 }
 

@@ -21,10 +21,21 @@ class AuthController extends Controller
 
     public function store(LoginRequest $request, AuditService $audit): RedirectResponse
     {
-        $credentials = $request->safe()->only(['username', 'password']);
+        $loginInput = trim((string) $request->input('username'));
+        $password = (string) $request->input('password');
+        $isEmail = filter_var($loginInput, FILTER_VALIDATE_EMAIL) !== false;
+
+        $credentials = [
+            $isEmail ? 'email' : 'username' => $loginInput,
+            'password' => $password,
+        ];
 
         try {
             $berhasil = Auth::attempt($credentials, $request->boolean('remember'));
+
+            if (! $berhasil && ! $isEmail) {
+                $berhasil = Auth::attempt(['email' => strtolower($loginInput), 'password' => $password], $request->boolean('remember'));
+            }
         } catch (QueryException) {
             throw ValidationException::withMessages([
                 'username' => 'Login petugas belum aktif karena database belum tersambung. Hubungi pengelola situs.',

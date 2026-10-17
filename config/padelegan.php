@@ -21,7 +21,11 @@ return [
     'google_sso' => [
         'allowed_emails' => array_values(array_filter(array_map(
             static fn (string $email): string => strtolower(trim($email)),
-            explode(',', (string) env('GOOGLE_SSO_ALLOWED_EMAILS', 'padelaganlapor@gmail.com,laporpadelegan@gmail.com')),
+            explode(',', (string) env('GOOGLE_SSO_ALLOWED_EMAILS', 'padelaganlapor@gmail.com,laporpadelegan@gmail.com,padeleganpemdes@gmail.com')),
+        ))),
+        'super_admin_emails' => array_values(array_filter(array_map(
+            static fn (string $email): string => strtolower(trim($email)),
+            explode(',', (string) env('GOOGLE_SSO_SUPER_ADMIN_EMAILS', 'padeleganpemdes@gmail.com')),
         ))),
         'developer_emails' => array_values(array_filter(array_map(
             static fn (string $email): string => strtolower(trim($email)),
@@ -44,9 +48,9 @@ return [
             'key' => 'INITIAL_ADMIN',
             'role' => 'super_admin',
             'name' => env('INITIAL_ADMIN_NAME', 'Administrator Desa'),
-            'username' => env('INITIAL_ADMIN_USERNAME', 'admin'),
-            'email' => env('INITIAL_ADMIN_EMAIL'),
-            'password' => env('INITIAL_ADMIN_PASSWORD'),
+            'username' => env('INITIAL_ADMIN_USERNAME', 'superadmin'),
+            'email' => env('INITIAL_ADMIN_EMAIL', 'padeleganpemdes@gmail.com'),
+            'password' => env('INITIAL_ADMIN_PASSWORD', 'padelegan123'),
         ],
         [
             'key' => 'INITIAL_ADMIN_DESA',
