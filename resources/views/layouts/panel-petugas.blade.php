@@ -18,16 +18,73 @@
     <header class="admin-mobile-bar">
         <a href="{{ auth()->user()->canAccessReports() ? route('admin.dashboard') : route('admin.usulan.index') }}" class="admin-mobile-brand" aria-label="SISTEM LAPOR PADELEGAN, Dasbor">
             <img src="{{ asset('images/brand/lambang-pamekasan.png') }}" alt="" width="418" height="387" class="admin-brand__crest">
-            <strong>SISTEM LAPOR PADELEGAN</strong>
+            <div class="admin-mobile-brand__text">
+                <strong>SISTEM LAPOR PADELEGAN</strong>
+                <small>PANEL PETUGAS DESA</small>
+            </div>
         </a>
-        <button type="button" class="admin-menu-button" @click="navigationOpen = !navigationOpen" :aria-expanded="navigationOpen.toString()" aria-controls="admin-navigation">
-            <span class="sr-only">Buka navigasi</span>
-            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round" /></svg>
+        <button
+            type="button"
+            class="admin-menu-button"
+            @click.stop="navigationOpen = !navigationOpen"
+            :aria-expanded="navigationOpen.toString()"
+            aria-controls="admin-navigation"
+            aria-label="Buka menu navigasi"
+        >
+            <span class="sr-only">Toggle navigasi</span>
+            <svg x-show="!navigationOpen" class="w-5 h-5" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" />
+            </svg>
+            <svg x-cloak x-show="navigationOpen" class="w-5 h-5 text-emerald-300" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
         </button>
     </header>
 
+    {{-- Backdrop Overlay for Mobile Drawer --}}
+    <div
+        x-cloak
+        x-show="navigationOpen"
+        x-transition:enter="transition-opacity ease-out duration-200"
+        x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100"
+        x-transition:leave="transition-opacity ease-in duration-150"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        class="admin-backdrop"
+        @click="navigationOpen = false"
+        aria-hidden="true"
+    ></div>
+
     <div class="admin-shell">
-        <aside id="admin-navigation" class="admin-sidebar" :class="navigationOpen ? 'is-open' : ''" @click.outside="navigationOpen = false">
+        <aside
+            id="admin-navigation"
+            class="admin-sidebar"
+            :class="{ 'is-open': navigationOpen }"
+            @click.outside="if (navigationOpen) navigationOpen = false"
+            @keydown.escape.window="navigationOpen = false"
+        >
+            {{-- Mobile Drawer Header with Close Button --}}
+            <div class="admin-sidebar__mobile-head">
+                <div class="admin-brand__mobile-inner">
+                    <img src="{{ asset('images/brand/lambang-pamekasan.png') }}" alt="" width="418" height="387" class="admin-brand__crest">
+                    <div class="admin-brand__text">
+                        <strong>SISTEM LAPOR PADELEGAN</strong>
+                        <small>PANEL PETUGAS DESA</small>
+                    </div>
+                </div>
+                <button
+                    type="button"
+                    class="admin-sidebar__close-btn"
+                    @click="navigationOpen = false"
+                    aria-label="Tutup navigasi"
+                >
+                    <svg class="w-4 h-4" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </button>
+            </div>
+
             <a href="{{ auth()->user()->canAccessReports() ? route('admin.dashboard') : route('admin.usulan.index') }}" class="admin-brand" aria-label="SISTEM LAPOR PADELEGAN, Dasbor">
                 <img src="{{ asset('images/brand/lambang-pamekasan.png') }}" alt="" width="418" height="387" class="admin-brand__crest">
                 <div class="admin-brand__text">
@@ -38,32 +95,32 @@
 
             <nav class="admin-nav" aria-label="Navigasi petugas">
                 @if(auth()->user()->canAccessReports())
-                    <a href="{{ route('admin.dashboard') }}" @class(['is-active' => request()->routeIs('admin.dashboard')])>
+                    <a href="{{ route('admin.dashboard') }}" @class(['is-active' => request()->routeIs('admin.dashboard')]) @click="navigationOpen = false">
                         <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
                         <span>Ikhtisar</span>
                     </a>
-                    <a href="{{ route('admin.reports.index') }}" @class(['is-active' => request()->routeIs('admin.reports.*')])>
+                    <a href="{{ route('admin.reports.index') }}" @class(['is-active' => request()->routeIs('admin.reports.*')]) @click="navigationOpen = false">
                         <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
                         <span>Kelola laporan</span>
                     </a>
                 @endif
                 @if(auth()->user()->canAccessUsulan())
-                    <a href="{{ route('admin.usulan.index') }}" @class(['is-active' => request()->routeIs('admin.usulan.*')])>
+                    <a href="{{ route('admin.usulan.index') }}" @class(['is-active' => request()->routeIs('admin.usulan.*')]) @click="navigationOpen = false">
                         <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
                         <span>Usulan &amp; saran</span>
                     </a>
                 @endif
-                <a href="{{ route('admin.formulir.index') }}" @class(['is-active' => request()->routeIs('admin.formulir.*')])>
+                <a href="{{ route('admin.formulir.index') }}" @class(['is-active' => request()->routeIs('admin.formulir.*')]) @click="navigationOpen = false">
                     <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                     <span>Kunci formulir</span>
                 </a>
                 @if(auth()->user()->role === \App\Enums\UserRole::SuperAdmin)
                     <p class="admin-nav__label">Pengaturan sistem</p>
-                    <a href="{{ route('admin.master.index') }}" @class(['is-active' => request()->routeIs('admin.master.*')])>
+                    <a href="{{ route('admin.master.index') }}" @class(['is-active' => request()->routeIs('admin.master.*')]) @click="navigationOpen = false">
                         <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
                         <span>Data master</span>
                     </a>
-                    <a href="{{ route('admin.users.index') }}" @class(['is-active' => request()->routeIs('admin.users.*')])>
+                    <a href="{{ route('admin.users.index') }}" @class(['is-active' => request()->routeIs('admin.users.*')]) @click="navigationOpen = false">
                         <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
                         <span>Akun petugas</span>
                     </a>
