@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\LoginRequest;
+use App\Models\User;
 use App\Services\Admin\AuditService;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
@@ -23,18 +24,18 @@ class AuthController extends Controller
     {
         $loginInput = trim((string) $request->input('username'));
         $password = (string) $request->input('password');
-        $isEmail = filter_var($loginInput, FILTER_VALIDATE_EMAIL) !== false;
-
-        $credentials = [
-            $isEmail ? 'email' : 'username' => $loginInput,
-            'password' => $password,
-        ];
+        $normalized = strtolower($loginInput);
 
         try {
-            $berhasil = Auth::attempt($credentials, $request->boolean('remember'));
+            $user = User::query()
+                ->whereRaw('lower(username) = ?', [$normalized])
+                ->orWhereRaw('lower(email) = ?', [$normalized])
+                ->first();
 
-            if (! $berhasil && ! $isEmail) {
-                $berhasil = Auth::attempt(['email' => strtolower($loginInput), 'password' => $password], $request->boolean('remember'));
+            $berhasil = $user !== null && \Illuminate\Support\Facades\Hash::check($password, $user->password);
+
+            if ($berhasil) {
+                Auth::login($user, $request->boolean('remember'));
             }
         } catch (QueryException) {
             throw ValidationException::withMessages([

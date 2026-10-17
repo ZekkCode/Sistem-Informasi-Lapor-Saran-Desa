@@ -33,6 +33,28 @@ class AdminAccessTest extends TestCase
         $this->assertGuest();
     }
 
+    public function test_login_supports_case_insensitive_username_and_email(): void
+    {
+        $petugas = User::factory()->create([
+            'username' => 'superadmin',
+            'email' => 'padeleganpemdes@gmail.com',
+            'password' => 'padelegan123',
+            'is_active' => true,
+        ]);
+
+        // Login dengan username huruf besar-kecil campuran
+        $this->post(route('admin.login.store'), ['username' => 'SuperAdmin', 'password' => 'padelegan123'])
+            ->assertRedirect(route('admin.dashboard'));
+        $this->assertAuthenticatedAs($petugas);
+
+        $this->post(route('admin.logout'));
+
+        // Login dengan email huruf besar-kecil campuran (seperti auto-capitalize keyboard ponsel)
+        $this->post(route('admin.login.store'), ['username' => 'PadeleganPemdes@GMAIL.COM', 'password' => 'padelegan123'])
+            ->assertRedirect(route('admin.dashboard'));
+        $this->assertAuthenticatedAs($petugas);
+    }
+
     public function test_admin_desa_cannot_manage_users_or_master_data(): void
     {
         $admin = User::factory()->create(['role' => UserRole::Admin]);
