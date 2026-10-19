@@ -83,6 +83,8 @@
                             <p class="mt-1 text-sm leading-6 text-padelegan-900/65">{{ $usulan->catatan_publik }}</p>
                         </div>
                     @endif
+
+                    <x-usulan.evidence-gallery :usulan="$usulan" />
                 </div>
 
                 <section class="tracking-timeline" aria-labelledby="riwayat-title" data-aos="fade-up" data-aos-delay="100">

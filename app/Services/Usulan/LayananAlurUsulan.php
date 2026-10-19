@@ -6,8 +6,11 @@ use App\Enums\StatusUsulan;
 use App\Models\User;
 use App\Models\Usulan;
 use App\Services\Admin\AuditService;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 class LayananAlurUsulan
@@ -18,8 +21,9 @@ class LayananAlurUsulan
 
     /**
      * @param  array<string, mixed>  $data
+     * @param  array<int, UploadedFile>  $photos
      */
-    public function perbarui(Usulan $usulan, array $data, User $user): Usulan
+    public function perbarui(Usulan $usulan, array $data, User $user, array $photos = []): Usulan
     {
         $sebelum = Arr::only($usulan->getAttributes(), [
             'status',
@@ -27,7 +31,7 @@ class LayananAlurUsulan
             'catatan_publik',
         ]);
 
-        DB::transaction(function () use ($usulan, $data, $user): void {
+        DB::transaction(function () use ($usulan, $data, $user, $photos): void {
             $terkunci = Usulan::query()->lockForUpdate()->findOrFail($usulan->getKey());
 
             $versiDatabase = (int) ($terkunci->versi_alur ?? 0);
@@ -64,6 +68,26 @@ class LayananAlurUsulan
                 }
             } catch (\Throwable) {
                 // Jangan hentikan transaksi jika pencatatan riwayat gagal
+            }
+
+            if ($photos !== []) {
+                $disk = (string) config('report-media.disk', 'public');
+                foreach ($photos as $photo) {
+                    if ($photo instanceof UploadedFile) {
+                        $ext = $photo->guessExtension() ?: 'jpg';
+                        $filename = Str::ulid().'.'.$ext;
+                        $path = "usulan/{$terkunci->kode}/bukti/{$filename}";
+                        Storage::disk($disk)->putFileAs("usulan/{$terkunci->kode}/bukti", $photo, $filename);
+                        $terkunci->media()->create([
+                            'storage_disk' => $disk,
+                            'file_path' => $path,
+                            'mime_type' => $photo->getMimeType() ?: 'image/jpeg',
+                            'file_size' => $photo->getSize() ?: 0,
+                            'caption' => 'Bukti tindak lanjut oleh petugas desa',
+                            'uploaded_by' => $user->getKey(),
+                        ]);
+                    }
+                }
             }
 
             $usulan->setRawAttributes($terkunci->getAttributes());

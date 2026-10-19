@@ -15,7 +15,12 @@ class AlurUsulanController extends Controller
         Usulan $usulan,
         LayananAlurUsulan $layanan,
     ): RedirectResponse {
-        $layanan->perbarui($usulan, $request->validated(), $request->user());
+        $layanan->perbarui(
+            $usulan,
+            $request->validated(),
+            $request->user(),
+            $request->file('bukti_photos', []),
+        );
 
         return back()->with('status', 'Tindak lanjut usulan berhasil disimpan.');
     }

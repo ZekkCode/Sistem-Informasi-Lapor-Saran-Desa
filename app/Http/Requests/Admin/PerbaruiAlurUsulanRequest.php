@@ -30,6 +30,8 @@ class PerbaruiAlurUsulanRequest extends FormRequest
             'tampil_publik' => ['nullable', 'boolean'],
             'catatan_publik' => ['nullable', 'string', 'max:2000'],
             'catatan_internal' => ['nullable', 'string', 'max:2000'],
+            'bukti_photos' => ['nullable', 'array', 'max:5'],
+            'bukti_photos.*' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
         ];
     }
 
@@ -55,6 +57,9 @@ class PerbaruiAlurUsulanRequest extends FormRequest
     {
         return [
             'status.enum' => 'Pilih status tindak lanjut yang tersedia.',
+            'bukti_photos.max' => 'Maksimal 5 foto bukti tindak lanjut.',
+            'bukti_photos.*.max' => 'Ukuran setiap foto bukti maksimal 5 MB.',
+            'bukti_photos.*.image' => 'Berkas bukti harus berupa gambar (JPG, PNG, atau WEBP).',
         ];
     }
 }

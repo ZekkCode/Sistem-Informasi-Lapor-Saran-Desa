@@ -22,7 +22,7 @@ class LacakUsulanController extends Controller
                 ['kode.regex' => 'Format nomor usulan belum sesuai.'],
             )->validate();
 
-            $with = ['dusun:id,name'];
+            $with = ['dusun:id,name', 'media'];
             if (\Illuminate\Support\Facades\Schema::hasTable('riwayat_usulan')) {
                 $with['riwayat'] = fn ($query) => $query
                     ->select(['id', 'usulan_id', 'status', 'catatan_publik', 'created_at'])

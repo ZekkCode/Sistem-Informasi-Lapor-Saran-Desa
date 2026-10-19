@@ -3,6 +3,7 @@
 use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Site\PublicReportController;
 use App\Http\Controllers\Site\PublicReportMediaController;
+use App\Http\Controllers\Site\PublicUsulanMediaController;
 use App\Http\Controllers\Site\ReportController;
 use App\Http\Controllers\Site\ReportTrackingController;
 use App\Http\Controllers\Site\ReportUploadController;
@@ -39,6 +40,7 @@ Route::post('/usulan/uploads', UsulanUploadController::class)
     ->middleware(['throttle:report-upload-authorizations', 'formulir.terbuka:usulan'])
     ->name('usulan.uploads.authorize');
 Route::get('/usulan/sukses/{kode}', [UsulanController::class, 'sukses'])->name('usulan.sukses');
+Route::get('/usulan/media/{media}', PublicUsulanMediaController::class)->name('public-usulan.media');
 Route::get('/cek-usulan', LacakUsulanController::class)->name('usulan.lacak');
 Route::get('/usulan-warga', [UsulanPublikController::class, 'daftar'])->name('public-usulan.index');
 Route::get('/usulan-warga/{kode}', [UsulanPublikController::class, 'detail'])->name('public-usulan.show');

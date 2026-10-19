@@ -29,6 +29,10 @@
                         <p class="mt-2 text-sm leading-7 text-padelegan-900/65">{{ $usulan->catatan_publik }}</p>
                     </div>
                 @endif
+
+                <div class="mt-9">
+                    <x-usulan.evidence-gallery :usulan="$usulan" />
+                </div>
             </div>
             <aside>
                 @php

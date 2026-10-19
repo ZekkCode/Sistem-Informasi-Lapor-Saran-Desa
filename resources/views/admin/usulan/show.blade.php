@@ -5,6 +5,8 @@
     $daftarRiwayat = $usulan->relationLoaded('riwayat') ? $usulan->riwayat : collect();
     $tanggalKirim = ($usulan->dikirim_pada ?? $usulan->created_at)?->translatedFormat('d F Y, H:i');
     $jenisLabel = $usulan->jenis instanceof \App\Enums\JenisUsulan ? $usulan->jenis->label() : ($usulan->jenis ?? '—');
+    $wargaMedia = $daftarMedia->whereNull('uploaded_by');
+    $petugasMedia = $daftarMedia->whereNotNull('uploaded_by');
 @endphp
 
 @section('title', $usulan->kode)
@@ -54,16 +56,32 @@
 
             <section class="admin-panel">
                 <header class="admin-panel__head"><h2>Dokumentasi foto</h2><span class="text-xs text-muted">{{ $daftarMedia->count() }} foto</span></header>
-                <div class="admin-panel__body">
-                    @if($daftarMedia->isEmpty())
-                        <p class="admin-empty">Tidak ada foto pada usulan ini.</p>
-                    @else
-                        <div class="admin-media-grid">
-                            @foreach($daftarMedia as $media)
-                                <a href="{{ route('admin.usulan.media.show', $media) }}" target="_blank" rel="noopener"><img src="{{ route('admin.usulan.media.show', $media) }}" alt="Foto usulan {{ $loop->iteration }}" loading="lazy"></a>
-                            @endforeach
-                        </div>
-                    @endif
+                <div class="admin-panel__body space-y-6">
+                    <div>
+                        <h3 class="admin-section-title">Foto dari Pengusul / Warga ({{ $wargaMedia->count() }})</h3>
+                        @if($wargaMedia->isEmpty())
+                            <p class="text-xs text-muted mt-2">Pengusul tidak melampirkan foto pendukung saat mengirim usulan.</p>
+                        @else
+                            <div class="admin-media-grid mt-2">
+                                @foreach($wargaMedia as $media)
+                                    <a href="{{ route('admin.usulan.media.show', $media) }}" target="_blank" rel="noopener"><img src="{{ route('admin.usulan.media.show', $media) }}" alt="Foto usulan {{ $loop->iteration }}" loading="lazy"></a>
+                                @endforeach
+                            </div>
+                        @endif
+                    </div>
+
+                    <div class="border-t border-border pt-4">
+                        <h3 class="admin-section-title">Bukti Tindak Lanjut oleh Petugas Desa ({{ $petugasMedia->count() }})</h3>
+                        @if($petugasMedia->isEmpty())
+                            <p class="text-xs text-muted mt-2">Belum ada foto bukti tindak lanjut yang diunggah petugas desa.</p>
+                        @else
+                            <div class="admin-media-grid mt-2">
+                                @foreach($petugasMedia as $media)
+                                    <a href="{{ route('admin.usulan.media.show', $media) }}" target="_blank" rel="noopener"><img src="{{ route('admin.usulan.media.show', $media) }}" alt="Bukti usulan {{ $loop->iteration }}" loading="lazy"></a>
+                                @endforeach
+                            </div>
+                        @endif
+                    </div>
                 </div>
             </section>
 
@@ -95,7 +113,7 @@
         <aside class="admin-stack">
             <section class="admin-panel">
                 <header class="admin-panel__head"><h2>Perbarui tindak lanjut</h2></header>
-                <form action="{{ route('admin.usulan.alur.update', $usulan) }}" method="POST" class="admin-panel__body admin-form-grid" data-submit-once>
+                <form action="{{ route('admin.usulan.alur.update', $usulan) }}" method="POST" enctype="multipart/form-data" class="admin-panel__body admin-form-grid" data-submit-once>
                     @csrf
                     @method('PATCH')
                     <input type="hidden" name="versi_alur" value="{{ (int) ($usulan->versi_alur ?? 0) }}">
@@ -119,6 +137,13 @@
                         <label for="catatan_internal" class="field__label">Catatan internal</label>
                         <textarea id="catatan_internal" name="catatan_internal" class="control min-h-24" maxlength="2000" placeholder="Catatan khusus petugas, tidak tampil ke publik.">{{ old('catatan_internal') }}</textarea>
                         @error('catatan_internal')<p class="field__error">{{ $message }}</p>@enderror
+                    </div>
+                    <div class="field field--full">
+                        <label for="bukti_photos" class="field__label">Foto bukti tindak lanjut / realisasi <span class="font-normal text-muted">(opsional, maks 5 foto)</span></label>
+                        <input id="bukti_photos" name="bukti_photos[]" type="file" class="control" accept="image/jpeg,image/png,image/webp" multiple>
+                        <p class="field__hint">Unggah dokumentasi foto tindak lanjut nyata dari pihak desa (JPG, PNG, atau WEBP, maks 5 MB per foto).</p>
+                        @error('bukti_photos')<p class="field__error">{{ $message }}</p>@enderror
+                        @error('bukti_photos.*')<p class="field__error">{{ $message }}</p>@enderror
                     </div>
                     <label class="field--full flex min-h-12 items-center gap-3 text-sm">
                         <input type="hidden" name="tampil_publik" value="0">

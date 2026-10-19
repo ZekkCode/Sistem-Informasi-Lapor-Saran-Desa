@@ -66,7 +66,7 @@ class DataUsulanService
         try {
             return Usulan::query()
                 ->tampilPublik()
-                ->with(['dusun:id,name'])
+                ->with(['dusun:id,name', 'media'])
                 ->when($filters['q'] ?? null, function ($query, string $kata) {
                     $query->where(function ($query) use ($kata) {
                         $query->where('judul', 'like', "%{$kata}%")
@@ -100,7 +100,7 @@ class DataUsulanService
         try {
             return Usulan::query()
                 ->tampilPublik()
-                ->with(['dusun:id,name'])
+                ->with(['dusun:id,name', 'media'])
                 ->latest('dipublikasikan_pada')
                 ->take($limit)
                 ->get();
@@ -125,7 +125,7 @@ class DataUsulanService
         }
 
         try {
-            $with = ['dusun:id,name'];
+            $with = ['dusun:id,name', 'media'];
             if (\Illuminate\Support\Facades\Schema::hasTable('riwayat_usulan')) {
                 $with['riwayat'] = fn ($query) => $query
                     ->select(['id', 'usulan_id', 'status', 'catatan_publik', 'created_at'])
