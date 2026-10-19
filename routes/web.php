@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Site\PublicReportController;
+use App\Http\Controllers\Site\PublicReportMediaController;
 use App\Http\Controllers\Site\ReportController;
 use App\Http\Controllers\Site\ReportTrackingController;
 use App\Http\Controllers\Site\ReportUploadController;
@@ -27,6 +28,7 @@ Route::get('/lapor/sukses/{reportCode}', [ReportController::class, 'success'])->
 
 Route::get('/cek-laporan', ReportTrackingController::class)->name('reports.track');
 Route::get('/laporan', [PublicReportController::class, 'index'])->name('public-reports.index');
+Route::get('/laporan/media/{media}', PublicReportMediaController::class)->name('public-reports.media');
 Route::get('/laporan/{reportCode}', [PublicReportController::class, 'show'])->name('public-reports.show');
 
 Route::get('/usulan', [UsulanController::class, 'buat'])->name('usulan.create');

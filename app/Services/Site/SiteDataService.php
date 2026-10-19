@@ -245,6 +245,7 @@ class SiteDataService
                     'histories' => fn ($query) => $query
                         ->select(['id', 'report_id', 'verification_status', 'status', 'public_note', 'created_at'])
                         ->oldest(),
+                    'media',
                 ])
                 ->first();
 

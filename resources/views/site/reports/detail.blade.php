@@ -30,6 +30,8 @@
                         <p class="mt-2 text-sm leading-7 text-padelegan-900/65">{{ $report->current_public_note }}</p>
                     </div>
                 @endif
+
+                <x-reports.evidence-gallery :report="$report" />
             </div>
             <aside>
                 <dl class="border-t border-padelegan-800/15 text-sm">

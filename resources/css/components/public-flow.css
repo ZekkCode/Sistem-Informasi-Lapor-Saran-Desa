@@ -551,3 +551,133 @@
     font-size: 0.75rem;
     line-height: 1.5;
 }
+
+/* Dokumentasi Sebelum & Sesudah (Before & After) */
+.report-evidence {
+    margin-block-start: 2rem;
+    padding-block-start: 1.5rem;
+    border-block-start: 1px solid rgb(23 54 45 / 0.16);
+}
+
+.report-evidence__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-block-end: 1rem;
+}
+
+.report-evidence__title {
+    font-size: 1.125rem;
+    font-weight: 650;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+}
+
+.report-evidence__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+}
+
+@media (min-width: 44rem) {
+    .report-evidence__grid--comparison {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+.report-evidence__card {
+    border: 1px solid rgb(23 54 45 / 0.14);
+    border-radius: 0.75rem;
+    background: var(--surface);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 150ms ease;
+}
+
+.report-evidence__card:hover {
+    border-color: var(--brand);
+}
+
+.report-evidence__card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: white;
+    border-block-end: 1px solid rgb(23 54 45 / 0.1);
+}
+
+.report-evidence__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.2rem 0.55rem;
+    border-radius: 9999px;
+}
+
+.report-evidence__badge--before {
+    background: #f1f5f3;
+    color: #435b51;
+    border: 1px solid #d4dfd9;
+}
+
+.report-evidence__badge--after {
+    background: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+}
+
+.report-evidence__thumbs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr));
+    gap: 0.5rem;
+    padding: 0.75rem;
+}
+
+.report-evidence__thumb-link {
+    position: relative;
+    display: block;
+    aspect-ratio: 4 / 3;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background: #e7ebe6;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.report-evidence__thumb-link img {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    transition: transform 180ms ease;
+}
+
+.report-evidence__thumb-link:hover img {
+    transform: scale(1.04);
+}
+
+.report-evidence__caption {
+    font-size: 0.75rem;
+    color: rgb(23 54 45 / 0.6);
+    padding: 0.25rem 0.85rem 0.75rem;
+    line-height: 1.45;
+}
+
+.report-evidence__pending-box {
+    padding: 1.5rem 1rem;
+    text-align: center;
+    font-size: 0.8125rem;
+    color: rgb(23 54 45 / 0.6);
+    background: #fbfcfb;
+    border: 1px dashed rgb(23 54 45 / 0.18);
+    border-radius: 0.625rem;
+    margin: 0.75rem;
+}
+
