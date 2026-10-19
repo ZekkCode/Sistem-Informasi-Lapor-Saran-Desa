@@ -1,6 +1,29 @@
 @props(['report'])
 
+@php
+    $mediaItems = $report->relationLoaded('media') ? $report->media : collect();
+    $photo = $mediaItems->firstWhere('media_type', \App\Enums\ReportMediaType::AfterPhoto)
+        ?? $mediaItems->firstWhere('media_type', \App\Enums\ReportMediaType::BeforePhoto);
+@endphp
+
 <article class="public-report-card">
+    @if ($photo)
+        <a href="{{ route('public-reports.show', $report->report_code) }}" class="relative -mx-5 -mt-5 mb-3.5 block aspect-[16/9] overflow-hidden rounded-t-xl bg-emerald-950/10 border-b border-padelegan-800/10 group" aria-hidden="true" tabindex="-1">
+            <img
+                src="{{ route('public-reports.media', $photo) }}"
+                alt="Foto dokumentasi laporan {{ $report->report_code }}"
+                class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                loading="lazy"
+            >
+            @if ($photo->media_type === \App\Enums\ReportMediaType::AfterPhoto)
+                <span class="absolute bottom-2 right-2 inline-flex items-center gap-1 rounded-md bg-emerald-900/90 text-white text-[10px] font-bold px-2 py-0.5 backdrop-blur-xs shadow-xs">
+                    <svg class="size-3 text-emerald-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M5 13l4 4L19 7"/></svg>
+                    Bukti Penanganan
+                </span>
+            @endif
+        </a>
+    @endif
+
     <div class="public-report-card__meta text-padelegan-900/50">
         <span class="public-report-card__code">{{ $report->report_code }}</span>
         <div class="flex items-center gap-1.5 flex-wrap">

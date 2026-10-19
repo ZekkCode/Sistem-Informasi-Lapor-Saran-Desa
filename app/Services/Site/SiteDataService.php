@@ -135,7 +135,7 @@ class SiteDataService
         try {
             return Report::query()
                 ->visibleToPublic()
-                ->with(['dusun:id,name', 'subcategory:id,category_id,name', 'subcategory.category:id,name'])
+                ->with(['dusun:id,name', 'subcategory:id,category_id,name', 'subcategory.category:id,name', 'media'])
                 ->when($filters['q'] ?? null, function ($query, string $keyword) {
                     $query->where(function ($query) use ($keyword) {
                         $query->where('title', 'like', "%{$keyword}%")
@@ -172,7 +172,7 @@ class SiteDataService
         try {
             return Report::query()
                 ->visibleToPublic()
-                ->with(['dusun:id,name', 'subcategory:id,category_id,name', 'subcategory.category:id,name'])
+                ->with(['dusun:id,name', 'subcategory:id,category_id,name', 'subcategory.category:id,name', 'media'])
                 ->latest('submitted_at')
                 ->take($limit)
                 ->get();
